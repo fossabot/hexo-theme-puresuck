@@ -1,0 +1,52 @@
+# 当前主题版本：1.2.2
+# 主题开源页面及文档：PureSuck-theme
+
+
+favicon: f # favicon.ico 地址 填写ico格式图片 URL 地址, 在网站标题前加上一个图标
+
+
+title: # 网站标题 网站左侧标题文字
+
+
+
+logo: # 左侧 LOGO 地址 填写 JPG/PNG/Webp 等图片 URL 地址, 网站左侧头像的显示 (512*512最佳)
+
+author:
+  avatar: # 作者头像地址
+  miaoshu: # 左侧个人描述
+
+leftcontent:  # 左侧自定义区域 支持自定义HTML，将在网站左侧显示
+
+scripttag: # Script标签
+# 位于Footer，可以插统计站的代码，在这里填入JavaScript代码，需要包含<script>标签，不要填其他内容，否则会造成样式错误！
+# 如果开启了 Pjax 功能，请自行在 header.php 配置回调函数或者向他人寻求帮助
+
+footer: # 网页底部信息
+
+
+pjax: 
+  enable: true # 启用 Pjax 加载（实验性）
+  # timeout: 6500 # 超时
+
+# 主标题下的装饰线条样式 值 off（关）boldLine（粗线条）  wavyLine（波浪线条）
+postTitleAfter: boldLine
+
+# 是否显示 TOC 目录树
+toc: true
+
+# 是否显示分类模块
+categorymodel: true
+
+# 是否显示标签模块
+tagsmodel: true
+
+# 是否在文章页尾显示版权信息
+copyright: true
+
+# 代码高亮个性化
+code:
+  ShowLineNumbers: true # 显示代码行数
+  ShowCopyButton: true # 显示复制按钮
+
+# 主题配色 pink 素粉 green 淡绿 blue 墨蓝 yellow 落黄
+colorScheme: pink

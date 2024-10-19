@@ -1,0 +1,301 @@
+<!DOCTYPE HTML>
+<html lang="<%= config.language %>">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <?php $this->header(); ?> -->
+    <% 
+    var title = page.title;
+    if (is_archive()) {
+    title = '归档'
+    if (is_month()) {
+        title += ': ' + page.year + '/' + page.month;
+    } else if (is_year()) {
+        title += ': ' + page.year;
+    }
+    } else if (is_category()) {
+        title = '分类' + ': ' + page.category;
+    } else if (is_tag()) {
+        title = '标签' + ': ' + page.tag;
+    }
+    %>
+    <title><% if (title) { %><%= title %> | <% } %><%= config.title %></title>
+    <%
+    // 从主题配置中获取颜色方案
+    const colorScheme = theme.colorScheme;
+
+    // 定义颜色映射数组
+    const colorMap = {
+        pink: { theme: '#ea868f', hover: '#DB2777' },  // 粉色
+        green: { theme: '#48c774', hover: '#15803d' }, // 绿色
+        blue: { theme: '#3273dc', hover: '#3B82F6' },  // 蓝色
+        yellow: { theme: '#feb272', hover: '#B45309' } // 黄色
+    };
+
+    // 设置默认颜色
+    const defaultColor = { theme: '#ea868f', hover: '#d1606e' };
+
+    // 根据颜色方案设置主题颜色和悬停颜色
+    const colors = colorMap[colorScheme] || defaultColor;
+    const themeColor = colors.theme;
+    const themeHoverColor = colors.hover;
+
+    // 深色模式颜色映射数组
+    const darkColorMap = {
+        pink: { theme: '#b45864', hover: '#d72b6f' },
+        green: { theme: '#2e7c55', hover: '#0f6933' },
+        blue: { theme: '#2855b0', hover: '#1f55e6' },
+        yellow: { theme: '#bf763f', hover: '#934109' }
+    };
+
+    // 根据颜色方案设置 dark 模式下的主题颜色和悬停颜色
+    const darkColors = darkColorMap[colorScheme] || defaultColor;
+    const darkThemeColor = darkColors.theme;
+    const darkThemeHoverColor = darkColors.hover;
+    %>
+
+    <style>
+        :root {
+            --themecolor: <%= themeColor %>;
+            --themehovercolor: <%= themeHoverColor %>;
+        }
+
+        [data-theme="dark"] {
+            --themecolor: <%= darkThemeColor %>;
+            --themehovercolor: <%= darkThemeHoverColor %>;
+        }
+    </style>
+
+    <!-- Initial Theme Script -->
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme');
+            const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            const initialTheme = savedTheme === 'auto' || !savedTheme ? systemTheme : savedTheme;
+            document.documentElement.setAttribute('data-theme', initialTheme);
+        })();
+    </script>
+    <!-- Dark Mode -->
+    <script>
+        function setTheme(theme) {
+            if (theme === 'auto') {
+                const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                document.documentElement.setAttribute('data-theme', systemTheme);
+                localStorage.setItem('theme', 'auto');
+            } else {
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+            }
+            updateIcon(theme);
+        }
+
+        function toggleTheme() {
+            const currentTheme = localStorage.getItem('theme') || 'auto';
+            let newTheme;
+
+            if (currentTheme === 'light') {
+                newTheme = 'dark';
+            } else if (currentTheme === 'dark') {
+                newTheme = 'auto';
+            } else {
+                newTheme = 'light';
+            }
+
+            setTheme(newTheme);
+        }
+
+        function updateIcon(theme) {
+            const iconElement = document.getElementById('theme-icon');
+            if (iconElement) {
+                iconElement.classList.remove('icon-sun-inv', 'icon-moon-inv', 'icon-auto');
+                if (theme === 'light') {
+                    iconElement.classList.add('icon-sun-inv');
+                } else if (theme === 'dark') {
+                    iconElement.classList.add('icon-moon-inv');
+                } else {
+                    iconElement.classList.add('icon-auto');
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme') || 'auto';
+            setTheme(savedTheme);
+        });
+
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+            if (localStorage.getItem('theme') === 'auto') {
+                const newTheme = e.matches ? 'dark' : 'light';
+                document.documentElement.setAttribute('data-theme', newTheme);
+                updateIcon('auto');
+            }
+        });
+    </script>
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="/css/PureSuck_Style.css">
+    <!-- 主题样式微调 -->
+    <!-- 标题线条 -->
+    <% if (theme.postTitleAfter !== 'off') { %>
+        <style>
+            .post-title::after {
+                bottom: <%= theme.postTitleAfter === 'wavyLine' ? '-5px' : '5px' %>;
+                left: 0;
+                <% if (theme.postTitleAfter === 'boldLine') { %>
+                    width: 58px;
+                    height: 11px;
+                <% } else if (theme.postTitleAfter === 'wavyLine') { %>
+                    width: 80px;
+                    height: 12px;
+                    mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="10" viewBox="0 0 40 10" preserveAspectRatio="none"><path d="M0 5 Q 10 0, 20 5 T 40 5" stroke="black" stroke-width="2" fill="transparent"/></svg>') repeat-x;
+                    mask-size: 40px 12px;
+                <% } else if (theme.postTitleAfter === 'handDrawn') { %>
+                    /* 添加手绘风格的样式 */
+                    /* 这里可以添加具体的手绘风格的样式 */
+                <% } %>
+            }
+        </style>
+    <% } %>
+    <!-- AOS -->
+    <script defer src="/js/aos.js"></script>
+    <!-- ICON Setting -->
+    <link rel="icon" href="<%= theme.favicon %>" type="image/x-icon">
+    <!-- CSS引入 -->
+    <link href="/css/a11y-dark.min.css" rel="stylesheet">
+    <link href="/css/PureSuck_Module.css" rel="stylesheet">
+    <!-- JS引入 -->
+    <script defer src="/js/medium-zoom.min.js"></script>
+    <script defer src="/js/OwO.min.js"></script>
+    <script defer src="/js/highlight.min.js"></script>
+    <script defer src="/js/PureSuck_Module.js"></script>
+    <!-- Pjax -->
+    <% if (theme.pjax.enable) { %>
+        <script defer src="/js/pjax.min.js"></script>
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function() {
+                var pjax = new Pjax({
+                    history: true,
+                    scrollRestoration: true,
+                    cacheBust: false,
+                    timeout: 6500,
+                    elements: 'a[href^="<?php Helper::options()->siteUrl() ?>"]:not(a[target="_blank"], a[no-pjax] ), form[action]',
+                    selectors: [
+                        "pjax",
+                        "script[data-pjax]",
+                        "title",
+                        ".nav.header-item.header-nav",
+                        ".main"
+                    ]
+                });
+
+                // 评论提交状态
+                var submitButton = document.getElementById("submit");
+                var textarea = document.getElementById("textarea");
+
+                // 检查是否存在对应的元素
+                if (!submitButton || !textarea) {
+                    return; // 如果不存在，退出函数
+                }
+
+                submitButton.addEventListener("click", function() {
+                    if (textarea.value !== "") {
+                        submitButton.innerHTML = "提交中~";
+                    }
+                });
+
+            });
+
+            // Pjax 加载超时时跳转，不然它不给你跳转的！！！
+            document.addEventListener('pjax:error', function(e) {
+                console.error(e);
+                console.log('pjax error: \n' + JSON.stringify(e));
+                window.location.href = e.triggerElement.href;
+            });
+
+            // Pjax 完成后 JS 重载
+            document.addEventListener("pjax:success", function(event) {
+
+                // 评论区部分重载
+                if (document.querySelector('.OwO-textarea')) {
+                    initializeCommentsOwO();
+                }
+
+                // TOC吸附
+                initializeStickyTOC();
+                // 短代码及模块部分
+                runShortcodes();
+
+                // AOS 动画
+                AOS.init();
+
+                // 确保代码块高亮
+                document.querySelectorAll('pre code').forEach((block) => {
+                    hljs.highlightElement(block);
+                    <% if (theme.code.ShowLineNumbers) { %>
+                        addLineNumber(block);
+                    <% } %>
+                });
+                <% if (theme.code.ShowCopyButton) { %>
+                    addCopyButtons();
+                <% } %>
+
+            });
+        </script>
+        <script defer src="/js/pace.min.js"></script>
+        <link rel="stylesheet" href="/css/pace-theme-default.min.css">
+    <% } else { %>
+        <!-- 是不是 Pjax 有 bug，哈哈哈 --kissablecho -->
+        <!-- 没错我差点死在自己留的鬼判定了--MoXi -->
+        <!-- 写这段 Pjax 代码的人猝死掉了，哈哈哈 --kissablecho -->
+    <% } %>
+</head>
+
+<body>
+    <div class="wrapper">
+        <header class="header" data-js="header">
+            <div class="wrapper header-wrapper header-title">
+                <span class="el-avatar el-avatar--circle">
+                    <img src="<%= theme.author.avatar %>" style="object-fit:cover;" alt="博主头像" width="512" height="512">
+                </span>
+                <div class="header-title">
+                    <%= theme.title %>
+                </div>
+                <p itemprop="description" class="header-item header-about">
+                    <% if (theme.author.customDescription && theme.author.customDescription.trim() !== '') { %>
+                        <%= theme.author.customDescription %>
+                    <% } else { %>
+                        ワクワク
+                    <% } %>
+                </p>
+                <div class="nav header-item left-side-custom-code">
+                    <%= theme.leftSideCustomCode %>
+                </div>
+                <div class="nav header-item header-credit">
+                    Powered by Typecho
+                    <br>
+                    <a href="https://github.com/MoXiaoXi233/PureSuck-theme">Theme PureSuck</a>
+                </div>
+                <nav class="nav header-item header-nav">
+                    <span class="nav-item<% if(is_home()){ %> nav-item-current<% } %>"></span>
+                        <a href="<%= config.url %>" title="首页">
+                            <span itemprop="name">首页</span>
+                        </a>
+                    </span>
+                    <!--循环显示页面-->
+                        <span class="nav-item<?= $this->is('page', $pages->slug) ? ' nav-item-current' : ''; ?>">
+                            <a href="<?= $pages->permalink(); ?>" title="<?= $pages->title(); ?>">
+                                <span><?= $pages->title(); ?></span>
+                            </a>
+                        </span>
+                    <!--结束显示页面-->
+                </nav>
+                <div class="theme-toggle-container">
+                    <button class="theme-toggle" onclick="toggleTheme()" aria-label="日夜切换">
+                        <span id="theme-icon"></span>
+                    </button>
+                </div>
+            </div>
+        </header>
+        <main class="main">
