@@ -2,22 +2,55 @@
 # 主题开源页面及文档：PureSuck-theme
 
 
-favicon: f # favicon.ico 地址 填写ico格式图片 URL 地址, 在网站标题前加上一个图标
+
+############################### SEO ############################### > start
+seo:
+  # When there are no keywords in the article's front-matter, use tags as keywords.
+  use_tags_as_keywords: true
+  # When there is no description in the article's front-matter, use excerpt as the description.
+  use_excerpt_as_description: true
+  robots:
+    home_first_page: index,follow
+    home_other_pages: noindex,follow
+    archive: noindex,follow
+    category: noindex,follow
+    tag: noindex,follow
+    # robots can be written in front-matter
+############################### SEO ############################### > end
+
+############################### Open Graph ############################### > start
+# https://ogp.me/
+# https://hexo.io/zh-cn/docs/helpers#open-graph
+open_graph:
+  image: 
+  twitter_card: summary # summary_large_image , summary
+  # twitter_id:
+  # twitter_site:
+  google_plus: 
+############################### Open Graph ############################### > end
+
+favicon: images/avatar.ico # favicon.ico 地址 填写ico格式图片 URL 地址, 在网站标题前加上一个图标
 
 
-title: # 网站标题 网站左侧标题文字
+title: 网站标题 # 网站标题 网站左侧标题文字
 
 
 
-logo: # 左侧 LOGO 地址 填写 JPG/PNG/Webp 等图片 URL 地址, 网站左侧头像的显示 (512*512最佳)
+logo: images/avatar.ico # 左侧 LOGO 地址 填写 JPG/PNG/Webp 等图片 URL 地址, 网站左侧头像的显示 (512*512最佳)
 
 author:
-  avatar: # 作者头像地址
-  miaoshu: # 左侧个人描述
+  avatar: images/avatar.ico # 作者头像地址
+  customDescription: # 左侧个人描述，支持自定义HTML/markdown
 
-leftcontent:  # 左侧自定义区域 支持自定义HTML，将在网站左侧显示
+menu:
+  - name: home
+    url: /
+  - name: about
+    url: /about/
 
-scripttag: # Script标签
+leftSideCustomCode:  # 左侧自定义区域，支持自定义HTML/markdown，将在网站左侧显示
+
+footerScript: # Script标签
 # 位于Footer，可以插统计站的代码，在这里填入JavaScript代码，需要包含<script>标签，不要填其他内容，否则会造成样式错误！
 # 如果开启了 Pjax 功能，请自行在 header.php 配置回调函数或者向他人寻求帮助
 
@@ -38,7 +71,7 @@ toc: true
 categorymodel: true
 
 # 是否显示标签模块
-tagsmodel: true
+showTag: true
 
 # 是否在文章页尾显示版权信息
 copyright: true

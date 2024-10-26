@@ -1,0 +1,87 @@
+<div class="wrapper">
+	<% site.posts.each(function(post) { %>
+	  <% let hasImg = post.img ? true : false; %>
+	  <article class="post <%= hasImg ? 'post--photo post--cover' : 'post--text' %> post--index main-item" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+		<div class="post-inner">
+		  
+		  <!-- 文章头部 -->
+		  <header class="post-item post-header <%= hasImg ? 'no-bg' : '' %>">
+			<div class="wrapper post-wrapper">
+			  <div class="avatar post-author">
+				<img src="<%= theme.authorAvatar ? theme.authorAvatar : url_for('images/avatar.png') %>" alt="作者头像" class="avatar-item avatar-img">
+				<span class="avatar-item">
+				  <%= post.author %>
+				</span>
+			  </div>
+			</div>
+		  </header>
+  
+		  <!-- 大图样式 -->
+		  <% if (hasImg) { %>
+			<figure class="post-media <%= post.is('post') ? 'single' : '' %>">
+			  <img itemprop="image" src="<%= post.img %>" alt="头图" width="2000" height="800">
+			</figure>
+		  <% } %>
+  
+		  <!-- 文章内容 -->
+		  <section class="post-item post-body">
+			<div class="wrapper post-wrapper">
+			  <h1 class="post-title">
+				<a href="<%= post.permalink %>" title="<%= post.title %>">
+				  <%= post.title %>
+				</a>
+			  </h1>
+			  
+			  <!-- 摘要 -->
+			  <p class="post-excerpt">
+				<% if (post.desc) { %>
+				  <%= post.desc %>
+				<% } else { %>
+					<%- strip_html(page.excerpt) %>
+				<% } %>
+			  </p>
+			</div>
+		  </section>
+  
+		  <!-- 文章底部 -->
+		  <footer class="post-item post-footer">
+			<div class="wrapper post-wrapper">
+			  <div class="meta post-meta">
+				<a itemprop="datePublished" href="<%= post.permalink %>" class="icon-ui icon-ui-date meta-item meta-date">
+				  <span class="meta-count">
+					<%= date(post.date, 'YYYY-MM-DD') %>
+				  </span>
+				</a>
+				<a href="<%= post.permalink %>#comments" class="icon-ui icon-ui-comment meta-item meta-comment">
+				  <%= post.comments ? post.comments.length + ' 条评论' : '暂无评论' %>
+				</a>
+			  </div>
+			</div>
+		  </footer>
+		</div>
+	  </article>
+	<% }); %>
+  </div>
+  
+  <!-- 分页导航 -->
+  <nav class="nav main-pager" data-js="pager">
+	<span class="nav-item-alt">
+	  第 <%= page.current || 1 %> 页 / 共 <%= page.total || 1 %> 页
+	</span>
+	<div class="nav nav--pager">
+	  <% if (page.prev) { %>
+		<a href="<%= url_for(page.prev_link) %>">上一页</a>
+	  <% } %>
+	  <i class="icon-record-outline"></i>
+	  <% if (page.next) { %>
+		<a href="<%= url_for(page.next_link) %>">下一页</a>
+	  <% } %>
+	</div>
+  </nav>
+  
+  <!-- 页脚信息 -->
+  <div class="nav main-lastinfo">
+	<span class="nav-item-alt">
+	  <%= theme.footerInfo || '' %>
+	</span>
+  </div>
