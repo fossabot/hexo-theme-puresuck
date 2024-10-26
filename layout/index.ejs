@@ -8,7 +8,7 @@
 		  <header class="post-item post-header <%= hasImg ? 'no-bg' : '' %>">
 			<div class="wrapper post-wrapper">
 			  <div class="avatar post-author">
-				<img src="<%= theme.authorAvatar ? theme.authorAvatar : url_for('images/avatar.png') %>" alt="作者头像" class="avatar-item avatar-img">
+				<img src="<%= theme.author.avatar ? theme.author.avatar : url_for('/images/avatar.png') %>" alt="作者头像" class="avatar-item avatar-img">
 				<span class="avatar-item">
 				  <%= post.author %>
 				</span>
@@ -18,7 +18,7 @@
   
 		  <!-- 大图样式 -->
 		  <% if (hasImg) { %>
-			<figure class="post-media <%= post.is('post') ? 'single' : '' %>">
+			<figure class="post-media <%= is_home() ? 'single' : '' %>">
 			  <img itemprop="image" src="<%= post.img %>" alt="头图" width="2000" height="800">
 			</figure>
 		  <% } %>
@@ -34,10 +34,12 @@
 			  
 			  <!-- 摘要 -->
 			  <p class="post-excerpt">
-				<% if (post.desc) { %>
-				  <%= post.desc %>
+				<% if (post.description) { %>
+				  <%- strip_html(post.description) %>
+				<% } else if (post.excerpt){ %>
+					<%- strip_html(post.excerpt) %>
 				<% } else { %>
-					<%- strip_html(page.excerpt) %>
+					<%- strip_html(post.content.substring(0, 200)) %>
 				<% } %>
 			  </p>
 			</div>
@@ -52,8 +54,8 @@
 					<%= date(post.date, 'YYYY-MM-DD') %>
 				  </span>
 				</a>
-				<a href="<%= post.permalink %>#comments" class="icon-ui icon-ui-comment meta-item meta-comment">
-				  <%= post.comments ? post.comments.length + ' 条评论' : '暂无评论' %>
+				<a href="<%= post.permalink %>" class="icon-ui icon-ui-comment meta-item meta-comment">
+				  阅读全文
 				</a>
 			  </div>
 			</div>
@@ -82,6 +84,8 @@
   <!-- 页脚信息 -->
   <div class="nav main-lastinfo">
 	<span class="nav-item-alt">
-	  <%= theme.footerInfo || '' %>
+		<% if (theme.footerInfo) { %>
+	  <%- markdown(theme.footerInfo) || '' %>
+		<% } %>
 	</span>
   </div>

@@ -6,7 +6,7 @@
             <header class="post-item post-header <%= hasImg ? 'no-bg' : '' %>">
                 <div class="wrapper post-wrapper">
                     <div class="avatar post-author">
-                        <img src="<%= config.authorAvatar || url_for('images/avatar.png') %>" alt="作者头像" class="avatar-item avatar-img">
+                        <img src="<%= config.authorAvatar || url_for('/images/avatar.png') %>" alt="作者头像" class="avatar-item avatar-img">
                         <span class="avatar-item">
                             <%= page.author %>
                         </span>
@@ -16,7 +16,7 @@
 
             <!-- 大图样式 -->
             <% if (hasImg) { %>
-                <figure class="post-media <%= page.isPost() ? 'single' : '' %>">
+                <figure class="post-media <%= is_home() ? 'single' : '' %>">
                     <img itemprop="image" src="<%= page.img %>" alt="头图" width="2000" height="800">
                 </figure>
             <% } %>
@@ -35,17 +35,36 @@
                                     <%= page.date.format('YYYY-MM-DD') %>
                                 </span>
                             </a>
-                            <a href="<%= page.permalink %>#comments" class="icon-ui icon-ui-comment meta-item meta-comment">
-                                <%= page.comments.length === 0 ? '暂无评论' : `${page.comments.length} 条评论` %>
-                            </a>
                         </div>
 
                         <%# 
                         // 短代码解析，交给 function.php
                         const content = parseShortcodes(page.content); 
                         %>
-                        <%= page.content %>
+                        <%- page.content %>
 
+                        <!-- 判断并显示版权信息 -->
+                        <% if (theme.showCopyright){ %>
+                            <div class="license-info-card">
+                                <div class="license-info-title"><%= page.title %></div>
+                                <a class="license-info-link" href="#"><%= page.permalink %></a>
+                                <div class="license-info-meta">
+                                    <div>
+                                        <span>本文作者</span>
+                                        <span><%= config.author %></span>
+                                    </div>
+                                    <div>
+                                        <span>发布时间</span>
+                                        <span>page.date.format('YYYY-MM-DD')</span>
+                                    </div>
+                                    <div>
+                                        <span>许可协议</span>
+                                        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans">CC BY-NC-SA 4.0</a>
+                                    </div>
+                                </div>
+                                <span class="cc-icon"></span>
+                            </div>
+                        <% } %>
                     </div>
                 </div>
             </section>

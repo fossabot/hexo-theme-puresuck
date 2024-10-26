@@ -20,7 +20,7 @@
       
 
 <!-- 分类模块 -->
-<% if (config.showCategory === '1') { %>
+<% if (theme.showCategory) { %>
     <div class="category-section">
         <header class="section-header">
             <span class="icon-emo-wink"></span>
@@ -29,7 +29,7 @@
         <section class="section-body">
             <div class="category-cloud">
                 <% 
-                const categories = page.categories || []; 
+                const categories = site.categories || []; 
                 if (categories.length > 0) { 
                 %>
                     <% categories.forEach(function(category) { %>
@@ -44,7 +44,7 @@
 <% } %>
 
 <!-- 标签模块 -->
-<% if (config.showTag === '1') { %>
+<% if (theme.showTag) { %>
     <div class="tag-section">
         <header class="section-header">
             <span class="icon-hashtag"></span>
@@ -53,7 +53,7 @@
         <section class="section-body">
             <div class="tag-cloud">
                 <% 
-                const tags = page.tags || []; 
+                const tags = site.tags || []; 
                 if (tags.length > 0) { 
                 %>
                     <% tags.forEach(function(tag) { %>
@@ -68,7 +68,7 @@
 <% } %>
 
 <!-- TOC -->
-<% if (config.showTOC === '1' && (page.isPost() || page.isPage() || page.isArchives())) { %>
+<% if (theme.showTOC && (is_home() || is_home_first_page() || is_post() || is_page())) { %>
     <div class="toc-section" id="toc-section" style="display: none;">
         <header class="section-header">
             <span class="icon-article"></span>

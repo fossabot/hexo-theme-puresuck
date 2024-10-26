@@ -123,7 +123,7 @@
         });
     </script>
     <!-- Style CSS -->
-    <link rel="stylesheet" href="/css/PureSuck_Style.css">
+    <%- css('css/PureSuck_Style.css') %>
     <!-- 主题样式微调 -->
     <!-- 标题线条 -->
     <% if (theme.postTitleAfter !== 'off') { %>
@@ -147,20 +147,19 @@
         </style>
     <% } %>
     <!-- AOS -->
-    <script defer src="/js/aos.js"></script>
+    <%- js({ src: 'js/aos.js', defer: true }) %>
     <!-- ICON Setting -->
     <link rel="icon" href="<%= theme.favicon %>" type="image/x-icon">
     <!-- CSS引入 -->
-    <link href="/css/a11y-dark.min.css" rel="stylesheet">
-    <link href="/css/PureSuck_Module.css" rel="stylesheet">
+    <%- css(['css/a11y-dark.min.css', 'css/PureSuck_Module.css']) %>
     <!-- JS引入 -->
-    <script defer src="/js/medium-zoom.min.js"></script>
-    <script defer src="/js/OwO.min.js"></script>
-    <script defer src="/js/highlight.min.js"></script>
-    <script defer src="/js/PureSuck_Module.js"></script>
+    <%- js({ src: 'js/medium-zoom.min.js', defer: true }) %>
+    <%- js({ src: 'js/OwO.min.js', defer: true }) %>
+    <%- js({ src: 'js/highlight.min.js', defer: true }) %>
+    <%- js({ src: 'js/PureSuck_Module.js', defer: true }) %>
     <!-- Pjax -->
     <% if (theme.pjax.enable) { %>
-        <script defer src="/js/pjax.min.js"></script>
+        <%- js({ src: 'js/pjax.min.js', defer: true }) %>
         <script type="text/javascript">
             document.addEventListener('DOMContentLoaded', function() {
                 var pjax = new Pjax({
@@ -231,8 +230,8 @@
 
             });
         </script>
-        <script defer src="/js/pace.min.js"></script>
-        <link rel="stylesheet" href="/css/pace-theme-default.min.css">
+        <%- js({ src: 'js/pace.min.js', defer: true }) %>
+        <%- css('css/pace-theme-default.min.css') %>
     <% } else { %>
         <!-- 是不是 Pjax 有 bug，哈哈哈 --kissablecho -->
         <!-- 没错我差点死在自己留的鬼判定了--MoXi -->
