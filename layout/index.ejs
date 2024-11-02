@@ -1,5 +1,15 @@
 <div class="wrapper">
-	<% site.posts.each(function(post) { %>
+	<% let archiveTitle
+	if (page.tag){
+		archiveTitle = "标签 " + page.tag + " 下的文章";
+	} else if (page.category){
+		archiveTitle = "分类 " + page.category + " 下的文章";
+	}; %>
+	<% if (archiveTitle) { %>
+	 <h3 class="archive-title"><%- archiveTitle %></h3>
+	<% }; %>
+
+	<% page.posts.each(function (post) { %>
 	  <% let hasImg = post.img ? true : false; %>
 	  <article class="post <%= hasImg ? 'post--photo post--cover' : 'post--text' %> post--index main-item" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
 		<div class="post-inner">
@@ -10,7 +20,7 @@
 			  <div class="avatar post-author">
 				<img src="<%= theme.author.avatar ? theme.author.avatar : url_for('/images/avatar.png') %>" alt="作者头像" class="avatar-item avatar-img">
 				<span class="avatar-item">
-				  <%= post.author %>
+				  <%= config.author %>
 				</span>
 			  </div>
 			</div>
@@ -51,10 +61,10 @@
 			  <div class="meta post-meta">
 				<a itemprop="datePublished" href="<%= post.permalink %>" class="icon-ui icon-article meta-item meta-date">
 				  <span class="meta-count">
-					<%= date(post.date, 'YYYY-MM-DD') %>
+					<%= date(post.date, config.date_format) %>
 				  </span>
 				</a>
-				<a href="<%= post.permalink %>" class="icon-ui icon-ui-article meta-item meta-more">
+				<a href="<%= post.permalink %>" class="icon-ui icon-article meta-item meta-more">
 				  阅读全文
 				</a>
 			  </div>
