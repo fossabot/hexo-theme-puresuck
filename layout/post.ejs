@@ -8,7 +8,7 @@
                     <div class="avatar post-author">
                         <img src="<%= config.authorAvatar || url_for('/images/avatar.png') %>" alt="作者头像" class="avatar-item avatar-img">
                         <span class="avatar-item">
-                            <%= page.author %>
+                            <%= config.author %>
                         </span>
                     </div>
                 </div>
@@ -44,27 +44,29 @@
                         <%- page.content %>
 
                         <!-- 判断并显示版权信息 -->
-                        <% if (theme.showCopyright){ %>
-                            <div class="license-info-card">
-                                <div class="license-info-title"><%= page.title %></div>
-                                <a class="license-info-link" href="#"><%= page.permalink %></a>
-                                <div class="license-info-meta">
-                                    <div>
-                                        <span>本文作者</span>
-                                        <span><%= config.author %></span>
+                            <% if (is_home()) { %>
+                            <% if (theme.showCopyright){ %>
+                                <div class="license-info-card">
+                                    <div class="license-info-title"><%= page.title %></div>
+                                    <a class="license-info-link" href="#"><%= page.permalink %></a>
+                                    <div class="license-info-meta">
+                                        <div>
+                                            <span>本文作者</span>
+                                            <span><%= config.author %></span>
+                                        </div>
+                                        <div>
+                                            <span>发布时间</span>
+                                            <span>page.date.format('YYYY-MM-DD')</span>
+                                        </div>
+                                        <div>
+                                            <span>许可协议</span>
+                                            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans">CC BY-NC-SA 4.0</a>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <span>发布时间</span>
-                                        <span>page.date.format('YYYY-MM-DD')</span>
-                                    </div>
-                                    <div>
-                                        <span>许可协议</span>
-                                        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans">CC BY-NC-SA 4.0</a>
-                                    </div>
+                                    <span class="cc-icon"></span>
                                 </div>
-                                <span class="cc-icon"></span>
-                            </div>
-                        <% } %>
+                            <% } %>                          
+                         <% } %>
                     </div>
                 </div>
             </section>

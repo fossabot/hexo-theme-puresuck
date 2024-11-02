@@ -49,7 +49,7 @@
 				<% } else if (post.excerpt){ %>
 					<%- strip_html(post.excerpt) %>
 				<% } else { %>
-					<%- strip_html(post.content.substring(0, 200)) %>
+					<%- strip_html(post.content).substring(0, 200).trim().replace(/\n/g, ' ') %>
 				<% } %>
 			  </p>
 			</div>
@@ -59,7 +59,7 @@
 		  <footer class="post-item post-footer">
 			<div class="wrapper post-wrapper">
 			  <div class="meta post-meta">
-				<a itemprop="datePublished" href="<%= post.permalink %>" class="icon-ui icon-article meta-item meta-date">
+				<a itemprop="datePublished" href="<%= post.permalink %>" class="icon-ui icon-clock meta-item meta-date">
 				  <span class="meta-count">
 					<%= date(post.date, config.date_format) %>
 				  </span>

@@ -1,0 +1,104 @@
+<% if (0) { %>
+<div class="wrapper">
+
+    <% const hasImg = page.img ? true : false; %>
+    <article class="post <%= hasImg ? 'post--photo post--cover' : 'post--text' %> post--index main-item" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+        <div class="post-inner">
+            <header class="post-item post-header <%= hasImg ? 'no-bg' : '' %>">
+                <div class="wrapper post-wrapper">
+                    <div class="avatar post-author">
+                        <img src="<%= config.authorAvatar || url_for('/images/avatar.png') %>" alt="作者头像" class="avatar-item avatar-img">
+                        <span class="avatar-item">
+                            <%= page.author %>
+                        </span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- 大图样式 -->
+            <% if (hasImg) { %>
+                <figure class="post-media <%= is_home() ? 'single' : '' %>">
+                    <img itemprop="image" src="<%= page.img %>" alt="头图" width="2000" height="800">
+                </figure>
+            <% } %>
+
+            <section class="post-item post-body">
+                <div class="wrapper post-wrapper">
+                    <h1 class="post-title">
+                        <a href="<%= page.permalink %>" title="<%= page.title %>">
+                            <%= page.title %>
+                        </a>
+                    </h1>
+                    <div class="inner-post-wrapper">
+                        <div class="meta post-meta">
+                            这里会归档一切文章<br>
+                            共创作了 <%- site.posts.length %> 篇文章，合 <%- totalcount(site) %> 字
+                        </div>
+                        
+                        <% 
+                        // 获取所有文章并按年份和月份分组
+                        let archives = {};
+                        page.posts.forEach(post => {
+                            const date = new Date(post.date);
+                            const year = date.getFullYear();
+                            const monthDay = `${date.getMonth() + 1}-${date.getDate()}`;
+                        
+                            if (!archives[year]) {
+                                archives[year] = {};
+                            }
+                            if (!archives[year][monthDay]) {
+                                archives[year][monthDay] = [];
+                            }
+                            archives[year][monthDay].push(post);
+                        });
+                        
+                        // 输出归档
+                        Object.keys(archives).forEach(year => {
+                            %>
+                            <h2 class="timeline-year"><%= year %></h2>
+                            <div id="timeline">
+                                <% 
+                                Object.keys(archives[year]).forEach(monthDay => {
+                                    archives[year][monthDay].forEach(post => { 
+                                %>
+                                    <div class="timeline-item">
+                                        <div class="timeline-dot"></div>
+                                        <div class="timeline-content">
+                                            <div class="timeline-date"><%= monthDay %></div>
+                                            <div class="timeline-title"><a href="<%= post.permalink %>"><%= post.title %></a></div>
+                                        </div> <!-- timeline-content -->
+                                    </div> <!-- timeline-item -->
+                                <% 
+                                    });
+                                }); 
+                                %>
+                            </div> <!-- 结束时间线 -->
+                        <% 
+                            });
+                        %>                        
+                    </div>
+
+                </div>
+            </section>
+
+        </div>
+    </article>
+
+</div>
+
+<nav class="nav main-pager" role="navigation" aria-label="Pagination" data-js="pager">
+    <div class="nav main-lastinfo">
+        <span class="nav-item-alt">
+            <?php
+            $options = Typecho_Widget::widget('Widget_Options');
+            if (!empty($options->footerInfo)) {
+                echo $options->footerInfo;
+            }
+            ?>
+        </span>
+    </div>
+</nav>
+
+<?php $this->need('sidebar.php'); ?>
+<?php $this->need('footer.php'); ?> 
+<% } %>
