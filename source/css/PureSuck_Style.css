@@ -1607,7 +1607,7 @@ a:hover {
 	color: var(--themehovercolor);
 }
 
-.inner-post-wrapper a:not(.friendsboard-list a):not(.meta.post-meta a) {
+.inner-post-wrapper a:not(.friendsboard-list a):not(.meta.post-meta a):not(.headerlink) {
     border-radius: 0.35rem;
     position: relative;
     display: inline-block;
@@ -1616,7 +1616,7 @@ a:hover {
     max-width: 100%;
 }
 
-.inner-post-wrapper a:not(.friendsboard-list a):not(.meta.post-meta a)::before {
+.inner-post-wrapper a:not(.friendsboard-list a):not(.meta.post-meta a):not(.headerlink)::before {
     content: '';
     position: absolute;
     top: 0;
@@ -1635,7 +1635,7 @@ a:hover {
     opacity: 0.25;
 }
 
-.inner-post-wrapper a:not(.friendsboard-list a):not(.meta.post-meta a)::after {
+.inner-post-wrapper a:not(.friendsboard-list a):not(.meta.post-meta a):not(.headerlink)::after {
     content: '\e81f';
     font-family: fontello;
     color: currentColor;
