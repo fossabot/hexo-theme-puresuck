@@ -34,17 +34,17 @@
                             这里会归档一切文章<br>
                             共创作了 <%- site.posts.length %> 篇文章，合 <%- totalcount(site) %> 字
                         </div>
-                        <% 
-                        var year = -1, frist = 1;
-                        %>
+                        <% var year = -1, frist = 1; %>
                         <% site.posts.sort('date', -1).each(function(post) { %>
                             <% post.year = date(post.date, 'YYYY'); %>
                                 <% if (post.year && post.year !== year) { %>
                                     <% if (!frist) { frist = 0; %>
-                                        <div id="timeline">
+                                        </div>
                                     <% } %>
                                     <% year = post.year; %>
-                                            <h2><%= year %></h2>
+                                    <h2 class="timeline-year"><%= year %></h2>
+                                    <div id="timeline">
+                                    <% } %>
                                             <div class="timeline-item">
                                                 <div class="timeline-dot"></div>
                                                 <div class="timeline-content">
@@ -52,7 +52,7 @@
                                                     <div class="timeline-title"><a href="<%= post.permalink %>"><%= post.title %></a></div>
                                                 </div><%# timeline-content %>
                                             </div><%# timeline-item %>
-                                <% } %>
+                                
                                     
                         <% }); %>
                                         </div>
