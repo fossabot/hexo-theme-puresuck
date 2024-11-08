@@ -1,67 +1,80 @@
 <div class="wrapper">
 
-    <% const hasImg = page.img ? true : false; %>
-    <article class="post <%= hasImg ? 'post--photo post--cover' : 'post--text' %> post--index main-item" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
-        <div class="post-inner">
-            <header class="post-item post-header <%= hasImg ? 'no-bg' : '' %>">
-                <div class="wrapper post-wrapper">
-                    <div class="avatar post-author">
-                        <img src="<%= config.authorAvatar || url_for('/images/avatar.png') %>" alt="作者头像" class="avatar-item avatar-img">
-                        <span class="avatar-item">
-                            <%= page.author %>
-                        </span>
-                    </div>
-                </div>
-            </header>
-
-            <!-- 大图样式 -->
-            <% if (hasImg) { %>
-                <figure class="post-media <%= is_home() ? 'single' : '' %>">
-                    <img itemprop="image" src="<%= page.img %>" alt="头图" width="2000" height="800">
-                </figure>
-            <% } %>
-
-            <section class="post-item post-body">
-                <div class="wrapper post-wrapper">
-                    <h1 class="post-title">
-                        <a href="<%= page.permalink %>" title="<%= page.title %>">
-                            <%= page.title %>
-                        </a>
-                    </h1>
-                    <div class="inner-post-wrapper">
-
-                        <div class="meta post-meta">
-                            这里会归档一切文章<br>
-                            共创作了 <%- site.posts.length %> 篇文章，合 <%- totalcount(site) %> 字
+    <% const hasImg=page.img ? true : false; %>
+        <article class="post <%= hasImg ? 'post--photo post--cover' : 'post--text' %> post--index main-item"
+            data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+            <div class="post-inner">
+                <header class="post-item post-header <%= hasImg ? 'no-bg' : '' %>">
+                    <div class="wrapper post-wrapper">
+                        <div class="avatar post-author">
+                            <img src="<%= config.authorAvatar || url_for('/images/avatar.png') %>" alt="作者头像"
+                                class="avatar-item avatar-img">
+                            <span class="avatar-item">
+                                <%= page.author %>
+                            </span>
                         </div>
-                        <% var year = -1, frist = 1; %>
-                        <% site.posts.sort('date', -1).each(function(post) { %>
-                            <% post.year = date(post.date, 'YYYY'); %>
-                                <% if (post.year && post.year !== year) { %>
-                                    <% if (!frist) { frist = 0; %>
-                                        </div>
-                                    <% } %>
-                                    <% year = post.year; %>
-                                    <h2 class="timeline-year"><%= year %></h2>
-                                    <div id="timeline">
-                                    <% } %>
-                                            <div class="timeline-item">
-                                                <div class="timeline-dot"></div>
-                                                <div class="timeline-content">
-                                                    <div class="timeline-date"><%= date(post.date, 'MM-DD') %></div> <%# 只显示月和日 %> 
-                                                    <div class="timeline-title"><a href="<%= post.permalink %>"><%= post.title %></a></div>
-                                                </div><%# timeline-content %>
-                                            </div><%# timeline-item %>
-                                
-                                    
-                        <% }); %>
-                                        </div>
                     </div>
-                </div>
+                </header>
+
+                <!-- 大图样式 -->
+                <% if (hasImg) { %>
+                    <figure class="post-media <%= is_home() ? 'single' : '' %>">
+                        <img itemprop="image" src="<%= page.img %>" alt="头图" width="2000" height="800">
+                    </figure>
+                    <% } %>
+
+                        <section class="post-item post-body">
+                            <div class="wrapper post-wrapper">
+                                <h1 class="post-title">
+                                    <a href="<%= page.permalink %>" title="<%= page.title %>">
+                                        <%= page.title %>
+                                    </a>
+                                </h1>
+                                <div class="inner-post-wrapper">
+
+                                    <div class="meta post-meta">
+                                        这里会归档一切文章<br>
+                                        共创作了 <%- site.posts.length %> 篇文章，合 <%- totalcount(site) %> 字
+                                    </div>
+                                    <% var year=-1, isFirstPost=true; %>
+                                        <% site.posts.sort('date', -1).each(function(post) { %>
+                                            <% post.year=date(post.date, 'YYYY' ); %>
+                                                <% if (post.year && post.year !==year) { %>
+                                                    <% console.log(year) %>
+                                                    <% console.log(isFirstPost) %>
+                                                    <% if (isFirstPost) { %>
+                                                        <%# 是第一个 h 标签，不输出 </div>, 并设置isFirstPost为flase%>
+                                                        <% isFirstPost = false; %>
+                                                    <% } else { %>
+                                                        </div>
+                                                    <% } %>
+                                                    <% year=post.year; %>
+                                                        <h2 class="timeline-year">
+                                                            <%= year %>
+                                                        </h2>
+                                                        <div id="timeline">
+                                                 <% } %>
+                                                <div class="timeline-item">
+                                                    <div class="timeline-dot"></div>
+                                                    <div class="timeline-content">
+                                                        <div class="timeline-date">
+                                                            <%= date(post.date, 'MM-DD' ) %>
+                                                        </div>
+                                                            <div class="timeline-title"><a href="<%= post.permalink %>">
+                                                                    <%= post.title %>
+                                                                </a></div>
+                                                    </div>
+                                                </div>
+
+
+                                        <% }); %>
+                                        </div>
+                            </div>
+            </div>
             </section>
 
-        </div>
-    </article>
+</div>
+</article>
 
 </div>
 
