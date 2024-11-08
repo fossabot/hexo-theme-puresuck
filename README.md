@@ -42,12 +42,33 @@ TOC目录树
 
 ### 安装与设置
 
+安装主题
+
+```bash
+npm i hexo-theme-puresuck
+```
+
 博客根目录下的 `_config.yml` 文件通常负责站点相关配置、第三方 npm 插件相关的配置。
 
 设置主题
 
 ```yaml
 theme: puresuck
+```
+
+关闭 Hexo 自带的代码高亮
+
+`hexo >= 7.0.0`
+
+```yaml
+syntax_highlighter: # 留空
+```
+
+`hexo < 7.0.0`
+
+```yaml
+highlight:
+  enable: false
 ```
 
 复制主题配置文件到博客根目录并命名为 `_config.puresuck.yml`，主题自定义配置详见主题配置文件注释。
