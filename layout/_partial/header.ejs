@@ -264,11 +264,7 @@
                     <a href="https://github.com/God-2077/hexo-PureSuck-theme">Theme PureSuck</a>
                 </div>
                 <nav class="nav header-item header-nav">
-                    <span class="nav-item<% if(is_current("/")){ %> nav-item-current<% } %>">
-                        <a href="<%= config.url %>" title="首页">
-                            <span itemprop="name">首页</span>
-                        </a>
-                    </span>
+                    <%# 还是自己在主题配置文件设置 menu 吧。 %>
                     <!--循环显示页面-->
                     <% if (theme.menu) { %>
                         <% getList(theme.menu).forEach(function(value){ %>
