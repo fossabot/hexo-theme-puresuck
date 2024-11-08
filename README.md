@@ -26,6 +26,8 @@ PureSuck，干净，纯洁，淡雅朴素的 Hexo 主题。
 - [ ] 删除多余代码
 - [ ] 寻找并解决超多 Bug，😭😭😭
 - [ ] 标题，元信息的代码重写
+- [ ] 记得添加评论区
+- [ ] 不能放在 `archives/index.md`，原因未知
 
 ## 特性
 
@@ -83,7 +85,7 @@ highlight:
 
 #### 归档页面
 
-新建页面 `list/index.md`
+新建页面 `list/index.md` （不能放在 `archives/index.md`，原因未知）
 
 ```markdown
 ---

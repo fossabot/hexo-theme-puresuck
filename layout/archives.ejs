@@ -40,8 +40,6 @@
                                         <% site.posts.sort('date', -1).each(function(post) { %>
                                             <% post.year=date(post.date, 'YYYY' ); %>
                                                 <% if (post.year && post.year !==year) { %>
-                                                    <% console.log(year) %>
-                                                    <% console.log(isFirstPost) %>
                                                     <% if (isFirstPost) { %>
                                                         <%# 是第一个 h 标签，不输出 </div>, 并设置isFirstPost为flase%>
                                                         <% isFirstPost = false; %>

@@ -203,11 +203,6 @@
             // Pjax 完成后 JS 重载
             document.addEventListener("pjax:success", function(event) {
 
-                // 评论区部分重载
-                if (document.querySelector('.OwO-textarea')) {
-                    initializeCommentsOwO();
-                }
-
                 // TOC吸附
                 initializeStickyTOC();
                 // 短代码及模块部分
