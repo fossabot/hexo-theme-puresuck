@@ -6,7 +6,7 @@
 
 PureSuck，干净，纯洁，淡雅朴素的 Hexo 主题。
 
-移植自 Typecho 主题 [PureSuck-theme](https://github.com/MoXiaoXi233/PureSuck-theme) 到 Hexo。
+移植自 Typecho 主题 [PureSuck-theme](https://github.com/MoXiaoXi233/PureSuck-theme) 到 Hexo，移植对应的具体版本为 [God-2077/PureSuck-theme](https://github.com/God-2077/PureSuck-theme)。
 
 遇到问题欢迎反馈解决。
 
@@ -14,11 +14,12 @@ PureSuck，干净，纯洁，淡雅朴素的 Hexo 主题。
 
 演示站点已在 ToDo 中。
 
-## TODO
+## ToDo
 
 ~~这好像太琐碎了~~
 
 - [ ] 多语言
+- [ ] 搭建演示站点
 - [x] index 阅读全文 icon
 - [X] pjax 挂了
 - [ ] 短代码解析
@@ -27,7 +28,7 @@ PureSuck，干净，纯洁，淡雅朴素的 Hexo 主题。
 - [ ] 寻找并解决超多 Bug，😭😭😭
 - [ ] 标题，元信息的代码重写
 - [ ] 记得添加评论区
-- [ ] 不能放在 `archives/index.md`，原因未知
+- [ ] 归档页面不能放在 `archives/index.md`，原因未知
 
 ## 特性
 
@@ -82,6 +83,26 @@ highlight:
 
 
 ### 功能与组件
+
+#### 文章头图
+
+在 `Front-matter` 中设置 `img` 为文章头图的 `URL`，例如
+
+```markdown
+---
+img: /images/MoXiiiiii.png
+---
+```
+
+#### 文章摘要
+
+在 `Front-matter` 中设置 `description` 为文章的摘要，例如
+
+```markdown
+---
+description: 我是摘要
+---
+```
 
 #### 归档页面
 
