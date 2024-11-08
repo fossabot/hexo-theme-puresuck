@@ -94,6 +94,16 @@ img: /images/MoXiiiiii.png
 ---
 ```
 
+#### 文章摘要
+
+在 `Front-matter` 中设置 `description` 为文章的摘要，例如
+
+```markdown
+---
+description: 我是摘要
+---
+```
+
 #### 归档页面
 
 新建页面 `list/index.md` （不能放在 `archives/index.md`，原因未知）
