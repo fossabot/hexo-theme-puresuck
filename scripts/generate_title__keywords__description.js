@@ -4,16 +4,16 @@ function init(hexo, config, theme, page) {
   var keywords = page.keywords || "";
   var description = page.description || "";
   if (hexo.is_archive()) {
-    title = hexo.__("navbar.archive");
+    title = "归档";
     if (hexo.is_month()) {
-      title += hexo.__("symbol.colon") + page.year + "/" + page.month;
+      title += "：" + page.year + "/" + page.month;
     } else if (hexo.is_year()) {
-      title += hexo.__("symbol.colon") + page.year;
+      title += "：" + page.year;
     }
   } else if (hexo.is_category()) {
-    title = hexo.__("navbar.category") + hexo.__("symbol.colon") + page.category;
+    title = "分类" + "：" + page.category;
   } else if (hexo.is_tag()) {
-    title = hexo.__("navbar.tag") + hexo.__("symbol.colon") + page.tag;
+    title = "标签" + "：" + page.tag;
   } else if (hexo.is_home() && page.prev == 0) {
     keywords = config.keywords || "";
     description = config.description || "";
