@@ -6,7 +6,7 @@
 
 PureSuck，干净，纯洁，淡雅朴素的 Hexo 主题。
 
-移植自 Typecho 主题 [PureSuck-theme](https://github.com/MoXiaoXi233/PureSuck-theme) 到 Hexo。
+移植自 Typecho 主题 [PureSuck-theme](https://github.com/MoXiaoXi233/PureSuck-theme) 到 Hexo，移植对应的具体版本为 [God-2077/PureSuck-theme](https://github.com/God-2077/PureSuck-theme)。
 
 遇到问题欢迎反馈解决。
 
