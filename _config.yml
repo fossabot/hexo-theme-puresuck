@@ -47,6 +47,8 @@ menu:
     url: /
   - name: about
     url: /about/
+  - name: archives
+    url: /archives/
 
 leftSideCustomCode:  # 左侧自定义区域，支持自定义HTML/markdown，将在网站左侧显示
 
