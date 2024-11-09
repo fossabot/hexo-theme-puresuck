@@ -21,9 +21,8 @@
     document.querySelectorAll('pre code').forEach((block) => {
       hljs.highlightElement(block);
       <% if (theme.code.ShowLineNumbers){ %>addLineNumber(block);<% } %>
-      <% if (theme.code.ShowCopyButton){ %>addCopyButtons(block);<% } %>
     });
-    
+    <% if (theme.code.ShowCopyButton){ %>addCopyButtons();<% } %>
   });
 
   // 添加行号函数

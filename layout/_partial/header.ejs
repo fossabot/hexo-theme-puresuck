@@ -11,6 +11,7 @@
   <%- generate_keywords(config, theme, page) %>
   <%- generate_description(config, theme, page) %>
   <%- open_graph(theme.open_graph) %>
+  <%- generate_seo(theme, page) %>
     <%
     // 从主题配置中获取颜色方案
     const colorScheme = theme.colorScheme;
