@@ -1,4 +1,4 @@
-<%- include("_partial/header.ejs") %>
+<%- partial("_partial/header.ejs") %>
 <%- body %>
-<%- include("_partial/sidebar.ejs") %>
-<%- include("_partial/footer.ejs") %>
+<%- partial("_partial/sidebar.ejs",{},{cache: true}) %>
+<%- partial("_partial/footer.ejs",{},{cache: true}) %>
