@@ -40,7 +40,7 @@
 				<% } else if (post.excerpt){ %>
 					<%- strip_html(post.excerpt) %>
 				<% } else { %>
-					<%- strip_html(post.content).substring(0, 200).trim().replace(/\n/g, ' ') %>
+					<%- truncate(strip_html(post.content).trim().replace(/\n/g, ' '), {length: 200}) %>
 				<% } %>
 			  </p>
 			</div>
