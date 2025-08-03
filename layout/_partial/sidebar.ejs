@@ -1,15 +1,15 @@
-<div class="right-sidebar">
-    
-    <% if (0){ %>
+<div class="right-sidebar" id="right-sidebar">
+
     <!-- 搜索功能 -->
+    <% if(0){ %>
         <div class="search-section">
             <header class="section-header">
                 <span class="icon-search"></span>
                 <span class="title">搜索</span>
             </header>
             <section class="section-body">
-                <form method="get" action="<?php $this->options->siteUrl(); ?>" class="search-container">
-                    <input type="text" name="s" class="search-input" placeholder="输入关键字搜索">
+                <form method="get" action="<% config.url %>" class="search-container" role="search">
+                    <input type="text" name="s" class="search-input" placeholder="输入关键字搜索" aria-label="输入关键字搜索">
                     <button type="submit" class="search-button" aria-label="搜索">
                         <span class="icon-search"></span>
                     </button>
@@ -17,96 +17,87 @@
             </section>
         </div>
     <% } %>
-      
 
-<!-- 分类模块 -->
-<% if (theme.showCategory) { %>
-    <div class="category-section">
-        <header class="section-header">
-            <span class="icon-emo-wink"></span>
-            <span class="title">分类</span>
-        </header>
-        <section class="section-body">
-            <div class="category-cloud">
-                <% 
-                const categories = site.categories || []; 
-                if (categories.length > 0) { 
-                %>
-                    <% categories.forEach(function(category) { %>
-                        <a href="<%= category.permalink %>" class="category"><%= category.name %></a>
-                    <% }); %>
-                <% } else { %>
-                    <p>没有任何分类</p>
-                <% } %>
-            </div>
-        </section>
-    </div>
-<% } %>
+    <!-- 分类模块 -->
+    <% if (theme.showCategory) { %>
+        <div class="cloud-section">
+            <header class="section-header">
+                <span class="icon-emo-wink"></span>
+                <span class="title">分类</span>
+            </header>
+            <section class="section-body">
+                <div class="cloud-container">
+                    <% 
+                    const categories = site.categories || []; 
+                    if (categories.length > 0) { 
+                    %>
+                        <% categories.forEach(function(category) { %>
+                            <a href="<%= category.permalink %>" class="category"><%= category.name %></a>
+                        <% }); %>
+                    <% } else { %>
+                        <p>没有任何分类</p>
+                    <% } %>
+                </div>
+            </section>
+        </div>
+    <% } %>
 
-<!-- 标签模块 -->
-<% if (theme.showTag) { %>
-    <div class="tag-section">
-        <header class="section-header">
-            <span class="icon-hashtag"></span>
-            <span class="title">标签</span>
-        </header>
-        <section class="section-body">
-            <div class="tag-cloud">
-                <% 
-                const tags = site.tags || []; 
-                if (tags.length > 0) { 
-                %>
-                    <% tags.forEach(function(tag) { %>
-                        <a href="<%= tag.permalink %>" class="tag"><%= tag.name %></a>
-                    <% }); %>
-                <% } else { %>
+    <!-- 标签模块 -->
+    <% if (theme.showTag) { %>
+        <div class="cloud-section">
+            <header class="section-header">
+                <span class="icon-hashtag"></span>
+                <span class="title">标签</span>
+            </header>
+            <section class="section-body">
+                <div class="cloud-container">
+                    <%
+                    // bate
+                    // 获取标签并按名称排序
+                    const tagArray = site.tags.map(tag => tag.name).sort();
+                    const maxTags = 20;
+                    const totalTags = tagArray.length;
+                    
+                    // 计算标签归档页路径
+                    const tagPage = site.pages.find(page => page.path.includes('tags/index.html') && page.type === 'tags');
+                    const tagsUrl = tagPage ? tagPage.path : url_for(config.tag_dir + '/');
+                    %>
+
+                    <% if (totalTags > 0) { %>
+                    <% tagArray.slice(0, maxTags).forEach(tagName => { %>
+                        <a href="<%= url_for(config.tag_dir + '/' + tagName) %>" class="cloud-item">
+                        <%= tagName %>
+                        </a>
+                    <% }) %>
+                    <% if (totalTags > maxTags) { %>
+                        <a href="<%= tagsUrl %>" class="cloud-item">...</a>
+                    <% } %>
+                    <% } else { %>
                     <p>没有任何标签</p>
-                <% } %>
-            </div>
-        </section>
-    </div>
-<% } %>
+                    <% } %>
+                </div>
+            </section>
+        </div>
+    <% } %>
 
-<!-- TOC -->
-<% if (theme.showTOC && (is_home() || is_home_first_page() || is_post() || is_page())) { %>
-    <div class="toc-section" id="toc-section" style="display: none;">
-        <header class="section-header">
-            <span class="icon-article"></span>
-            <span class="title">文章目录</span>
-        </header>
-        <section class="section-body">
-            <div class="toc"></div>
-        </section>
-    </div>
 
-    <script>
-        function initializeStickyTOC() {
-            var tocSection = document.getElementById('toc-section');
-            if (!tocSection) return; // 如果没有找到 tocSection，直接返回
 
-            var tocOffsetTop = tocSection.offsetTop;
-            var buffer = 50; // 当TOC离顶部还有50px时开始吸顶
-
-            // 获取TOC上面的所有内容的高度
-            var tocAboveElements = document.querySelectorAll('.right-sidebar > *:not(#toc-section)');
-            var tocAboveHeight = 0;
-            tocAboveElements.forEach(function(element) {
-                tocAboveHeight += element.offsetHeight;
+    <!-- TOC -->
+    <% if (theme.showTOC && ( is_home() || is_home_first_page())) { %>
+        <div class="toc-section" id="toc-section" style="display: none;">
+            <header class="section-header">
+                <span class="icon-article"></span>
+                <span class="title">文章目录</span>
+            </header>
+            <section class="section-body">
+                <div class="toc"></div>
+            </section>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                initializeStickyTOC();
             });
-
-            window.addEventListener('scroll', function onScroll() {
-                if (window.pageYOffset >= tocAboveHeight + buffer) {
-                    tocSection.classList.add('sticky');
-                } else {
-                    tocSection.classList.remove('sticky');
-                }
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeStickyTOC();
-        });
-    </script>
-<% } %>
+        </script>
+    <% } %>
 
 </div>

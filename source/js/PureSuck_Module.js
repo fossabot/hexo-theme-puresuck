@@ -1,60 +1,15 @@
 /** 这个JS包含了各种需要处理的的内容 **/
-/** 图片懒加载，图片放大处理；回到顶部按钮，TOC目录，内部卡片部分内容解析都在这里 **/
-
-function enhanceContent() {
-    const images = document.querySelectorAll('img');
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                const isInPostMediaOrHeader = img.closest('.post-media') || img.closest('header');
-                if (isInPostMediaOrHeader) return;
-                if (!img.hasAttribute('data-zoomable')) {
-                    img.dataset.zoomable = 'true';
-                }
-                observer.unobserve(img); // Stop observing the image once it's in the viewport
-            } else {
-                const img = entry.target;
-                if (!img.hasAttribute('loading')) {
-                    img.setAttribute('loading', 'lazy');
-                }
-            }
-        });
-    });
-
-    images.forEach(img => {
-        observer.observe(img);
-    });
-}
+/** 回到顶部按钮，TOC目录，内部卡片部分内容解析都在这里 **/
 
 function handleGoTopButton() {
-    const goTopBtn = document.getElementById('go-top');
+    const goTopBtn = document.getElementById('go-top'); // 按钮容器
     const goTopAnchor = document.querySelector('#go-top .go');
 
-    let ticking = false;
-    window.addEventListener('scroll', function () {
-        if (!ticking) {
-            window.requestAnimationFrame(function () {
-                const st = document.documentElement.scrollTop || document.body.scrollTop;
-                if (st > 0) {
-                    if (document.getElementById('main-container')) {
-                        const w = window.innerWidth;
-                        const mw = document.getElementById('main-container').offsetWidth;
-                        if ((w - mw) / 2 > 70) {
-                            goTopBtn.style.left = 'unset';
-                            goTopBtn.style.right = `calc((100% - ${mw}px) / 2 - 80px)`;
-                        } else {
-                            goTopBtn.style.left = 'unset';
-                            goTopBtn.style.right = '10px';
-                        }
-                    }
-                    goTopBtn.style.display = 'block';
-                } else {
-                    goTopBtn.style.display = 'none';
-                }
-                ticking = false;
-            });
-            ticking = true;
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 100) {
+            goTopBtn.classList.add('visible'); // 显示按钮
+        } else {
+            goTopBtn.classList.remove('visible'); // 隐藏按钮
         }
     });
 
@@ -64,6 +19,9 @@ function handleGoTopButton() {
             top: 0,
             behavior: 'smooth'
         });
+        setTimeout(() => {
+            goTopBtn.classList.remove('visible'); // 隐藏
+        }, 400); // 等待滚动完成
     });
 }
 
@@ -72,41 +30,51 @@ function generateTOC() {
     const toc = document.querySelector(".toc");
     const postWrapper = document.querySelector(".inner-post-wrapper");
 
-    // 检查是否存在必要的元素
     if (!toc || !postWrapper) return;
 
-    const elements = postWrapper.querySelectorAll("h1, h2, h3, h4, h5, h6");
+    const elements = Array.from(postWrapper.querySelectorAll("h1, h2, h3, h4, h5, h6"));
     if (!elements.length) return;
 
-    let str = `<div class="dir">\n<ul id="toc">`;
-    elements.forEach((v, index) => {
-        if (!v.id) {
-            v.id = `heading-${index}`; // 如果没有 ID，则分配一个唯一的 ID
+    const fragment = document.createDocumentFragment();
+    const ul = document.createElement('ul');
+    ul.id = 'toc';
+
+    elements.forEach((element, index) => {
+        if (!element.id) {
+            element.id = `heading-${index}`;
         }
-        str += `<li class="li li-${v.tagName[1]}"><a href="#${v.id}" id="link-${v.id}" class="toc-a">${v.textContent}</a></li>\n`;
-    });
-    str += `</ul>\n<div class="sider"><span class="siderbar"></span></div>\n</div>`;
-
-    toc.innerHTML = str;
-
-    // 平滑滚动
-    elements.forEach(v => {
-        const btn = document.querySelector(`#link-${v.id}`);
-        if (!btn) return; // 如果按钮不存在，跳过该元素
-        btn.addEventListener("click", event => {
-            event.preventDefault(); // 阻止默认锚点跳转行为
-            const targetTop = getElementTop(v);
-            window.scrollTo({
-                top: targetTop,
-                behavior: "smooth" // 平滑滚动到目标位置
-            });
-            setTimeout(() => {
-                window.location.hash = v.id; // 更新URL
-            }, 300); // 延迟更新URL以确保平滑滚动完成
-        });
+        const li = document.createElement('li');
+        li.className = `li li-${element.tagName[1]}`;
+        li.innerHTML = `<a href="#${element.id}" id="link-${element.id}" class="toc-a">${element.textContent}</a>`;
+        ul.appendChild(li);
     });
 
-    // 滚动时处理高亮逻辑
+    const dirDiv = document.createElement('div');
+    dirDiv.className = 'dir';
+    dirDiv.appendChild(ul);
+    dirDiv.innerHTML += `<div class="sider"><span class="siderbar"></span></div>`;
+    fragment.appendChild(dirDiv);
+
+    toc.appendChild(fragment);
+
+    toc.addEventListener("click", event => {
+        if (event.target.matches('.toc-a')) {
+            event.preventDefault();
+            const targetId = event.target.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+                const targetTop = targetElement.getBoundingClientRect().top + window.scrollY;
+                window.scrollTo({
+                    top: targetTop,
+                    behavior: "smooth"
+                });
+                setTimeout(() => {
+                    window.location.hash = targetId;
+                }, 300);
+            }
+        }
+    });
+
     handleScroll(elements);
 
     if (tocSection) {
@@ -118,36 +86,35 @@ function generateTOC() {
         }
     }
 
-    // 手动触发一次滚动事件，确保页面加载时高亮逻辑正确执行
     window.dispatchEvent(new Event('scroll'));
 }
 
-// 获取元素的绝对位置
 function getElementTop(element) {
     let actualTop = element.offsetTop;
     let current = element.offsetParent;
-
     while (current !== null) {
         actualTop += current.offsetTop;
         current = current.offsetParent;
     }
-
     return actualTop;
 }
 
-// 移除所有高亮的类
 function removeClass(elements) {
-    elements.forEach(v => {
-        const anchor = document.querySelector(`#link-${v.id}`);
-        if (anchor) { // 检查 anchor 是否存在
+    elements.forEach(element => {
+        const anchor = document.querySelector(`#link-${element.id}`);
+        if (anchor) {
             anchor.classList.remove("li-active");
         }
     });
 }
 
-// 处理滚动事件
 function handleScroll(elements) {
     let ticking = false;
+    const tocItems = document.querySelectorAll(".toc li");
+    const siderbar = document.querySelector(".siderbar");
+
+    const elementTops = elements.map(element => getElementTop(element));
+
     window.addEventListener("scroll", () => {
         if (!ticking) {
             window.requestAnimationFrame(() => {
@@ -155,17 +122,20 @@ function handleScroll(elements) {
                 let activeElement = null;
 
                 elements.forEach((element, index) => {
-                    const targetTop = getElementTop(element);
-                    const nextElement = elements[index + 1];
-                    const nextTargetTop = nextElement ? getElementTop(nextElement) : Number.MAX_SAFE_INTEGER;
+                    const targetTop = elementTops[index];
+                    const elementHeight = element.offsetHeight;
+                    const offset = elementHeight / 2;
 
-                    if (currentPosition >= targetTop && currentPosition < nextTargetTop) {
+                    const nextElement = elements[index + 1];
+                    const nextTargetTop = nextElement ? elementTops[index + 1] : Number.MAX_SAFE_INTEGER;
+
+                    if (currentPosition + offset >= targetTop && currentPosition + offset < nextTargetTop) {
                         activeElement = element;
                     }
                 });
 
                 if (!activeElement && elements.length > 0) {
-                    activeElement = elements[0]; // 默认高亮第一个元素
+                    activeElement = elements[0];
                 }
 
                 if (activeElement) {
@@ -174,16 +144,9 @@ function handleScroll(elements) {
                     if (anchor) {
                         anchor.classList.add("li-active");
 
-                        const tocItems = document.querySelectorAll(".toc li");
-                        const index = Array.from(elements).indexOf(activeElement);
-                        let sidebarTop = tocItems[index].getBoundingClientRect().top + window.scrollY;
-                        sidebarTop -= toc.getBoundingClientRect().top + window.scrollY;
-
-                        const fontSize = parseFloat(getComputedStyle(tocItems[index]).fontSize);
-                        const offset = fontSize / 2;
-                        sidebarTop += offset - 3;
-
-                        document.querySelector(".siderbar").style.transform = `translateY(${sidebarTop}px)`;
+                        const index = elements.indexOf(activeElement);
+                        const sidebarTop = tocItems[index].offsetTop;
+                        siderbar.style.transform = `translateY(${sidebarTop + 4}px)`;
                     }
                 }
 
@@ -196,8 +159,12 @@ function handleScroll(elements) {
 
 function parseFriendCards() {
     const container = document.body;
+    const fragment = document.createDocumentFragment();
 
-    function identifyGroups(node, groups = [], currentGroup = null) {
+    function identifyGroups(node) {
+        const groups = [];
+        let currentGroup = null;
+
         while (node) {
             if (node.nodeType === Node.ELEMENT_NODE && node.hasAttribute('friend-name')) {
                 if (!currentGroup) {
@@ -211,7 +178,7 @@ function parseFriendCards() {
             }
 
             if (node.firstChild) {
-                identifyGroups(node.firstChild, groups, currentGroup);
+                groups.push(...identifyGroups(node.firstChild));
             }
 
             node = node.nextSibling;
@@ -235,28 +202,29 @@ function parseFriendCards() {
                     newContent.classList.add('friendsboard-item');
                     newContent.target = "_blank";
                     newContent.innerHTML = `
-                            <div class="friends-card-header">
-                                <span class="friends-card-username">${friendName}</span>
-                                <span class="friends-card-dot"></span>
+                        <div class="friends-card-header">
+                            <span class="friends-card-username">${friendName}</span>
+                            <span class="friends-card-dot"></span>
+                        </div>
+                        <div class="friends-card-body">
+                            <div class="friends-card-text">
+                                ${node.innerHTML}
                             </div>
-                            <div class="friends-card-body">
-                                <div class="friends-card-text">
-                                    ${node.innerHTML}
-                                </div>
-                                <div class="friends-card-avatar-container">
-                                    <img src="${avatarUrl}" alt="Avatar" class="friends-card-avatar">
-                                </div>
+                            <div class="friends-card-avatar-container">
+                                <img src="${avatarUrl}" alt="Avatar" class="friends-card-avatar">
                             </div>
-                        `;
+                        </div>
+                    `;
 
                     friendsBoardList.appendChild(newContent);
                 });
 
-                group[0].innerHTML = '';
-                group[0].appendChild(friendsBoardList);
+                const firstNode = group[0];
+                firstNode.innerHTML = '';
+                firstNode.appendChild(friendsBoardList);
 
                 for (let i = 1; i < group.length; i++) {
-                    group[i].parentNode.removeChild(group[i]);
+                    group[i].remove();
                 }
             }
         });
@@ -264,7 +232,10 @@ function parseFriendCards() {
 
     const groups = identifyGroups(container.firstChild);
     replaceGroups(groups);
+
+    container.appendChild(fragment);
 }
+
 
 function parseCollapsiblePanels() {
     const elements = document.querySelectorAll('[collapsible-panel]');
@@ -278,29 +249,34 @@ function parseCollapsiblePanels() {
                 ${title}
                 <span class="icon icon-down-open"></span>
             </button>
-            <div class="collapsible-content">
+            <div class="collapsible-content" style="max-height: 0; overflow: hidden; transition: all .4s cubic-bezier(0.345, 0.045, 0.345, 1);">
                 <div class="collapsible-details">${content}</div>
             </div>
         </div>`;
 
-        element.outerHTML = newContent;
-    });
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = newContent;
+        const newPanel = tempDiv.firstChild;
 
-    document.querySelectorAll('.collapsible-header').forEach(button => {
+        const button = newPanel.querySelector('.collapsible-header');
+        const contentDiv = newPanel.querySelector('.collapsible-content');
+        const icon = button.querySelector('.icon');
+
         button.addEventListener('click', function () {
             this.classList.toggle('active');
-            const content = this.nextElementSibling;
-            const icon = this.querySelector('.icon');
-            if (content.style.maxHeight) {
-                content.style.maxHeight = null;
+
+            if (contentDiv.style.maxHeight && contentDiv.style.maxHeight !== '0px') {
+                contentDiv.style.maxHeight = '0px';
                 icon.classList.remove('icon-up-open');
                 icon.classList.add('icon-down-open');
             } else {
-                content.style.maxHeight = content.scrollHeight + "px";
+                contentDiv.style.maxHeight = contentDiv.scrollHeight + "px";
                 icon.classList.remove('icon-down-open');
                 icon.classList.add('icon-up-open');
             }
         });
+
+        element.parentNode.replaceChild(newPanel, element);
     });
 }
 
@@ -312,7 +288,7 @@ function parseTabs() {
         const tabTitles = [];
         const tabContents = [];
 
-        tabElements.forEach((child, index) => {
+        tabElements.forEach((child) => {
             const title = child.getAttribute('tab-title');
             if (title) {
                 tabTitles.push(title);
@@ -323,14 +299,14 @@ function parseTabs() {
         if (tabTitles.length === 0) return;
 
         const tabHeaderHTML = tabTitles.map((title, index) => `
-                <div class="tab-link ${index === 0 ? 'active' : ''}" 
-                     data-tab="tab${containerIndex + 1}-${index + 1}" 
-                     role="tab" 
-                     aria-controls="tab${containerIndex + 1}-${index + 1}" 
-                     tabindex="${index === 0 ? '0' : '-1'}">
-                    ${title}
-                </div>
-            `).join('');
+            <div class="tab-link ${index === 0 ? 'active' : ''}" 
+                 data-tab="tab${containerIndex + 1}-${index + 1}" 
+                 role="tab" 
+                 aria-controls="tab${containerIndex + 1}-${index + 1}" 
+                 tabindex="${index === 0 ? '0' : '-1'}">
+                ${title}
+            </div>
+        `).join('');
 
         const tabContentHTML = tabContents.map((content, index) => {
             const tabPane = document.createElement('div');
@@ -345,113 +321,122 @@ function parseTabs() {
         const tabContainer = document.createElement('div');
         tabContainer.className = 'tab-container';
         tabContainer.innerHTML = `
-                <div class="tab-header-wrapper">
-                    <button class="scroll-button left" aria-label="向左"></button>
-                    <div class="tab-header" role="tablist">
-                        ${tabHeaderHTML}
-                        <div class="tab-indicator"></div>
-                    </div>
-                    <button class="scroll-button right" aria-label="向右"></button>
+            <div class="tab-header-wrapper">
+                <button class="scroll-button left" aria-label="向左"></button>
+                <div class="tab-header" role="tablist">
+                    ${tabHeaderHTML}
+                    <div class="tab-indicator"></div>
                 </div>
-                <div class="tab-content">
-                    ${tabContentHTML}
-                </div>
-            `;
-
-        const fragment = document.createDocumentFragment();
-        fragment.appendChild(tabContainer);
+                <button class="scroll-button right" aria-label="向右"></button>
+            </div>
+            <div class="tab-content">
+                ${tabContentHTML}
+            </div>
+        `;
 
         container.innerHTML = '';
-        container.appendChild(fragment);
-
-        const activeLink = tabContainer.querySelector('.tab-link.active');
-        const indicator = tabContainer.querySelector('.tab-indicator');
-        if (activeLink && indicator) {
-            indicator.style.width = `${activeLink.offsetWidth * 0.75}px`;
-            indicator.style.left = `${activeLink.offsetLeft + (activeLink.offsetWidth * 0.125)}px`;
-        }
+        container.appendChild(tabContainer);
 
         const tabHeaderElement = tabContainer.querySelector('.tab-header');
+        const tabLinks = tabHeaderElement.querySelectorAll('.tab-link');
+        const tabPanes = tabContainer.querySelectorAll('.tab-pane');
+        const indicator = tabContainer.querySelector('.tab-indicator');
         const leftButton = tabContainer.querySelector('.scroll-button.left');
         const rightButton = tabContainer.querySelector('.scroll-button.right');
 
-        // 检查是否需要显示滚动按钮
-        const checkScrollButtons = () => {
-            const totalWidth = Array.from(tabHeaderElement.children)
-                .reduce((acc, child) => acc + child.offsetWidth, 0);
-            const containerWidth = tabHeaderElement.offsetWidth;
+        let cachedWidths = [];
+        let cachedOffsets = [];
 
-            if (totalWidth <= containerWidth) {
-                leftButton.style.display = 'none';
-                rightButton.style.display = 'none';
-            } else {
-                leftButton.style.display = 'block';
-                rightButton.style.display = 'block';
-            }
+        const updateIndicator = (activeLink) => {
+            const index = Array.from(tabLinks).indexOf(activeLink);
+            requestAnimationFrame(() => {
+                indicator.style.width = `${cachedWidths[index] * 0.75}px`;
+                indicator.style.left = `${cachedOffsets[index] + (cachedWidths[index] * 0.125)}px`;
+            });
         };
 
-        checkScrollButtons();
-        window.addEventListener('resize', checkScrollButtons);
+        const checkScrollButtons = () => {
+            const totalWidth = cachedWidths.reduce((acc, width) => acc + width, 0);
+            const containerWidth = tabHeaderElement.offsetWidth;
+
+            requestAnimationFrame(() => {
+                const shouldShowButtons = totalWidth > containerWidth;
+                leftButton.style.display = shouldShowButtons ? 'block' : 'none';
+                rightButton.style.display = shouldShowButtons ? 'block' : 'none';
+            });
+        };
+
+        const updateLayout = () => {
+            cachedWidths = [];
+            cachedOffsets = [];
+            tabLinks.forEach((link, index) => {
+                cachedWidths[index] = link.offsetWidth;
+                cachedOffsets[index] = link.offsetLeft;
+            });
+            checkScrollButtons();
+            const activeIndex = Array.from(tabLinks).findIndex(link => link.classList.contains('active'));
+            updateIndicator(tabLinks[activeIndex]);
+        };
+
+        const resizeObserver = new ResizeObserver(updateLayout);
+        resizeObserver.observe(tabHeaderElement);
 
         leftButton.addEventListener('click', () => {
             tabHeaderElement.scrollBy({ left: -100, behavior: 'smooth' });
+            updateLayout();
         });
 
         rightButton.addEventListener('click', () => {
             tabHeaderElement.scrollBy({ left: 100, behavior: 'smooth' });
+            updateLayout();
         });
 
         let isDown = false;
         let startX;
         let scrollLeft;
 
-        tabHeaderElement.addEventListener('mousedown', (e) => {
+        const onMouseDown = (e) => {
             isDown = true;
             startX = e.pageX - tabHeaderElement.offsetLeft;
             scrollLeft = tabHeaderElement.scrollLeft;
-        });
+        };
 
-        tabHeaderElement.addEventListener('mouseleave', () => {
+        const onMouseUpOrLeave = () => {
             isDown = false;
-        });
+            updateLayout();
+        };
 
-        tabHeaderElement.addEventListener('mouseup', () => {
-            isDown = false;
-        });
-
-        tabHeaderElement.addEventListener('mousemove', (e) => {
+        const onMouseMove = (e) => {
             if (!isDown) return;
             e.preventDefault();
             const x = e.pageX - tabHeaderElement.offsetLeft;
-            const walk = (x - startX) * 2; //scroll-fast
+            const walk = (x - startX) * 2;
             tabHeaderElement.scrollLeft = scrollLeft - walk;
-        });
+        };
+
+        tabHeaderElement.addEventListener('mousedown', onMouseDown);
+        tabHeaderElement.addEventListener('mouseleave', onMouseUpOrLeave);
+        tabHeaderElement.addEventListener('mouseup', onMouseUpOrLeave);
+        tabHeaderElement.addEventListener('mousemove', onMouseMove);
 
         tabHeaderElement.addEventListener('touchstart', (e) => {
             isDown = true;
             startX = e.touches[0].pageX - tabHeaderElement.offsetLeft;
             scrollLeft = tabHeaderElement.scrollLeft;
-        }, { passive: true }); // 标记为被动监听器
+        }, { passive: true });
 
-        tabHeaderElement.addEventListener('touchend', () => {
-            isDown = false;
-        });
-
+        tabHeaderElement.addEventListener('touchend', onMouseUpOrLeave, { passive: true });
         tabHeaderElement.addEventListener('touchmove', (e) => {
             if (!isDown) return;
             const x = e.touches[0].pageX - tabHeaderElement.offsetLeft;
-            const walk = (x - startX) * 2; //scroll-fast
+            const walk = (x - startX) * 2;
             tabHeaderElement.scrollLeft = scrollLeft - walk;
-        }, { passive: true }); // 标记为被动监听器
+        }, { passive: true });
 
-        container.querySelector('.tab-header').addEventListener('click', function (event) {
+        tabHeaderElement.addEventListener('click', (event) => {
             if (event.target.classList.contains('tab-link')) {
-                const tabLinks = this.querySelectorAll('.tab-link');
-                const tabPanes = tabContainer.querySelectorAll('.tab-pane');
-                const indicator = this.querySelector('.tab-indicator');
-
-                let currentIndex = Array.from(tabLinks).indexOf(event.target);
-                let previousIndex = Array.from(tabLinks).findIndex(link => link.classList.contains('active'));
+                const currentIndex = Array.from(tabLinks).indexOf(event.target);
+                const previousIndex = Array.from(tabLinks).findIndex(link => link.classList.contains('active'));
 
                 tabLinks.forEach(link => link.classList.remove('active'));
                 tabPanes.forEach(pane => {
@@ -464,54 +449,93 @@ function parseTabs() {
                 const activePane = document.getElementById(event.target.getAttribute('data-tab'));
                 activePane.classList.add('active');
 
-                if (currentIndex > previousIndex) {
-                    activePane.setAttribute('data-aos', 'fade-left');
-                } else {
-                    activePane.setAttribute('data-aos', 'fade-right');
-                }
+                activePane.setAttribute('data-aos', currentIndex > previousIndex ? 'fade-left' : 'fade-right');
 
-                indicator.style.width = `${event.target.offsetWidth * 0.75}px`;
-                indicator.style.left = `${event.target.offsetLeft + (event.target.offsetWidth * 0.125)}px`;
+                updateIndicator(event.target);
 
                 setTimeout(() => {
                     activePane.classList.add('aos-animate');
                 }, 0);
 
                 if (typeof AOS !== 'undefined') {
-                    AOS.refresh(); // 重新初始化 AOS 动画
+                    AOS.refresh();
                 }
 
                 tabLinks.forEach(link => link.setAttribute('tabindex', '-1'));
                 event.target.setAttribute('tabindex', '0');
                 event.target.focus();
-            }
 
-            // 使点击的标签出现在视野内
-            const tabHeaderRect = tabHeaderElement.getBoundingClientRect();
-            const targetRect = event.target.getBoundingClientRect();
-            if (targetRect.left < tabHeaderRect.left) {
-                tabHeaderElement.scrollBy({ left: targetRect.left - tabHeaderRect.left, behavior: 'smooth' });
-            } else if (targetRect.right > tabHeaderRect.right) {
-                tabHeaderElement.scrollBy({ left: targetRect.right - tabHeaderRect.right, behavior: 'smooth' });
+                const tabHeaderRect = tabHeaderElement.getBoundingClientRect();
+                const targetRect = event.target.getBoundingClientRect();
+                if (targetRect.left < tabHeaderRect.left) {
+                    tabHeaderElement.scrollBy({ left: targetRect.left - tabHeaderRect.left, behavior: 'smooth' });
+                } else if (targetRect.right > tabHeaderRect.right) {
+                    tabHeaderElement.scrollBy({ left: targetRect.right - tabHeaderRect.right, behavior: 'smooth' });
+                }
+
+                updateLayout();
             }
         });
+
+        updateIndicator(tabLinks[0]);
+    });
+}
+
+function initializeStickyTOC() {
+    const tocSection = document.getElementById('toc-section');
+    if (!tocSection) return;
+
+    const buffer = 50;
+    const tocAboveElements = document.querySelectorAll('.right-sidebar > *:not(#toc-section)');
+    const initialTocAboveHeight = Array.from(tocAboveElements).reduce((total, element) => total + element.offsetHeight, 0);
+    const threshold = initialTocAboveHeight + buffer;
+
+    let isTicking = false;
+
+    function onScroll() {
+        if (!isTicking) {
+            isTicking = true;
+            window.requestAnimationFrame(() => {
+                const currentScrollY = window.scrollY;
+                const shouldStick = currentScrollY >= threshold;
+                if (tocSection.classList.contains('sticky') !== shouldStick) {
+                    tocSection.classList.toggle('sticky', shouldStick);
+                }
+                isTicking = false;
+            });
+        }
+    }
+
+    window.addEventListener('scroll', onScroll);
+}
+
+
+function Comments_Submit() {
+    const submitButton = document.getElementById("submit");
+    const textarea = document.getElementById("textarea");
+
+    if (!submitButton || !textarea) return;
+
+    submitButton.addEventListener("click", () => {
+        if (textarea.value.trim() !== "") {
+            submitButton.textContent = "提交中~";
+        }
     });
 }
 
 function runShortcodes() {
     history.scrollRestoration = 'auto'; // 不知道为什么总会回到顶端
-    enhanceContent();
     parseFriendCards();
     parseCollapsiblePanels();
     parseTabs();
     handleGoTopButton();
     generateTOC();
-
     mediumZoom('[data-zoomable]', {
         background: 'var(--card-color)'
     });
+    Comments_Submit()
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    runShortcodes()
+    runShortcodes();
 });
