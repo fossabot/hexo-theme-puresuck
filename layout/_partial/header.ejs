@@ -127,7 +127,7 @@
     <script defer src="<%= url_for('/js/OwO.min.js') %>"></script>
     <script defer src="<%= url_for('/js/MoxDesign.js') %>"></script>
     <!-- Pjax -->
-    <% if (theme.enablepjax == '1') { %>
+    <% if (theme.enablepjax) { %>
         <script defer src="<%= getStaticURL('pjax.min.js') %>"></script>
         <script type="text/javascript">
             document.addEventListener('DOMContentLoaded', function() {
@@ -223,16 +223,11 @@
                     <%= theme.leftSideCustomCode %>
                 </div>
                 <div class="nav header-item header-credit">
-                    Powered by Typecho
+                    Powered by Hexo
                     <br>
-                    <a href="https://github.com/God-2077/hexo-theme-puresuck/" target="_blank">Theme PureSuck</a>
+                    <a href="https://github.com/God-2077/hexo-theme-puresuck/" target="_blank">Hexo Theme PureSuck</a>
                 </div>
                 <nav class="nav header-item header-nav">
-                    <span class="nav-item<% if (is_current('/')) { %> nav-item-current<% } %>">
-                        <a href="<%= config.url %>" title="首页">
-                            <span itemprop="name">首页</span>
-                        </a>
-                    </span>
                     <!--循环显示页面-->
                     <% if (theme.menu) { %>
                         <% getList(theme.menu).forEach(function(value){ %>
