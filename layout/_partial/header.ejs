@@ -127,7 +127,9 @@
     <script defer src="<%= url_for('/js/OwO.min.js') %>"></script>
     <script defer src="<%= url_for('/js/MoxDesign.js') %>"></script>
     <!-- 评论 -->
-    <%- if (theme.comment.enable) { partial('_partial\comments\init.ejs')} %>
+    <% if (theme.comment.enable) { %>
+    <%- partial('_partial/comments/init') %>
+    <% } %>
     <% if (theme.comment.enable) { %>
     <style>
     #comment-loader {
@@ -162,7 +164,7 @@
         }
     }
     </style>
-    <%- } %>
+    <% } %>
     <!-- Pjax -->
     <% if (theme.enablepjax) { %>
         <script defer src="<%= getStaticURL('pjax.min.js') %>"></script>
