@@ -126,6 +126,43 @@
     <script defer src="<%= url_for('/js/PureSuck_Module.js') %>"></script>
     <script defer src="<%= url_for('/js/OwO.min.js') %>"></script>
     <script defer src="<%= url_for('/js/MoxDesign.js') %>"></script>
+    <!-- 评论 -->
+    <%- if (theme.comment.enable) { partial('_partial\comments\init.ejs')} %>
+    <% if (theme.comment.enable) { %>
+    <style>
+    #comment-loader {
+        svg {
+            -webkit-animation: comment-loader 2s infinite linear;
+            animation: comment-loader 2s infinite linear;
+        }
+        text-align: center;
+        padding: 50px 0
+    }
+    @-webkit-keyframes comment-loader {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg)
+        }
+    
+        100% {
+            -webkit-transform: rotate(359deg);
+            transform: rotate(359deg)
+        }
+    }
+    
+    @keyframes comment-loader {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg)
+        }
+    
+        100% {
+            -webkit-transform: rotate(359deg);
+            transform: rotate(359deg)
+        }
+    }
+    </style>
+    <%- } %>
     <!-- Pjax -->
     <% if (theme.enablepjax) { %>
         <script defer src="<%= getStaticURL('pjax.min.js') %>"></script>
