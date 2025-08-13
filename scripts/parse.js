@@ -1,10 +1,10 @@
 // 主入口函数：替换所有短代码和自定义内容
 function parseShortcodes(content) {
+    content = parseShortcodesInner(content)
     content = parsePicGrid(content)
     content = parseTimeline(content)
     content = parseWindows(content)
     content = parseAlerts(content)
-    content = parseShortcodesInner(content)
 
     return content
 }
@@ -156,6 +156,7 @@ function parsePicGrid(content) {
     return result;
 }
 
-const ttt = '[alert type="red"]这是一个红色警告。[/alert][alert type="yellow"]这是一个黄色警告。[/alert][alert type="blue"]这是一个蓝色警告。[/alert][alert type="green"]这是一个绿色警告。[/alert][alert type="pink"]这是一个粉色警告。[/alert][friend-card name="好友" ico="avatar.jpg" url="http://example.com"]这是好友的描述。[/friend-card]'
-
-console.log(parseShortcodes(ttt))
+hexo.extend.filter.register("before_post_render", function (data) {
+  data.content = parseShortcodes(data.content)
+  return data;
+});
