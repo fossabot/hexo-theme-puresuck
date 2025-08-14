@@ -1,41 +1,58 @@
 <div class="wrapper">
 
-    <% const hasImg=page.img ? true : false; %>
-        <article class="post <%= hasImg ? 'post--photo post--cover' : 'post--text' %> post--index main-item"
-            data-aos="fade-up" data-aos-anchor-placement="top-bottom">
-            <div class="post-inner">
-                <header class="post-item post-header <%= hasImg ? 'no-bg' : '' %>">
-                    <div class="wrapper post-wrapper">
-                        <div class="avatar post-author">
-                            <img src="<%= config.authorAvatar || url_for('/images/avatar.png') %>" alt="作者头像"
-                                class="avatar-item avatar-img">
-                            <span class="avatar-item">
-                                <%= page.author %>
-                            </span>
-                        </div>
+    <% const hasImg = page.img ? true : false; %>
+
+    <article class="post <%= hasImg ? 'post--photo post--cover' : 'post--text' %> post--index main-item">
+        <div class="post-inner" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+            <header class="post-item post-header  <%= hasImg ? 'no-bg' : ''; %>">
+                <div class="wrapper post-wrapper">
+                    <div class="avatar post-author">
+                        <img src="<%= theme.authorAvatar ? theme.authorAvatar : url_for('images/avatar.png') %>" alt="作者头像" class="avatar-item avatar-img">
+                        <span class="avatar-item">
+                            <%= config.author %>
+                        </span>
                     </div>
-                </header>
+                </div>
+            </header>
 
-                <!-- 大图样式 -->
-                <% if (hasImg) { %>
-                    <figure class="post-media <%= is_home() ? 'single' : '' %>">
-                        <img itemprop="image" src="<%= page.img %>" alt="头图" width="2000" height="800">
-                    </figure>
-                    <% } %>
+            <!-- 大图样式 -->
+            <% if (hasImg) { %>
+                <figure class="post-media <%= is_home() ? 'single' : ''; %>">
+                    <img data-aos="zoom-out" data-aos-anchor-placement="top-bottom" itemprop="image" src="<%= page.img; %>" alt="头图" width="2000" height="800">
+                </figure>
+            <% } %>
+            
+            <section class="post-item post-body">
+                <div class="wrapper post-wrapper">
+                    <h1 class="post-title">
+                        <a href="<%= url_for(page.path) %>" title="<%= page.title %>">
+                            <%= page.title %>
+                        </a>
+                    </h1>
+                    <div class="inner-post-wrapper">
 
-                        <section class="post-item post-body">
-                            <div class="wrapper post-wrapper">
-                                <h1 class="post-title">
-                                    <a href="<%= page.permalink %>" title="<%= page.title %>">
-                                        <%= page.title %>
-                                    </a>
-                                </h1>
-                                <div class="inner-post-wrapper">
+                        <div class="meta post-meta">
+                            这里会归档一切文章<br>
+                            共创作了 <%- site.posts.length %> 篇文章，合 <%- totalcount(site) %> 字
+                        </div>
 
-                                    <div class="meta post-meta">
-                                        这里会归档一切文章<br>
-                                        共创作了 <%- site.posts.length %> 篇文章，合 <%- totalcount(site) %> 字
-                                    </div>
+                        <!-- 标签 -->
+                        <h2> 标签 </h2>
+                        <section class="section-body">
+                            <div class="cloud-container">
+                                <% const tags = site.tags; %>
+                                <% if (tags.length > 0) { %>
+                                    <% tags.forEach(tag => { %>
+                                        <a href="<%= url_for(tag.path) %>" class="cloud-item"><%= tag.name %></a>
+                                    <% }); %>
+                                <% } else { %>
+                                    <p>没有任何标签</p>
+                                <% } %>
+                            </div>
+                        </section>
+
+                        <h2>时间线</h2>
+                        
                                     <% var year=-1, isFirstPost=true; %>
                                         <% site.posts.sort('date', -1).each(function(post) { %>
                                             <% post.year=date(post.date, 'YYYY' ); %>
@@ -58,7 +75,7 @@
                                                         <div class="timeline-date">
                                                             <%= date(post.date, 'MM-DD' ) %>
                                                         </div>
-                                                            <div class="timeline-title"><a href="<%= post.permalink %>">
+                                                            <div class="timeline-title"><a href="<%= url_for(post.permalink) %>">
                                                                     <%= post.title %>
                                                                 </a></div>
                                                     </div>
@@ -66,20 +83,20 @@
 
 
                                         <% }); %>
-                                        </div>
-                            </div>
-            </div>
+                    </div>
+                </div>
             </section>
 
-</div>
-</article>
+        </div>
+    </article>
 
 </div>
 
 <nav class="nav main-pager" role="navigation" aria-label="Pagination" data-js="pager">
     <div class="nav main-lastinfo">
         <span class="nav-item-alt">
-            <%= config.footerInfo || '' %>
+            <%- theme.footerInfo ? theme.footerInfo : '' %>
         </span>
     </div>
 </nav>
+</main>

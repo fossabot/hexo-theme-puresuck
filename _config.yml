@@ -1,85 +1,68 @@
-# 当前主题版本：1.2.2
-# 主题开源页面及文档：PureSuck-theme
+
+postTitleAfter: boldLine   # 文章标题后的装饰样式 (可选值：boldLine/underline等)
+colorScheme: pink          # 网站整体配色方案 (可选值：pink/blue/dark等)
+cdn: local               # 静态资源CDN服务商 (可选：bootcdn/jsdelivr/unpkg)
+favicon: /images/avatar.ico # 浏览器标签页显示的网站图标
+enablepjax: true           # 是否启用无刷新页面加载技术
 
 
 
-############################### SEO ############################### > start
-seo:
-  # When there are no keywords in the article's front-matter, use tags as keywords.
-  use_tags_as_keywords: true
-  # When there is no description in the article's front-matter, use excerpt as the description.
-  use_excerpt_as_description: true
-  robots:
-    home_first_page: index,follow
-    home_other_pages: noindex,follow
-    archive: noindex,follow
-    category: noindex,follow
-    tag: noindex,follow
-    # robots can be written in front-matter
-############################### SEO ############################### > end
-
-############################### Open Graph ############################### > start
-# https://ogp.me/
-# https://hexo.io/zh-cn/docs/helpers#open-graph
-open_graph:
-  image: 
-  twitter_card: summary # summary_large_image , summary
-  # twitter_id:
-  # twitter_site:
-  google_plus: 
-############################### Open Graph ############################### > end
-
-favicon: /images/avatar.ico # favicon.ico 地址 填写ico格式图片 URL 地址, 在网站标题前加上一个图标
+code_block:
+  line_numbers: true       # 是否显示代码行号
+  copy_button: true        # 是否显示复制代码按钮
+  pjax_script:             # PJAX重载时的回调脚本 (可选)
+    # 示例：
+    #   pjax_script: 'console.log("PJAX reloaded")'
 
 
-title: 网站标题 # 网站标题 网站左侧标题文字
+# 左侧导航栏标识设置
+logoIndex: /images/avatar.ico   # 导航栏LOGO图片路径
+logoIndexUrl:                   # LOGO点击跳转链接 (留空则不跳转)
+
+# 作者信息展示
+authorAvatar: /images/avatar.ico  # 作者头像路径
+
+# 左侧导航栏文字内容
+titleIndex: 你好，世界          # 导航栏主标题文字
+descriptionIndex: 一个前端开发工程师  # 导航栏副标题描述
 
 
 
-logo: /images/avatar.ico # 左侧 LOGO 地址 填写 JPG/PNG/Webp 等图片 URL 地址, 网站左侧头像的显示 (512*512最佳)
+leftSideCustomCode: 
+  # 示例（可插入HTML/JS代码）：
+  #   - <div class="custom-banner">Hello World</div>
+  #   - <script>console.log('Custom code loaded')</script>
 
-author:
-  avatar: /images/avatar.ico # 作者头像地址
-  customDescription: # 左侧个人描述，支持自定义HTML/markdown
 
+# 导航菜单配置
 menu:
-  - name: home
-    url: /
+  - name: home      # 菜单项显示名称
+    url: /          # 菜单项链接地址
   - name: about
     url: /about/
 
-leftSideCustomCode:  # 左侧自定义区域，支持自定义HTML/markdown，将在网站左侧显示
 
-footerScript: # Script标签
-# 位于Footer，可以插统计站的代码，在这里填入JavaScript代码，需要包含<script>标签，不要填其他内容，否则会造成样式错误！
-# 如果开启了 Pjax 功能，请自行在 header.php 配置回调函数或者向他人寻求帮助
-
-footerInfo: # 网页底部信息，支持markdown
+# 侧边栏配置
+showSearch: true          # 是否显示搜索框
+showCategory: true        # 是否显示文章分类
+showTag: true             # 是否显示标签云
 
 
-pjax: 
-  enable: true # 启用 Pjax 加载（实验性）
-  # timeout: 6500 # 超时
+showTOC: true             # 是否显示文章目录
+showWordCount: true       # 是否显示字数统计
+showCopyright: true       # 是否显示版权声明
 
-# 主标题下的装饰线条样式 值 off（关）boldLine（粗线条）  wavyLine（波浪线条）
-postTitleAfter: boldLine
 
-# 是否显示 TOC 目录树
-showTOC: true
+comment:
+  enable: true
+  type: twikoo # 评论系统类型
+  app:
+    twikoo:
+      envId: '您的环境id' ## 腾讯云环境填 envId；Vercel 环境填地址（https://xxx.vercel.app）
+      region: 'ap-guangzhou' ## 环境地域，默认为 ap-shanghai，腾讯云环境填 ap-shanghai 或 ap-guangzhou；Vercel 环境不填
+      path: location.pathname ## 用于区分不同文章的自定义 js 路径，如果您的文章路径不是 location.pathname，需传此参数
+      lang: 'zh-CN' ## 用于手动设定评论区语言，支持的语言列表 https://github.com/twikoojs/twikoo/blob/main/src/client/utils/i18n/index.js
 
-# 是否显示分类模块
-showCategory: true
+# 页脚配置
+footerInfo: 2023 © 你好，世界  # 页脚显示的文字/HTML内容
 
-# 是否显示标签模块
-showTag: true
-
-# 是否在文章页尾显示版权信息
-showCopyright: true
-
-# 代码高亮个性化
-code:
-  ShowLineNumbers: true # 显示代码行数
-  ShowCopyButton: true # 显示复制按钮
-
-# 主题配色 pink 素粉 green 淡绿 blue 墨蓝 yellow 落黄
-colorScheme: pink

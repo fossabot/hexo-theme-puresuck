@@ -1,63 +1,17 @@
 <!DOCTYPE HTML>
-<html lang="<%= config.language %>">
+<html lang="zh-CN">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="renderer" content="webkit">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- 页面元数据 -->
-  <%- generate_title(config, theme, page) %>
-  <%- generate_keywords(config, theme, page) %>
-  <%- generate_description(config, theme, page) %>
-  <%- open_graph(theme.open_graph) %>
-  <%- generate_seo(theme, page) %>
-    <%
-    // 从主题配置中获取颜色方案
-    const colorScheme = theme.colorScheme;
-
-    // 定义颜色映射数组
-    const colorMap = {
-        pink: { theme: '#ea868f', hover: '#DB2777' },  // 粉色
-        green: { theme: '#48c774', hover: '#15803d' }, // 绿色
-        blue: { theme: '#3273dc', hover: '#3B82F6' },  // 蓝色
-        yellow: { theme: '#feb272', hover: '#B45309' } // 黄色
-    };
-
-    // 设置默认颜色
-    const defaultColor = { theme: '#ea868f', hover: '#d1606e' };
-
-    // 根据颜色方案设置主题颜色和悬停颜色
-    const colors = colorMap[colorScheme] || defaultColor;
-    const themeColor = colors.theme;
-    const themeHoverColor = colors.hover;
-
-    // 深色模式颜色映射数组
-    const darkColorMap = {
-        pink: { theme: '#b45864', hover: '#d72b6f' },
-        green: { theme: '#2e7c55', hover: '#0f6933' },
-        blue: { theme: '#2855b0', hover: '#1f55e6' },
-        yellow: { theme: '#bf763f', hover: '#934109' }
-    };
-
-    // 根据颜色方案设置 dark 模式下的主题颜色和悬停颜色
-    const darkColors = darkColorMap[colorScheme] || defaultColor;
-    const darkThemeColor = darkColors.theme;
-    const darkThemeHoverColor = darkColors.hover;
-    %>
-
-    <style>
-        :root {
-            --themecolor: <%= themeColor %>;
-            --themehovercolor: <%= themeHoverColor %>;
-        }
-
-        [data-theme="dark"] {
-            --themecolor: <%= darkThemeColor %>;
-            --themehovercolor: <%= darkThemeHoverColor %>;
-        }
-    </style>
-
+    <%- generate_title(config, theme, page) %>
+    <%- generate_keywords(config, theme, page) %>
+    <%- generate_description(config, theme, page) %>
+    <%- open_graph(theme.open_graph) %>
+    <%- generate_seo(theme, page) %>
+    <%- generateDynamicCSS() %>
     <!-- Initial Theme Script -->
     <script>
         (function() {
@@ -87,10 +41,19 @@
 
             if (currentTheme === 'light') {
                 newTheme = 'dark';
+                MoxToast({
+                    message: "已切换至深色模式"
+                });
             } else if (currentTheme === 'dark') {
                 newTheme = 'auto';
+                MoxToast({
+                    message: "模式将跟随系统 ㆆᴗㆆ"
+                });
             } else {
                 newTheme = 'light';
+                MoxToast({
+                    message: "已切换至浅色模式"
+                });
             }
 
             setTheme(newTheme);
@@ -124,7 +87,7 @@
         });
     </script>
     <!-- Style CSS -->
-    <%- css('css/PureSuck_Style.css') %>
+    <%- css('css/fontello.css','css/PureSuck_Style.css') %>
     <!-- 主题样式微调 -->
     <!-- 标题线条 -->
     <% if (theme.postTitleAfter !== 'off') { %>
@@ -148,18 +111,63 @@
         </style>
     <% } %>
     <!-- AOS -->
-    <%- js({ src: 'js/aos.js', defer: true }) %>
+    <script defer src="<%- getStaticURL('aos.js') %>"></script>
     <!-- ICON Setting -->
     <link rel="icon" href="<%= theme.favicon %>" type="image/x-icon">
     <!-- CSS引入 -->
-    <%- css(['css/a11y-dark.min.css', 'css/PureSuck_Module.css']) %>
+    <link href="<%= getStaticURL('a11y-dark.min.css') %>" rel="stylesheet">
+    <link href="<%= url_for('/css/PureSuck_Module.css') %>" rel="stylesheet">
+    <link href="<%= getStaticURL('aos.css') %>" rel="stylesheet">
+    <link href="<%= url_for('/css/MoxDesign.css') %>" rel="stylesheet">
     <!-- JS引入 -->
-    <%- js({ src: 'js/medium-zoom.min.js', defer: true }) %>
-    <%- js({ src: 'js/highlight.min.js', defer: true }) %>
-    <%- js({ src: 'js/PureSuck_Module.js', defer: true }) %>
+    <!-- JS引入 -->
+    <script defer src="<%= getStaticURL('medium-zoom.min.js') %>"></script>
+    <script defer src="<%= getStaticURL('highlight.min.js') %>"></script>
+    <script defer src="<%= url_for('/js/PureSuck_Module.js') %>"></script>
+    <script defer src="<%= url_for('/js/OwO.min.js') %>"></script>
+    <script defer src="<%= url_for('/js/MoxDesign.js') %>"></script>
+    <!-- 评论 -->
+    <% if (theme.comment.enable) { %>
+    <%- partial('_partial/comments/comment_init') %>
+    <% } %>
+    <% if (theme.comment.enable) { %>
+    <style>
+    #comment-loader {
+        svg {
+            -webkit-animation: comment-loader 2s infinite linear;
+            animation: comment-loader 2s infinite linear;
+        }
+        text-align: center;
+        padding: 50px 0
+    }
+    @-webkit-keyframes comment-loader {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg)
+        }
+    
+        100% {
+            -webkit-transform: rotate(359deg);
+            transform: rotate(359deg)
+        }
+    }
+    
+    @keyframes comment-loader {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg)
+        }
+    
+        100% {
+            -webkit-transform: rotate(359deg);
+            transform: rotate(359deg)
+        }
+    }
+    </style>
+    <% } %>
     <!-- Pjax -->
-    <% if (theme.pjax.enable) { %>
-        <%- js({ src: 'js/pjax.min.js', defer: true }) %>
+    <% if (theme.enablepjax) { %>
+        <script defer src="<%= getStaticURL('pjax.min.js') %>"></script>
         <script type="text/javascript">
             document.addEventListener('DOMContentLoaded', function() {
                 var pjax = new Pjax({
@@ -167,13 +175,15 @@
                     scrollRestoration: true,
                     cacheBust: false,
                     timeout: 6500,
+                    // elements: 'a[href^="<%= config.url %>"]:not(a[target="_blank"], a[no-pjax] ), form[action]',
                     elements: 'a:not(a[target="_blank"], a[no-pjax] ), form[action]',
                     selectors: [
                         "pjax",
                         "script[data-pjax]",
                         "title",
                         ".nav.header-item.header-nav",
-                        ".main"
+                        ".main",
+                        ".right-sidebar"
                     ]
                 });
             });
@@ -188,29 +198,40 @@
             // Pjax 完成后 JS 重载
             document.addEventListener("pjax:success", function(event) {
 
-                // TOC吸附
-                initializeStickyTOC();
                 // 短代码及模块部分
                 runShortcodes();
 
+                // TOC吸附
+                initializeStickyTOC();
+
                 // AOS 动画
-                AOS.init();
+                AOS.refresh();
 
                 // 确保代码块高亮
                 document.querySelectorAll('pre code').forEach((block) => {
                     hljs.highlightElement(block);
-                    <% if (theme.code.ShowLineNumbers) { %>
+                    <% if (theme.code_block.line_numbers) { %>
                         addLineNumber(block);
                     <% } %>
                 });
-                <% if (theme.code.ShowCopyButton) { %>
+                <% if (theme.code_block.copy_button) { %>
                     addCopyButtons();
                 <% } %>
 
+                <% if (theme.code_block.pjax_script) { %>
+                    <%- theme.code_block.pjax_script %>
+                <% } %>
+
+                // 评论区部分重载
+                if (document.querySelector('.OwO-textarea')) {
+                    initializeCommentsOwO();
+                }
+
+                Comments_Submit();
             });
         </script>
-        <%- js({ src: 'js/pace.min.js', defer: true }) %>
-        <%- css('css/pace-theme-default.min.css') %>
+        <script defer src="<%= getStaticURL('pace.min.js') %>"></script>
+        <link rel="stylesheet" href="<%= getStaticURL('pace-theme-default.min.css') %>">
     <% } else { %>
         <!-- 是不是 Pjax 有 bug，哈哈哈 --kissablecho -->
         <!-- 没错我差点死在自己留的鬼判定了--MoXi -->
@@ -222,29 +243,31 @@
     <div class="wrapper">
         <header class="header" data-js="header">
             <div class="wrapper header-wrapper header-title">
-                <span class="el-avatar el-avatar--circle">
-                    <img src="<%= theme.author.avatar %>" style="object-fit:cover;" alt="博主头像" width="512" height="512">
-                </span>
+                <a href="<% if (theme.logoIndexUrl) { %> <%= theme.logoIndexUrl %> <% } else { %> <%= config.url %> <% } %>" class="avatar-link" aria-label="博主名字">
+                    <span class="el-avatar el-avatar--circle avatar-hover-effect">
+                        <img src="<%= theme.logoIndex %>"
+                            style="object-fit:cover;"
+                            alt="博主头像"
+                            width="120"
+                            height="120"
+                            data-name="博主名字" draggable="false">
+                    </span>
+                </a>
                 <div class="header-title">
-                    <%= theme.title %>
+                    <%= theme.titleIndex %>
                 </div>
                 <p itemprop="description" class="header-item header-about">
-                    <% if (theme.author.customDescription && theme.author.customDescription.trim() !== '') { %>
-                        <%= theme.author.customDescription %>
-                    <% } else { %>
-                        ワクワク
-                    <% } %>
+                    <%= theme.descriptionIndex %>
                 </p>
                 <div class="nav header-item left-side-custom-code">
-                    <% if (theme.leftSideCustomCode){ %><%- markdown(theme.leftSideCustomCode) %><% } %>
+                    <%= theme.leftSideCustomCode %>
                 </div>
                 <div class="nav header-item header-credit">
-                    Powered by Typecho
+                    Powered by Hexo
                     <br>
-                    <a href="https://github.com/God-2077/hexo-theme-puresuck">Theme PureSuck</a>
+                    <a href="https://github.com/God-2077/hexo-theme-puresuck/" target="_blank">Hexo Theme PureSuck</a>
                 </div>
                 <nav class="nav header-item header-nav">
-                    <%# 还是自己在主题配置文件设置 menu 吧。 %>
                     <!--循环显示页面-->
                     <% if (theme.menu) { %>
                         <% getList(theme.menu).forEach(function(value){ %>
