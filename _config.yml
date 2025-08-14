@@ -8,8 +8,8 @@ enablepjax: true           # 是否启用无刷新页面加载技术
 
 
 code_block:
-  line_numbers: true       # 是否显示代码行号
-  copy_button: true        # 是否显示复制代码按钮
+  showLineNumbers: true       # 是否显示代码行号
+  showCopyButton: true        # 是否显示复制代码按钮
   pjax_script:             # PJAX重载时的回调脚本 (可选)
     # 示例：
     #   pjax_script: 'console.log("PJAX reloaded")'
