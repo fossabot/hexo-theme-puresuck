@@ -3,7 +3,7 @@
 <div align="center">
 <img alt="NPM Version" src="https://img.shields.io/npm/v/hexo-theme-puresuck?color=pink">
 <img alt="GitHub License" src="https://img.shields.io/github/license/God-2077/hexo-theme-puresuck?color=pink">
-<img alt="AUTHOR" src="https://img.shields.io/badge/AUTHOR-Kissablecho-pink">
+<img alt="AUTHOR" src="https://img.shields.io/badge/author-Kissablecho-pink">
 </div>
 
 PureSuck，干净，纯洁，淡雅朴素的 Hexo 主题。
