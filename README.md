@@ -1,8 +1,10 @@
 # Hexo-Theme-PureSuck
 
-![Static Badge](https://img.shields.io/github/v/release/God-2077/hexo-theme-puresuck?color=pink)
-![GitHub License](https://img.shields.io/github/license/God-2077/hexo-theme-puresuck?color=pink)
-![Static Badge](https://img.shields.io/badge/AUTHOR-Kissablecho-pink)
+<div align="center">
+<img alt="NPM Version" src="https://img.shields.io/npm/v/hexo-theme-puresuck?color=pink">
+<img alt="GitHub License" src="https://img.shields.io/github/license/God-2077/hexo-theme-puresuck?color=pink">
+<img alt="AUTHOR" src="https://img.shields.io/badge/AUTHOR-Kissablecho-pink">
+</div>
 
 PureSuck，干净，纯洁，淡雅朴素的 Hexo 主题。
 
