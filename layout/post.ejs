@@ -17,7 +17,7 @@
 
             <!-- 大图样式 -->
             <% if (hasImg) { %>
-                <figure class="post-media <%= is_home() ? 'single' : ''; %>">
+                <figure class="post-media <%= is_post() ? 'single' : ''; %>">
                     <img data-aos="zoom-out" data-aos-anchor-placement="top-bottom" itemprop="image" src="<%= page.img; %>" alt="头图" width="2000" height="800">
                 </figure>
             <% } %>
@@ -43,7 +43,7 @@
                                 <?php $this->commentsNum('暂无评论', '1 条评论', '%d 条评论'); ?>
                             </a> -->
                         </div>
-                        <% if (is_home() && theme.showWordCount) { %>
+                        <% if (is_post() && theme.showWordCount) { %>
 
                             <div class="meta post-meta">
                                 <div class="icon-record-outline">
@@ -58,7 +58,7 @@
 
 
                         <!-- 判断并显示版权信息 -->
-                        <% if (is_home() && theme.showCopyright) { %>
+                        <% if (is_post() && theme.showCopyright) { %>
                             <div class="license-info-card">
                                 <div class="license-info-title"><%= page.title %></div>
                                 <a class="license-info-link" href="<%= page.permalink %>"><%= page.permalink %></a>
