@@ -128,7 +128,7 @@
     <script defer src="<%= url_for('/js/MoxDesign.js') %>"></script>
     <!-- 评论 -->
     <% if (theme.comment.enable) { %>
-    <%- partial('_partial/comments/init') %>
+    <%- partial('_partial/comments/comment_init') %>
     <% } %>
     <% if (theme.comment.enable) { %>
     <style>
@@ -175,7 +175,8 @@
                     scrollRestoration: true,
                     cacheBust: false,
                     timeout: 6500,
-                    elements: 'a[href^="<%= config.url %>"]:not(a[target="_blank"], a[no-pjax] ), form[action]',
+                    // elements: 'a[href^="<%= config.url %>"]:not(a[target="_blank"], a[no-pjax] ), form[action]',
+                    elements: 'a:not(a[target="_blank"], a[no-pjax] ), form[action]',
                     selectors: [
                         "pjax",
                         "script[data-pjax]",

@@ -55,7 +55,7 @@ showCopyright: true       # 是否显示版权声明
 
 comment:
   enable: true
-  type: valine # 评论系统类型
+  type: twikoo # 评论系统类型
   app:
     twikoo:
       envId: '您的环境id' ## 腾讯云环境填 envId；Vercel 环境填地址（https://xxx.vercel.app）

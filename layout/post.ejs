@@ -25,13 +25,13 @@
             <section class="post-item post-body">
                 <div class="wrapper post-wrapper">
                     <h1 class="post-title">
-                        <a href="<%= page.path %>" title="<%= page.title %>">
+                        <a href="<%= url_for(page.path) %>" title="<%= page.title %>">
                             <%= page.title %>
                         </a>
                     </h1>
                     <div class="inner-post-wrapper">
                         <div class="meta post-meta">
-                            <a itemprop="datePublished" href="<%= page.path %>"
+                            <a itemprop="datePublished" href="<%= url_for(page.path) %>"
                                 class="icon-ui icon-ui-date meta-item meta-date">
                                 <span class="meta-count">
                                     <%= page.date.format('YYYY-MM-DD') %>

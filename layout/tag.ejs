@@ -35,7 +35,7 @@
                 <section class="post-item post-body">
                     <div class="wrapper post-wrapper">
                         <h1 class="post-title">
-                            <a href="<%= post.path; %>" title="<%= post.title; %>">
+                            <a href="<%= url_for(post.path) %>" title="<%= post.title; %>">
                                 <%= post.title; %>
                             </a>
                         </h1>
@@ -56,7 +56,7 @@
                 <footer class="post-item post-footer">
                     <div class="wrapper post-wrapper">
                         <div class="meta post-meta">
-                            <a itemprop="datePublished" href="<%- post.path %>" class="icon-ui icon-ui-date meta-item meta-date">
+                            <a itemprop="datePublished" href="<%= url_for(post.path) %>" class="icon-ui icon-ui-date meta-item meta-date">
                                 <span class="meta-count">
                                     <%- post.date.format('YYYY-MM-DD') %>
                                 </span>
@@ -64,7 +64,7 @@
                             <!-- <a href="<?php $this->permalink() ?>#comments" class="icon-ui icon-ui-comment meta-item meta-comment">
                                 <?php $this->commentsNum('暂无评论', '1 条评论', '%d 条评论'); ?>
                             </a> -->
-                            <a href="<%= post.path %>" class="icon-ui icon-article meta-item meta-more">
+                            <a href="<%= url_for(post.path) %>" class="icon-ui icon-article meta-item meta-more">
                             阅读全文
                             </a>
                         </div>

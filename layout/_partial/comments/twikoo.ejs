@@ -1,21 +1,19 @@
 <% let twikoo_config=theme.comment.app.twikoo %>
+    <script
+  src="https://registry.npmmirror.com/twikoo/1.6.44/files/dist/twikoo.min.js"></script>
   <script>
     function load_comment() {
       let el = document.querySelector("#tcomment")
       if (el) {
           twikoo.init({
-            envId: '<% twikoo_config.envId %>', // 腾讯云环境填 envId；Vercel 环境填地址（https://xxx.vercel.app）
+            envId: '<%- twikoo_config.envId %>', // 腾讯云环境填 envId；Vercel 环境填地址（https://xxx.vercel.app）
             el: '#tcomment', // 容器元素
-            region: '<% twikoo_config.region %>', // 环境地域，默认为 ap-shanghai，腾讯云环境填 ap-shanghai 或 ap-guangzhou；Vercel 环境不填
-            path: <% twikoo_config.path %>, // 用于区分不同文章的自定义 js 路径，如果您的文章路径不是 location.pathname，需传此参数
-            lang: '<% twikoo_config.lang %>', // 用于手动设定评论区语言，支持的语言列表 https://github.com/twikoojs/twikoo/blob/main/src/client/utils/i18n/index.js
+            region: '<%- twikoo_config.region ? twikoo_config.region : "ap-shanghai"%>', // 环境地域，默认为 ap-shanghai，腾讯云环境填 ap-shanghai 或 ap-guangzhou；Vercel 环境不填
+            path: <%- twikoo_config.path ? twikoo_config.path : "location.pathname"%>, // 用于区分不同文章的自定义 js 路径，如果您的文章路径不是 location.pathname，需传此参数
+            lang: '<%- twikoo_config.lang ? twikoo_config.lang : "zh-cn" %>', // 用于手动设定评论区语言，支持的语言列表 https://github.com/twikoojs/twikoo/blob/main/src/client/utils/i18n/index.js
           });
       }
     }
-  document.addEventListener("DOMContentLoaded", function(event){
-      load_comment()
-  });
-  document.addEventListener("pjax:success", function(event) {
-      load_comment()
-  }
+    document.addEventListener("DOMContentLoaded", load_comment);
+    document.addEventListener("pjax:success", load_comment);
   </script>
