@@ -124,7 +124,6 @@
     <script defer src="<%= getStaticURL('medium-zoom.min.js') %>"></script>
     <script defer src="<%= getStaticURL('highlight.min.js') %>"></script>
     <script defer src="<%= url_for('/js/PureSuck_Module.js') %>"></script>
-    <script defer src="<%= url_for('/js/OwO.min.js') %>"></script>
     <script defer src="<%= url_for('/js/MoxDesign.js') %>"></script>
     <!-- 评论 -->
     <% if (theme.comment.enable) { %>
@@ -223,10 +222,6 @@
                 <% } %>
 
                 // 评论区部分重载
-                if (document.querySelector('.OwO-textarea')) {
-                    initializeCommentsOwO();
-                }
-
                 Comments_Submit();
             });
         </script>
