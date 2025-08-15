@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/God-2077/hexo-theme-puresuck/issues"
   },
-  "homepage": "https://github.com/God-2077/hexo-theme-puresuck#readme"
+  "homepage": "https://github.com/God-2077/hexo-theme-puresuck#readme",
+  "dependencies": {
+    "hexo-wordcount": "^6.0.1"
+  }
 }
