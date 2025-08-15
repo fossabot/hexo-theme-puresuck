@@ -38,9 +38,12 @@
   // 添加行号函数
   function addLineNumber(codeDom) {
     codeDom.classList.add("code-block-extension-code-show-num");
-    const lines = codeDom.innerHTML.split("\n").map((line, index) =>
-      `<span class="code-block-extension-code-line" data-line-num="${index + 1}">${line}</span>`
-    ).join("\n");
+    const codeHtml = codeDom.innerHTML;
+      const codeHtmllines = codeHtml.split("\n").length;
+    const lines = codeHtml.split("\n").map((line, index) => {
+      if (index === codeHtmllines - 1) return line; // 不处理最后一个行，因为不知为什么会莫名其妙地加多一行空行
+      return `<span class="code-block-extension-code-line" data-line-num="${index + 1}">${line}</span>`;
+    }).join("\n");
     codeDom.innerHTML = lines;
   }
 
