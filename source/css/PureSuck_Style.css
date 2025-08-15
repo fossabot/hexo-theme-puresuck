@@ -310,7 +310,6 @@ h3 {
 	line-height: 30px
 }
 
-.comment-title,
 .h4,
 .h5,
 .h6,
@@ -396,7 +395,6 @@ small {
 		height: 9px;
 	}
 
-	.comment-title,
 	.h4,
 	h4 {
 		font-size: 1.375rem;
@@ -1505,13 +1503,8 @@ pre {
 	border: 1px solid var(--border-color);
 }
 
-.comment-title {
-	font-weight: 800;
-}
-
 body,
 .post--cover .post-body .post-wrapper>p:first-child,
-.comment-title,
 h1,
 h2,
 h3,
@@ -1656,217 +1649,6 @@ strong {
 
 .post--cover .post-body p:first-child strong {
 	font-weight: inherit
-}
-
-.doc_comments {
-	padding: 0
-}
-
-/** comment footer **/
-.cf {
-	margin: 0 0 3rem 0
-}
-
-.response {
-	margin: 2rem 0
-}
-
-.cf a {
-	color: var(--text-color)
-}
-
-.comment-list {
-	margin: 0;
-	padding-left: 0;
-	list-style-type: none
-}
-
-.avatarcc {
-	float: left;
-	display: block;
-	margin: 1.4rem 1.4rem 0 0;
-	width: 64px;
-	height: 64px;
-	border-radius: 50%
-}
-
-/** comment post **/
-.cp {
-	overflow: hidden;
-	padding: 1.5rem 0;
-	border-bottom: 1px dotted var(--line-color);
-	word-wrap: break-word;
-}
-
-.cr {
-	float: right;
-	display: none
-}
-
-.cp:hover .cr {
-	display: block
-}
-
-.ccr,
-.cm {
-	margin-top: 1rem;
-	margin-bottom: 1rem;
-	color: #aaa;
-	font-size: .75rem
-}
-
-.ccr {
-	text-align: right
-}
-
-.ca {
-	padding: .1rem .2rem;
-	border-radius: 2px;
-	background: var(--background-color);
-	font-size: .75rem
-}
-
-.badge {
-	padding: .1rem .2rem;
-	border-radius: 2px;
-	color: var(--pure-color);
-	background: var(--themecolor);
-	font-size: .75rem;
-}
-
-.c_p>.children {
-	margin-left: 1rem;
-	padding-left: 64px
-}
-
-.tbox-container {
-	display: flex;
-	flex-wrap: wrap;
-	position: relative;
-	cursor: pointer;
-	gap: 20px
-}
-
-.tbox-container .tbox {
-	flex: 1;
-}
-
-@media (max-width: 767.5px) {
-	.tbox-container {
-		gap: 0
-	}
-
-	.tbox-container .tbox {
-		flex: 1 1 100%;
-	}
-}
-
-.comment-box {
-	align-items: center;
-	border: 1px solid var(--border-color);
-	padding: 16px;
-	border-radius: 5px;
-}
-
-.ci {
-	overflow: auto;
-	margin: 10px 0;
-	transition: all .3s cubic-bezier(0.345, 0.045, 0.345, 1);
-	padding: 0.4rem 15px;
-	width: 100%;
-	border: 1px solid var(--border-color);
-	border-radius: 0.65rem;
-	background: var(--card-color);
-	color: var(--text2-color);
-	line-height: 1.7
-}
-
-textarea.ci {
-	resize: none;
-	margin-left: 0px;
-	height: 100%;
-	padding: 15px 15px;
-	min-height: 200px;
-}
-
-.ci:focus {
-	box-shadow: 0 0 0 .05rem var(--themecolor);
-}
-
-.CtBoxBar {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.left-bar {
-	display: flex;
-	align-items: center;
-	gap: 10px;
-}
-
-/* comments*/
-.pagination {
-	display: flex;
-	justify-content: center;
-	list-style: none;
-	padding: 0;
-	margin: 20px 0;
-}
-
-.pagination li {
-	margin: 0 5px;
-}
-
-.pagination li a {
-	padding: 8px 12px;
-	text-decoration: none;
-	color: var(--text-color);
-	border: 1px solid var(--border-color);
-	border-radius: 0.45rem;
-	transition: all .3s ease;
-}
-
-.pagination li a:hover {
-	background-color: var(--hover-color);
-	color: var(--text-color);
-}
-
-.pagination .active a {
-	background-color: var(--card-color);
-	border-color: var(--themecolor);
-}
-
-.submit {
-	display: block;
-	padding: 8px 30px;
-	margin-top: 10px;
-	border: 1px solid var(--border-color);
-	background: var(--card-color);
-	text-align: center;
-	font-size: 1rem;
-	color: var(--text2-color);
-	line-height: 36px;
-	border-radius: 10px;
-	box-shadow: 0 0 6px #00000008;
-}
-
-.submit:hover {
-	border-color: var(--border-color);
-	background: var(--hover-color);
-	cursor: pointer
-}
-
-.submit:active {
-	background-color: var(--hover-color);
-	transform: scale(0.95);
-}
-
-@media only screen and (max-width:767px) {
-	.c_p .children {
-		margin-left: 0;
-		padding-left: 0
-	}
 }
 
 .el-avatar--circle {

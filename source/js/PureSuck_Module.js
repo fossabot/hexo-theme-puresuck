@@ -509,20 +509,6 @@ function initializeStickyTOC() {
     window.addEventListener('scroll', onScroll);
 }
 
-
-function Comments_Submit() {
-    const submitButton = document.getElementById("submit");
-    const textarea = document.getElementById("textarea");
-
-    if (!submitButton || !textarea) return;
-
-    submitButton.addEventListener("click", () => {
-        if (textarea.value.trim() !== "") {
-            submitButton.textContent = "提交中~";
-        }
-    });
-}
-
 function runShortcodes() {
     history.scrollRestoration = 'auto'; // 不知道为什么总会回到顶端
     parseFriendCards();
@@ -533,7 +519,6 @@ function runShortcodes() {
     mediumZoom('[data-zoomable]', {
         background: 'var(--card-color)'
     });
-    Comments_Submit()
 }
 
 document.addEventListener('DOMContentLoaded', function () {
