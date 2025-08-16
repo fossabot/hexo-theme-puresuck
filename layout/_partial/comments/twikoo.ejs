@@ -1,6 +1,6 @@
 <% let twikoo_config=theme.comment.app.twikoo %>
-    <script
-  src="https://registry.npmmirror.com/twikoo/1.6.44/files/dist/twikoo.min.js"></script>
+    <script defer src="<%- get_cdn_url('twikoo.min.js') %>"></script>
+
   <script>
     function load_comment() {
       let el = document.querySelector("#tcomment")

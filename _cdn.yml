@@ -29,17 +29,17 @@ system_config:
   #       - npm
 
 assets:
-  twikoo_min_js:
-    platform: [npm, github]
+  - name: twikoo.min.js
     permalink: 
+    platform: [npm]
     version: 1.6.44
     package: twikoo
     user:
     repo: 
     filepath: dist/twikoo.min.js
-    localpath: 
+    localpath: https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.min.js
     secondary_url: https://twikoo.js.org/dist/twikoo.min.js
-  theme-PureSuck_Style:
+  - name: PureSuck_Style.css
     permalink: 
     platform: [npm, github]
     version: ${theme_version}
@@ -49,7 +49,7 @@ assets:
     filepath: source/css/PureSuck_Style.css
     localpath: /css/PureSuck_Style.css # 使用url_for()函数获取本地文件链接
     secondary_url: https://cdn.jsdelivr.net/npm/hexo-theme-puresuck@${theme_version}/source/css/PureSuck_Style.css
-  aos_js:
+  - name: aos.js
     permalink: 
     platform: [npm]
     version: 2.3.4
@@ -59,7 +59,7 @@ assets:
     filepath: dist/aos.js
     localpath: /js/lib/aos.js
     secondary_url:
-  aos_css:
+  - name: aos.css
     permalink: 
     platform: [npm]
     version: 2.3.4
@@ -69,7 +69,7 @@ assets:
     filepath: dist/aos.css
     localpath: /js/lib/aos.css
     secondary_url:
-  theme-a11y-dark_min_css:
+  - name: a11y-dark.min.css
     permalink: 
     platform: [npm]
     version: ${theme_version}
@@ -79,17 +79,17 @@ assets:
     filepath: source/css/lib/a11y-dark.min.css
     localpath: /css/lib/a11y-dark.min.css
     secondary_url:
-  highlight_min_js:
+  - name: highlight.min.js
     permalink: 
     platform: []
     version: 0.2.4
     package: aos
     user:
     repo: 
-    filepath: dist/aos.js
+    filepath: 
     localpath: /js/lib/highlight.min.js
     secondary_url:
-  medium-zoom_min_js:
+  - name: medium-zoom.min.js
     permalink: 
     platform: [npm]
     version: 1.1.0
@@ -99,7 +99,7 @@ assets:
     filepath: dist/medium-zoom.min.js
     localpath: /js/lib/medium-zoom.min.js
     secondary_url:
-  pjax_min_js:
+  - name: pjax.min.js
     permalink: 
     platform: [npm, github]
     version: 0.2.8
@@ -109,7 +109,7 @@ assets:
     filepath: pjax.min.js
     localpath: /js/lib/pjax.min.js
     secondary_url:
-  pace_min_js:
+  - name: pace.min.js
     permalink: 
     platform: [npm]
     version: 1.2.4
@@ -119,7 +119,7 @@ assets:
     filepath: pace.min.js
     localpath: /js/lib/pace.min.js
     secondary_url:
-  theme-pace-theme-default_min_css:
+  - name: pace-theme-default.min.css
     permalink: 
     platform: [npm,github]
     version: ${theme_version}
@@ -129,7 +129,7 @@ assets:
     filepath: source/css/lib/pace-theme-default.min.css
     localpath: /css/lib/pace-theme-default.min.css
     secondary_url:
-  PureSuck_Module_css:
+  - name: PureSuck_Module.css
     permalink: 
     platform: [npm]
     version: ${theme_version}
@@ -139,7 +139,7 @@ assets:
     filepath: source/css/PureSuck_Module.css
     localpath: /css/PureSuck_Module.css
     secondary_url:
-  MoxDesign_css:
+  - name: MoxDesign.css
     permalink: 
     platform: [npm]
     version: ${theme_version}
@@ -149,7 +149,7 @@ assets:
     filepath: source/css/MoxDesign.css
     localpath: /css/MoxDesign.css
     secondary_url:
-  PureSuck_Module_js:
+  - name: PureSuck_Module.js
     permalink: 
     platform: [npm]
     version: ${theme_version}
@@ -159,7 +159,7 @@ assets:
     filepath: source/js/PureSuck_Module.js
     localpath: /js/PureSuck_Module.js
     secondary_url:
-  MoxDesign_js:
+  - name: MoxDesign.js
     permalink: 
     platform: [npm]
     version: ${theme_version}
@@ -169,7 +169,7 @@ assets:
     filepath: source/js/MoxDesign.js
     localpath: /js/MoxDesign.js
     secondary_url:
-  theme-fontello_css:
+  - name: theme-fontello.css
     permalink: 
     platform: [npm]
     version: ${theme_version}
@@ -179,7 +179,7 @@ assets:
     filepath: source/css/fontello.css
     localpath: /css/fontello.css
     secondary_url:
-  PureSuck_Style_css:
+  - name: PureSuck_Style.css
     permalink: 
     platform: [npm]
     version: ${theme_version}
