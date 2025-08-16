@@ -209,11 +209,11 @@
                 // 确保代码块高亮
                 document.querySelectorAll('pre code').forEach((block) => {
                     hljs.highlightElement(block);
-                    <% if (theme.code_block.line_numbers) { %>
+                    <% if (theme.code_block.showLineNumbers) { %>
                         addLineNumber(block);
                     <% } %>
                 });
-                <% if (theme.code_block.copy_button) { %>
+                <% if (theme.code_block.showCopyButton) { %>
                     addCopyButtons();
                 <% } %>
 
