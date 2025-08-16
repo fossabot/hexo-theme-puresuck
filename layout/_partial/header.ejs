@@ -87,7 +87,8 @@
         });
     </script>
     <!-- Style CSS -->
-    <%- css('css/fontello.css','css/PureSuck_Style.css') %>
+    <link rel="stylesheet" href="<%- get_cdn_url('theme-fontello_css') %>">
+    <link rel="stylesheet" href="<%- get_cdn_url('PureSuck_Style_css') %>">
     <!-- 主题样式微调 -->
     <!-- 标题线条 -->
     <% if (theme.postTitleAfter !== 'off') { %>
@@ -111,20 +112,20 @@
         </style>
     <% } %>
     <!-- AOS -->
-    <script defer src="<%- getStaticURL('aos.js') %>"></script>
+    <script defer src="<%- get_cdn_url('aos_js') %>"></script>
     <!-- ICON Setting -->
     <link rel="icon" href="<%= theme.favicon %>" type="image/x-icon">
     <!-- CSS引入 -->
-    <link href="<%= getStaticURL('a11y-dark.min.css') %>" rel="stylesheet">
-    <link href="<%= url_for('/css/PureSuck_Module.css') %>" rel="stylesheet">
-    <link href="<%= getStaticURL('aos.css') %>" rel="stylesheet">
-    <link href="<%= url_for('/css/MoxDesign.css') %>" rel="stylesheet">
+    <link href="<%= get_cdn_url('theme-a11y-dark_min_css') %>" rel="stylesheet">
+    <link href="<%= get_cdn_url('PureSuck_Module_css') %>" rel="stylesheet">
+    <link href="<%= get_cdn_url('aos_css') %>" rel="stylesheet">
+    <link href="<%= get_cdn_url('MoxDesign_css') %>" rel="stylesheet">
     <!-- JS引入 -->
     <!-- JS引入 -->
-    <script defer src="<%= getStaticURL('medium-zoom.min.js') %>"></script>
-    <script defer src="<%= getStaticURL('highlight.min.js') %>"></script>
-    <script defer src="<%= url_for('/js/PureSuck_Module.js') %>"></script>
-    <script defer src="<%= url_for('/js/MoxDesign.js') %>"></script>
+    <script defer src="<%= get_cdn_url('medium-zoom_min_js') %>"></script>
+    <script defer src="<%= get_cdn_url('highlight_min_js') %>"></script>
+    <script defer src="<%= get_cdn_url('PureSuck_Module_js') %>"></script>
+    <script defer src="<%= get_cdn_url('MoxDesign_js') %>"></script>
     <!-- 评论 -->
     <% if (theme.comment.enable) { %>
     <%- partial('_partial/comments/comment_init') %>
@@ -166,7 +167,7 @@
     <% } %>
     <!-- Pjax -->
     <% if (theme.enablepjax) { %>
-        <script defer src="<%= getStaticURL('pjax.min.js') %>"></script>
+        <script defer src="<%= get_cdn_url('pjax_min_js') %>"></script>
         <script type="text/javascript">
             document.addEventListener('DOMContentLoaded', function() {
                 var pjax = new Pjax({
@@ -222,8 +223,8 @@
                 <% } %>
             });
         </script>
-        <script defer src="<%= getStaticURL('pace.min.js') %>"></script>
-        <link rel="stylesheet" href="<%= getStaticURL('pace-theme-default.min.css') %>">
+        <script defer src="<%= get_cdn_url('pace_min_js') %>"></script>
+        <link rel="stylesheet" href="<%= get_cdn_url('theme-pace-theme-default_min_css') %>">
     <% } else { %>
         <!-- 是不是 Pjax 有 bug，哈哈哈 --kissablecho -->
         <!-- 没错我差点死在自己留的鬼判定了--MoXi -->

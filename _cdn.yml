@@ -69,7 +69,7 @@ assets:
     filepath: dist/aos.css
     localpath: /js/lib/aos.css
     secondary_url:
-  theme-a11y-dark.min.css:
+  theme-a11y-dark_min_css:
     permalink: 
     platform: [npm]
     version: ${theme_version}
@@ -79,7 +79,7 @@ assets:
     filepath: source/css/lib/a11y-dark.min.css
     localpath: /css/lib/a11y-dark.min.css
     secondary_url:
-  highlight_js:
+  highlight_min_js:
     permalink: 
     platform: []
     version: 0.2.4
@@ -89,7 +89,7 @@ assets:
     filepath: dist/aos.js
     localpath: /js/lib/highlight.min.js
     secondary_url:
-  medium-zoom_js:
+  medium-zoom_min_js:
     permalink: 
     platform: [npm]
     version: 1.1.0
@@ -128,4 +128,64 @@ assets:
     repo: 
     filepath: source/css/lib/pace-theme-default.min.css
     localpath: /css/lib/pace-theme-default.min.css
+    secondary_url:
+  PureSuck_Module_css:
+    permalink: 
+    platform: [npm]
+    version: ${theme_version}
+    package: hexo-theme-puresuck
+    user:
+    repo: 
+    filepath: source/css/PureSuck_Module.css
+    localpath: /css/PureSuck_Module.css
+    secondary_url:
+  MoxDesign_css:
+    permalink: 
+    platform: [npm]
+    version: ${theme_version}
+    package: hexo-theme-puresuck
+    user:
+    repo: 
+    filepath: source/css/MoxDesign.css
+    localpath: /css/MoxDesign.css
+    secondary_url:
+  PureSuck_Module_js:
+    permalink: 
+    platform: [npm]
+    version: ${theme_version}
+    package: hexo-theme-puresuck
+    user:
+    repo: 
+    filepath: source/js/PureSuck_Module.js
+    localpath: /js/PureSuck_Module.js
+    secondary_url:
+  MoxDesign_js:
+    permalink: 
+    platform: [npm]
+    version: ${theme_version}
+    package: hexo-theme-puresuck
+    user:
+    repo: 
+    filepath: source/js/MoxDesign.js
+    localpath: /js/MoxDesign.js
+    secondary_url:
+  theme-fontello_css:
+    permalink: 
+    platform: [npm]
+    version: ${theme_version}
+    package: hexo-theme-puresuck
+    user:
+    repo: 
+    filepath: source/css/fontello.css
+    localpath: /css/fontello.css
+    secondary_url:
+  PureSuck_Style_css:
+    permalink: 
+    platform: [npm]
+    version: ${theme_version}
+    package: hexo-theme-puresuck
+    user:
+    repo: 
+    filepath: source/css/PureSuck_Style.css
+    localpath: /css/PureSuck_Style.css
     secondary_url:
