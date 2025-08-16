@@ -1,0 +1,131 @@
+system_config:
+  unpkg:
+    protocol: https
+    host: unpkg.com
+    npm_path: ${package}@${version}/${filepath}
+    platform:
+        - npm
+  jsdelivr_cdn:
+    protocol: https
+    host: cdn.jsdelivr.net
+    npm_path: npm/${package}@${version}/${filepath}
+    github_path: gh/${user}/${repo}@${version}/${filepath}
+    platform:
+        - npm
+        - github
+  jsdelivr_fastly:
+    protocol: https
+    host: fastly.jsdelivr.net
+    npm_path: npm/${package}@${version}/${filepath}
+    github_path: gh/${user}/${repo}@${version}/${filepath}
+    platform:
+        - npm
+        - github
+  # npmmirror:
+  #   protocol: https
+  #   host: registry.npmmirror.com
+  #   npm_path: ${package}/${version}/files/${filepath}
+  #   platform:
+  #       - npm
+
+assets:
+  twikoo_min_js:
+    platform: [npm, github]
+    permalink: 
+    version: 1.6.44
+    package: twikoo
+    user:
+    repo: 
+    filepath: dist/twikoo.min.js
+    localpath: 
+    secondary_url: https://twikoo.js.org/dist/twikoo.min.js
+  theme-PureSuck_Style:
+    permalink: 
+    platform: [npm, github]
+    version: ${theme_version}
+    package: hexo-theme-puresuck
+    user: God-2077
+    repo: hexo-theme-puresuck
+    filepath: source/css/PureSuck_Style.css
+    localpath: /css/PureSuck_Style.css # 使用url_for()函数获取本地文件链接
+    secondary_url: https://cdn.jsdelivr.net/npm/hexo-theme-puresuck@${theme_version}/source/css/PureSuck_Style.css
+  aos_js:
+    permalink: 
+    platform: [npm]
+    version: 2.3.4
+    package: aos
+    user:
+    repo: 
+    filepath: dist/aos.js
+    localpath: /js/lib/aos.js
+    secondary_url:
+  aos_css:
+    permalink: 
+    platform: [npm]
+    version: 2.3.4
+    package: aos
+    user:
+    repo: 
+    filepath: dist/aos.css
+    localpath: /js/lib/aos.css
+    secondary_url:
+  theme-a11y-dark.min.css:
+    permalink: 
+    platform: [npm]
+    version: ${theme_version}
+    package: hexo-theme-puresuck
+    user:
+    repo: 
+    filepath: source/css/lib/a11y-dark.min.css
+    localpath: /css/lib/a11y-dark.min.css
+    secondary_url:
+  highlight_js:
+    permalink: 
+    platform: []
+    version: 0.2.4
+    package: aos
+    user:
+    repo: 
+    filepath: dist/aos.js
+    localpath: /js/lib/highlight.min.js
+    secondary_url:
+  medium-zoom_js:
+    permalink: 
+    platform: [npm]
+    version: 1.1.0
+    package: medium-zoom
+    user:
+    repo: 
+    filepath: dist/medium-zoom.min.js
+    localpath: /js/lib/medium-zoom.min.js
+    secondary_url:
+  pjax_min_js:
+    permalink: 
+    platform: [npm, github]
+    version: 0.2.8
+    package: pjax
+    user: MoOx
+    repo: pjax
+    filepath: pjax.min.js
+    localpath: /js/lib/pjax.min.js
+    secondary_url:
+  pace_min_js:
+    permalink: 
+    platform: [npm]
+    version: 1.2.4
+    package: pace-js
+    user:
+    repo: 
+    filepath: pace.min.js
+    localpath: /js/lib/pace.min.js
+    secondary_url:
+  theme-pace-theme-default_min_css:
+    permalink: 
+    platform: [npm,github]
+    version: ${theme_version}
+    package: hexo-theme-puresuck
+    user:
+    repo: 
+    filepath: source/css/lib/pace-theme-default.min.css
+    localpath: /css/lib/pace-theme-default.min.css
+    secondary_url:
