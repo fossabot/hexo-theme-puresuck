@@ -166,7 +166,7 @@
     </style>
     <% } %>
     <!-- Pjax -->
-    <% if (theme.enablepjax) { %>
+    <% if (theme.pjax.enable) { %>
         <script defer src="<%= get_cdn_url('pjax.min.js') %>"></script>
         <script type="text/javascript">
             document.addEventListener('DOMContentLoaded', function() {
@@ -218,8 +218,8 @@
                     addCopyButtons();
                 <% } %>
 
-                <% if (theme.code_block.pjax_script) { %>
-                    <%- theme.code_block.pjax_script %>
+                <% if (theme.pjax.pjax_script) { %>
+                    <%- theme.pjax.pjax_script %>
                 <% } %>
             });
         </script>
@@ -247,13 +247,13 @@
                     </span>
                 </a>
                 <div class="header-title">
-                    <%= theme.titleIndex %>
+                    <%- theme.subtitle %>
                 </div>
                 <p itemprop="description" class="header-item header-about">
-                    <%= theme.descriptionIndex %>
+                    <%- theme.description %>
                 </p>
                 <div class="nav header-item left-side-custom-code">
-                    <%= theme.leftSideCustomCode %>
+                    <%- theme.leftSideCustomCode %>
                 </div>
                 <div class="nav header-item header-credit">
                     Powered by Hexo

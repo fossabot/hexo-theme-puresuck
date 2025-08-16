@@ -1,18 +1,18 @@
 
 postTitleAfter: boldLine   # 文章标题后的装饰样式 (可选值：boldLine/underline等)
 colorScheme: pink          # 网站整体配色方案 (可选值：pink/blue/dark等)
-cdn: local               # 静态资源CDN服务商 (可选：bootcdn/jsdelivr/unpkg)
+
 favicon: /images/avatar.ico # 浏览器标签页显示的网站图标
-enablepjax: true           # 是否启用无刷新页面加载技术
 
-
+pjax:
+  enable: true
+  pjax_script:             # PJAX重载时的回调脚本 (可选)
+    # 示例：
+    #   pjax_script: 'console.log("PJAX reloaded")'
 
 code_block:
   showLineNumbers: true       # 是否显示代码行号
   showCopyButton: true        # 是否显示复制代码按钮
-  pjax_script:             # PJAX重载时的回调脚本 (可选)
-    # 示例：
-    #   pjax_script: 'console.log("PJAX reloaded")'
 
 
 # 左侧导航栏标识设置
@@ -23,11 +23,11 @@ logoIndexUrl:                   # LOGO点击跳转链接 (留空则不跳转)
 authorAvatar: /images/avatar.ico  # 作者头像路径
 
 # 左侧导航栏文字内容
-titleIndex: 你好，世界          # 导航栏主标题文字
-descriptionIndex: 一个前端开发工程师  # 导航栏副标题描述
+subtitle: 你好，世界          # 导航栏主标题文字
+description: 一个前端开发工程师  # 导航栏副标题描述
 
 
-
+# 自定义左侧导航栏代码
 leftSideCustomCode: 
   # 示例（可插入HTML/JS代码）：
   #   - <div class="custom-banner">Hello World</div>
@@ -47,7 +47,7 @@ showSearch: true          # 是否显示搜索框
 showCategory: true        # 是否显示文章分类
 showTag: true             # 是否显示标签云
 
-
+# 文章配置
 showTOC: true             # 是否显示文章目录
 showWordCount: true       # 是否显示字数统计
 showCopyright: true       # 是否显示版权声明
@@ -69,7 +69,7 @@ footerInfo: 2023 © 你好，世界  # 页脚显示的文字/HTML内容
 
 cdn_system:
   # CDN 优先级 从高到低排序 写入 priority 列表即表示启用(enable)，列表为空则表示不启用，优先级 priority > localpath > secondary_url
-  priority: [unpkg]
+  priority: [unpkg,jsdelivr_fastly]
   # cdn数据配置文件见 "theme/_cdn.yml", 可以在主题配置文件中覆盖 theme/_cdn.yml
   system_config:
     # unpkg:
@@ -79,7 +79,7 @@ cdn_system:
     #   platform:
     #       - npm
   assets:
-    # twikoo:
+    # - name: twikoo
     #   platform: [npm]
     #   version: 1.0.0
     #   package: twikoo
