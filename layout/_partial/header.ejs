@@ -91,20 +91,20 @@
     <link rel="stylesheet" href="<%- get_cdn_url('PureSuck_Style.css') %>">
     <!-- 主题样式微调 -->
     <!-- 标题线条 -->
-    <% if (theme.postTitleAfter !== 'off') { %>
+    <% if (theme.postTitleDecoration !== 'off') { %>
         <style>
             .post-title::after {
-                bottom: <%= theme.postTitleAfter === 'wavyLine' ? '-5px' : '5px' %>;
+                bottom: <%= theme.postTitleDecoration === 'wavyLine' ? '-5px' : '5px' %>;
                 left: 0;
-                <% if (theme.postTitleAfter === 'boldLine') { %>
+                <% if (theme.postTitleDecoration === 'boldLine') { %>
                     width: 58px;
                     height: 11px;
-                <% } else if (theme.postTitleAfter === 'wavyLine') { %>
+                <% } else if (theme.postTitleDecoration === 'wavyLine') { %>
                     width: 80px;
                     height: 12px;
                     mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="10" viewBox="0 0 40 10" preserveAspectRatio="none"><path d="M0 5 Q 10 0, 20 5 T 40 5" stroke="black" stroke-width="2" fill="transparent"/></svg>') repeat-x;
                     mask-size: 40px 12px;
-                <% } else if (theme.postTitleAfter === 'handDrawn') { %>
+                <% } else if (theme.postTitleDecoration === 'handDrawn') { %>
                     /* 添加手绘风格的样式 */
                     /* 这里可以添加具体的手绘风格的样式 */
                 <% } %>
@@ -210,16 +210,16 @@
                 // 确保代码块高亮
                 document.querySelectorAll('pre code').forEach((block) => {
                     hljs.highlightElement(block);
-                    <% if (theme.code_block.showLineNumbers) { %>
+                    <% if (theme.codeBlock.showLineNumbers) { %>
                         addLineNumber(block);
                     <% } %>
                 });
-                <% if (theme.code_block.showCopyButton) { %>
+                <% if (theme.codeBlock.showCopyButton) { %>
                     addCopyButtons();
                 <% } %>
 
-                <% if (theme.pjax.pjax_script) { %>
-                    <%- theme.pjax.pjax_script %>
+                <% if (theme.pjax.pjaxReloadScript) { %>
+                    <%- theme.pjax.pjaxReloadScript %>
                 <% } %>
             });
         </script>
@@ -236,9 +236,9 @@
     <div class="wrapper">
         <header class="header" data-js="header">
             <div class="wrapper header-wrapper header-title">
-                <a href="<% if (theme.logoIndexUrl) { %> <%= theme.logoIndexUrl %> <% } else { %> <%= config.url %> <% } %>" class="avatar-link" aria-label="博主名字">
+                <a href="<% if (theme.sidebarLogoPathUrl) { %> <%= theme.sidebarLogoPathUrl %> <% } else { %> <%= config.url %> <% } %>" class="avatar-link" aria-label="博主名字">
                     <span class="el-avatar el-avatar--circle avatar-hover-effect">
-                        <img src="<%= theme.logoIndex %>"
+                        <img src="<%= theme.sidebarLogoPath %>"
                             style="object-fit:cover;"
                             alt="博主头像"
                             width="120"

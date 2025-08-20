@@ -24,13 +24,13 @@
       hljs.highlightElement(block);
 
       // 显示行号
-      <% if (theme.code_block.showLineNumbers) { %>
+      <% if (theme.codeBlock.showLineNumbers) { %>
         addLineNumber(block);
       <% } %>
     });
 
     // 显示复制按钮
-    <% if (theme.code_block.showCopyButton) { %>
+    <% if (theme.codeBlock.showCopyButton) { %>
       addCopyButtons();
     <% } %>
   });

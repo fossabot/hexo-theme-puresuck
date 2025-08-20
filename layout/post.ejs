@@ -7,7 +7,7 @@
             <header class="post-item post-header  <%= hasImg ? 'no-bg' : ''; %>">
                 <div class="wrapper post-wrapper">
                     <div class="avatar post-author">
-                        <img src="<%= theme.authorAvatar ? theme.authorAvatar : url_for('images/avatar.png') %>" alt="作者头像" class="avatar-item avatar-img">
+                        <img src="<%= theme.authorAvatarPath ? theme.authorAvatarPath : url_for('images/avatar.png') %>" alt="作者头像" class="avatar-item avatar-img">
                         <span class="avatar-item">
                             <%= config.author %>
                         </span>

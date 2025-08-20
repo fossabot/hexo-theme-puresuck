@@ -1,26 +1,26 @@
 
-postTitleAfter: boldLine   # 文章标题后的装饰样式 (可选值：boldLine/underline等)
+postTitleDecoration: boldLine   # 文章标题后的装饰样式 (可选值：boldLine/underline等)
 colorScheme: pink          # 网站整体配色方案 (可选值：pink/blue/dark等)
 
 favicon: /images/avatar.ico # 浏览器标签页显示的网站图标
 
 pjax:
   enable: true
-  pjax_script:             # PJAX重载时的回调脚本 (可选)
+  pjaxReloadScript:             # PJAX重载时的回调脚本 (可选)
     # 示例：
-    #   pjax_script: 'console.log("PJAX reloaded")'
+    #   pjaxReloadScript: 'console.log("PJAX reloaded")'
 
-code_block:
+codeBlock:
   showLineNumbers: true       # 是否显示代码行号
   showCopyButton: true        # 是否显示复制代码按钮
 
 
 # 左侧导航栏标识设置
-logoIndex: /images/avatar.ico   # 导航栏LOGO图片路径
-logoIndexUrl:                   # LOGO点击跳转链接 (留空则不跳转)
+sidebarLogoPath: /images/avatar.ico   # 导航栏LOGO图片路径
+sidebarLogoLink:                   # LOGO点击跳转链接 (留空则不跳转)
 
 # 作者信息展示
-authorAvatar: /images/avatar.ico  # 作者头像路径
+authorAvatarPath: /images/avatar.ico  # 作者头像路径
 
 # 左侧导航栏文字内容
 subtitle: 你好，世界          # 导航栏主标题文字
@@ -30,8 +30,8 @@ description: 一个前端开发工程师  # 导航栏副标题描述
 # 自定义左侧导航栏代码
 leftSideCustomCode: 
   # 示例（可插入HTML/JS代码）：
-  #   - <div class="custom-banner">Hello World</div>
-  #   - <script>console.log('Custom code loaded')</script>
+  #   <div class="custom-banner">Hello World</div>
+  #   <script>console.log('Custom code loaded')</script>
 
 
 # 导航菜单配置
@@ -55,10 +55,10 @@ showCopyright: true       # 是否显示版权声明
 
 comment:
   enable: true
-  type: twikoo # 评论系统类型
+  server: twikoo # 评论系统类型
   app:
     twikoo:
-      envId: '您的环境id' ## 腾讯云环境填 envId；Vercel 环境填地址（https://xxx.vercel.app）
+      envId: 'https://twikoo.ksable.top/.netlify/functions/twikoo' ## 腾讯云环境填 envId；Vercel 环境填地址（https://xxx.vercel.app）
       region: 'ap-guangzhou' ## 环境地域，默认为 ap-shanghai，腾讯云环境填 ap-shanghai 或 ap-guangzhou；Vercel 环境不填
       path: location.pathname ## 用于区分不同文章的自定义 js 路径，如果您的文章路径不是 location.pathname，需传此参数
       lang: 'zh-CN' ## 用于手动设定评论区语言，支持的语言列表 https://github.com/twikoojs/twikoo/blob/main/src/client/utils/i18n/index.js
