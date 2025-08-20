@@ -21,12 +21,42 @@ system_config:
     platform:
         - npm
         - github
-  # npmmirror:
-  #   protocol: https
-  #   host: registry.npmmirror.com
-  #   npm_path: ${package}/${version}/files/${filepath}
-  #   platform:
-  #       - npm
+  onmicrosoft_jsd:
+    protocol: https
+    host: jsd.onmicrosoft.cn
+    npm_path: npm/${package}@${version}/${filepath}
+    github_path: gh/${user}/${repo}@${version}/${filepath}
+    platform:
+        - npm
+        - github
+  onmicrosoft_npm:
+    protocol: https
+    host: npm.onmicrosoft.cn
+    npm_path: ${package}@${version}/${filepath}
+    github_path: 
+    platform:
+        - npm
+  onmicrosoft_cdnjs:
+    protocol: https
+    host: cdnjs.onmicrosoft.cn
+    npm_path: ajax/libs/${package}/${version}/${filepath}
+    platform:
+        - npm
+
+  # 不推荐使用，有些包没有
+  npmmirror:
+    protocol: https
+    host: registry.npmmirror.com
+    npm_path: ${package}/${version}/files/${filepath}
+    platform:
+        - npm
+  # 不推荐使用，有些包没有
+  cdnjs:
+    protocol: https
+    host: cdnjs.cloudflare.com
+    npm_path: ajax/libs/${package}/${version}/${filepath}
+    platform:
+        - npm
 
 assets:
   - name: twikoo.min.js
@@ -39,6 +69,7 @@ assets:
     filepath: dist/twikoo.min.js
     localpath: https://cdn.jsdelivr.net/npm/twikoo@1.6.44/dist/twikoo.min.js
     secondary_url: https://twikoo.js.org/dist/twikoo.min.js
+
   - name: PureSuck_Style.css
     permalink: 
     platform: [npm, github]
@@ -49,6 +80,7 @@ assets:
     filepath: source/css/PureSuck_Style.css
     localpath: /css/PureSuck_Style.css # 使用url_for()函数获取本地文件链接
     secondary_url: https://cdn.jsdelivr.net/npm/hexo-theme-puresuck@${theme_version}/source/css/PureSuck_Style.css
+
   - name: aos.js
     permalink: 
     platform: [npm]
@@ -59,6 +91,7 @@ assets:
     filepath: dist/aos.js
     localpath: /js/lib/aos.js
     secondary_url:
+
   - name: aos.css
     permalink: 
     platform: [npm]
@@ -69,6 +102,7 @@ assets:
     filepath: dist/aos.css
     localpath: /js/lib/aos.css
     secondary_url:
+
   - name: a11y-dark.min.css
     permalink: 
     platform: [npm]
@@ -79,8 +113,9 @@ assets:
     filepath: source/css/lib/a11y-dark.min.css
     localpath: /css/lib/a11y-dark.min.css
     secondary_url:
+
   - name: highlight.min.js
-    permalink: 
+    permalink:  /js/lib/highlight.min.js
     platform: []
     version: 0.2.4
     package: aos
@@ -89,6 +124,7 @@ assets:
     filepath: 
     localpath: /js/lib/highlight.min.js
     secondary_url:
+
   - name: medium-zoom.min.js
     permalink: 
     platform: [npm]
@@ -99,6 +135,7 @@ assets:
     filepath: dist/medium-zoom.min.js
     localpath: /js/lib/medium-zoom.min.js
     secondary_url:
+
   - name: pjax.min.js
     permalink: 
     platform: [npm, github]
@@ -109,6 +146,7 @@ assets:
     filepath: pjax.min.js
     localpath: /js/lib/pjax.min.js
     secondary_url:
+
   - name: pace.min.js
     permalink: 
     platform: [npm]
@@ -119,6 +157,7 @@ assets:
     filepath: pace.min.js
     localpath: /js/lib/pace.min.js
     secondary_url:
+
   - name: pace-theme-default.min.css
     permalink: 
     platform: [npm,github]
@@ -129,6 +168,7 @@ assets:
     filepath: source/css/lib/pace-theme-default.min.css
     localpath: /css/lib/pace-theme-default.min.css
     secondary_url:
+
   - name: PureSuck_Module.css
     permalink: 
     platform: [npm]
@@ -139,6 +179,7 @@ assets:
     filepath: source/css/PureSuck_Module.css
     localpath: /css/PureSuck_Module.css
     secondary_url:
+
   - name: MoxDesign.css
     permalink: 
     platform: [npm]
@@ -149,6 +190,7 @@ assets:
     filepath: source/css/MoxDesign.css
     localpath: /css/MoxDesign.css
     secondary_url:
+
   - name: PureSuck_Module.js
     permalink: 
     platform: [npm]
@@ -159,6 +201,7 @@ assets:
     filepath: source/js/PureSuck_Module.js
     localpath: /js/PureSuck_Module.js
     secondary_url:
+
   - name: MoxDesign.js
     permalink: 
     platform: [npm]
@@ -169,6 +212,7 @@ assets:
     filepath: source/js/MoxDesign.js
     localpath: /js/MoxDesign.js
     secondary_url:
+
   - name: theme-fontello.css
     permalink: 
     platform: [npm]
@@ -179,6 +223,7 @@ assets:
     filepath: source/css/fontello.css
     localpath: /css/fontello.css
     secondary_url:
+
   - name: PureSuck_Style.css
     permalink: 
     platform: [npm]

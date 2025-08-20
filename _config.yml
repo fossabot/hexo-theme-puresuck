@@ -69,7 +69,7 @@ footerInfo: 2023 © 你好，世界  # 页脚显示的文字/HTML内容
 
 cdn_system:
   # CDN 优先级 从高到低排序 写入 priority 列表即表示启用(enable)，列表为空则表示不启用，优先级 priority > localpath > secondary_url
-  priority: [unpkg,jsdelivr_fastly]
+  priority: [onmicrosoft_npm,unpkg,jsdelivr_fastly]
   # cdn数据配置文件见 "theme/_cdn.yml", 可以在主题配置文件中覆盖 theme/_cdn.yml
   system_config:
     # unpkg:

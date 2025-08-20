@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path')
+const axios = require('axios');
 
 // 读取当前主题的 package.json 文件
 
@@ -104,27 +105,29 @@ function get_cdn_url(asset_name) {
         );
 
         if (supported_platforms.length > 0) {
-            const platform = supported_platforms[0]; // 取第一个支持的平台
-            let path_template = '';
+            for (const platform of supported_platforms) {
 
-            // 5. 根据平台类型选择路径模板
-            if (platform === 'npm' && cdn_system.npm_path) {
-                path_template = cdn_system.npm_path;
-            } else if (platform === 'github' && cdn_system.github_path) {
-                path_template = cdn_system.github_path;
-            }
+                let path_template = '';
 
-            if (path_template) {
-                // 6. 替换路径模板中的变量
-                let result_path = path_template
-                    .replace(/\$\{package\}/g, asset.package)
-                    .replace(/\$\{version\}/g, version)
-                    .replace(/\$\{filepath\}/g, asset.filepath)
-                    .replace(/\$\{user\}/g, asset.user || '')
-                    .replace(/\$\{repo\}/g, asset.repo || '');
+                // 5. 根据平台类型选择路径模板
+                if (platform === 'npm' && cdn_system.npm_path) {
+                    path_template = cdn_system.npm_path;
+                } else if (platform === 'github' && cdn_system.github_path) {
+                    path_template = cdn_system.github_path;
+                }
 
-                // 7. 构建完整URL
-                return `${cdn_system.protocol}://${cdn_system.host}/${result_path}`;
+                if (path_template) {
+                    // 6. 替换路径模板中的变量
+                    let result_path = path_template
+                        .replace(/\$\{package\}/g, asset.package)
+                        .replace(/\$\{version\}/g, version)
+                        .replace(/\$\{filepath\}/g, asset.filepath)
+                        .replace(/\$\{user\}/g, asset.user || '')
+                        .replace(/\$\{repo\}/g, asset.repo || '');
+
+                    // 7. 构建完整URL
+                    return `${cdn_system.protocol}://${cdn_system.host}/${result_path}`;
+                }
             }
         }
     }
@@ -145,7 +148,7 @@ function get_cdn_url(asset_name) {
 }
 
 // console.log(get_cdn_url('MoxDesign.css'));
-// console.log(get_cdn_url('twikoo.min.js'));
+// console.log(get_cdn_url('PureSuck_Style.css'));
 
 
 // 注册 get_cdn_url 辅助函数
@@ -164,7 +167,7 @@ function test_cdn() {
         all_asset_name_array_url.push(get_cdn_url(all_assets[id].name));
     }
 
-    const axios = require('axios');
+    // const axios = require('axios');
     const testUrls = all_asset_name_array_url;
     let error_count = 0;
 
@@ -239,5 +242,17 @@ hexo.extend.console.register(
   "Test cdn",
   function (args) {
     test_cdn();
+  },
+);
+
+hexo.extend.console.register(
+  "get_cdn_url",
+  "Get cdn url",
+  function (args) {
+    if (args._.length === 0) {
+      hexo.log.error('please input asset name');
+      return;
+    }
+    console.log(get_cdn_url(args._[0]));
   },
 );
