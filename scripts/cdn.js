@@ -154,8 +154,11 @@ function findObjectByName(name, list) {
  * @returns {string} 资源的cdn链接
  */
 function get_cdn_url(asset_name,check) {
-
-    check = check && theme_cdn_config.check;
+    if (check === undefined) {
+        check = theme_cdn_config.check;
+    }
+    debugger
+    hexo.log.debug(`get_cdn_url ${asset_name} ${check}`);
     let cdn_url = '';
     const priority = theme_cdn_config.priority || [];
     const asset = findObjectByName(asset_name, all_assets);
@@ -219,6 +222,7 @@ function get_cdn_url(asset_name,check) {
                         if (get_cdn_cache_valid(cdn_url)) {
                             return cdn_url;
                         } else {
+                            // hexo.log.info(`check_url_and_update_cache ${asset_name} ${cdn_url}`);
                             if (check_url_and_update_cache(asset_name,cdn_url)) {
                                 return cdn_url;
                             } else {
