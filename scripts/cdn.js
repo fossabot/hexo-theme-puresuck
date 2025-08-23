@@ -153,7 +153,9 @@ function findObjectByName(name, list) {
  * @param {string} asset_name - 资源名称
  * @returns {string} 资源的cdn链接
  */
-function get_cdn_url(asset_name) {
+function get_cdn_url(asset_name,check) {
+
+    check = check && theme_cdn_config.check;
     let cdn_url = '';
     const priority = theme_cdn_config.priority || [];
     const asset = findObjectByName(asset_name, all_assets);
@@ -213,7 +215,7 @@ function get_cdn_url(asset_name) {
                     cdn_url = `${cdn_system.protocol}://${cdn_system.host}/${result_path}`;
 
                     // 8. 检查cdn链接有效性
-                    if (theme_cdn_config.check) {
+                    if (check) {
                         if (get_cdn_cache_valid(cdn_url)) {
                             return cdn_url;
                         } else {
@@ -261,7 +263,7 @@ function test_cdn() {
     for (const id of Object.keys(all_assets)) {
         Array.prototype.push.call(all_asset_test,{
             name: all_assets[id].name,
-            url: get_cdn_url(all_assets[id].name),
+            url: get_cdn_url(all_assets[id].name,false)
         });
     }
     
@@ -282,7 +284,7 @@ function test_cdn() {
         //     hexo.log.info(`✅ [成功] ${url} (缓存)`);
         //     return;
         // } 
-        response = SimpleRequest('HEAD', url);
+        let response = SimpleRequest('HEAD', url);
 
         if (response.success) {
             if (response.ok) {
@@ -334,7 +336,7 @@ function test_cdn() {
 
 hexo.extend.console.register(
   "testcdn",
-  "Test cdn",
+  "Test cdn(禁用链接有效性检查)",
   function (args) {
     test_cdn();
   },
