@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path')
-const axios = require('axios');
+const SimpleRequest = require(path.join(hexo.theme_dir, 'scripts', 'SimpleRequest.js'))
+
 
 // 读取当前主题的 package.json 文件
 
@@ -8,6 +9,7 @@ const version = JSON.parse(fs.readFileSync(path.join(hexo.theme_dir, '/package.j
 const theme_version = version.version;
 
 // 读取主题 cdn 配置
+const theme_config = hexo.theme.context.config.theme_config;
 const theme_cdn_config = hexo.theme.context.config.theme_config.cdn_system;
 
 // 读取 cdn 配置
@@ -55,6 +57,87 @@ const system_config = Object.assign({}, cdn_config.system_config, theme_cdn_conf
 const all_assets = mergeAssets(cdn_config.assets, theme_cdn_config.assets);
 
 
+
+// cdn 缓存
+
+let check_cdn = {};
+// const cache_file_path =  'cdn_cache.json';
+const cache_file_path = path.join(hexo.base_dir,'cdn_cache.json');
+// 读取缓存文件，并更新 check_cdn
+function read_cdn_cache_file(){
+    if (fs.existsSync(cache_file_path)) {
+        check_cdn = JSON.parse(fs.readFileSync(cache_file_path, 'utf8'));
+    }
+}
+read_cdn_cache_file();
+// 写入缓存文件
+function write_cdn_cache_file(){
+    fs.writeFileSync(cache_file_path, JSON.stringify(check_cdn, null, 2));
+}
+// 更新CDN缓存数据（保持对象结构）
+function update_cdn_cache(asset_name, url, valid) {
+  // 查找是否存在相同URL的配置项
+  const existingKey = Object.keys(check_cdn).find(key => 
+    check_cdn[key].url === url
+  );
+  
+  if (existingKey !== undefined) {
+    // 更新已存在项
+    check_cdn[existingKey] = {
+      name: asset_name,
+      url: url,
+      valid: valid,
+    };
+  } else {
+    // 添加新配置项（生成新键）
+    Array.prototype.push.call(check_cdn,{
+      name: asset_name,
+      url: url,
+      valid: valid,
+    });
+  }
+  write_cdn_cache_file();  // 假设该函数实现写入逻辑
+}
+// 从缓存中获取url有效性
+/**
+ * 获取cdn缓存的url有效性
+ * @param {string} url - 要获取有效性的url
+ * @returns {boolean} - url的有效性
+ */
+function get_cdn_cache_valid(url){
+    const existingKey = Object.keys(check_cdn).find(key => 
+        check_cdn[key].url === url
+    );
+    if (existingKey !== undefined) {
+        return check_cdn[existingKey].valid;
+    } else {
+        return false;
+    }
+}
+
+hexo.extend.filter.register("after_clean", function () {
+    if (fs.existsSync(cache_file_path)) {
+        fs.unlinkSync(cache_file_path);
+        hexo.log.info('cdn cache file deleted');
+    }
+});
+
+/**
+ * 检查url是否有效
+ * @param {string} url - 要检查的url
+ * @returns {boolean} - url是否有效
+ */
+function check_url_and_update_cache(asset_name,url){
+    if (SimpleRequest('HEAD',url).ok) {
+        update_cdn_cache(asset_name,url,true);
+        return true;
+    } else {
+        update_cdn_cache(asset_name,url,false);
+        return false;
+    }
+}
+
+
 /**
  * 在对象数组中根据name查找对应的对象
  * @param {string} name - 要查找的对象name属性值
@@ -71,6 +154,7 @@ function findObjectByName(name, list) {
  * @returns {string} 资源的cdn链接
  */
 function get_cdn_url(asset_name) {
+    let cdn_url = '';
     const priority = theme_cdn_config.priority || [];
     const asset = findObjectByName(asset_name, all_assets);
 
@@ -126,7 +210,22 @@ function get_cdn_url(asset_name) {
                         .replace(/\$\{repo\}/g, asset.repo || '');
 
                     // 7. 构建完整URL
-                    return `${cdn_system.protocol}://${cdn_system.host}/${result_path}`;
+                    cdn_url = `${cdn_system.protocol}://${cdn_system.host}/${result_path}`;
+
+                    // 8. 检查cdn链接有效性
+                    if (theme_cdn_config.check) {
+                        if (get_cdn_cache_valid(cdn_url)) {
+                            return cdn_url;
+                        } else {
+                            if (check_url_and_update_cache(asset_name,cdn_url)) {
+                                return cdn_url;
+                            } else {
+                                continue;
+                            }
+                        }
+                    } else {
+                        return cdn_url;
+                    }
                 }
             }
         }
@@ -156,52 +255,49 @@ hexo.extend.helper.register("get_cdn_url", get_cdn_url);
 
 /**
  * 测试所有cdn链接是否可用
- * 需要安装 axios
- * npm install axios
  */
 function test_cdn() {
-    let all_asset_name_array = [];
-    let all_asset_name_array_url = [];
+    let all_asset_test = {};
     for (const id of Object.keys(all_assets)) {
-        all_asset_name_array.push(all_assets[id].name);
-        all_asset_name_array_url.push(get_cdn_url(all_assets[id].name));
+        Array.prototype.push.call(all_asset_test,{
+            name: all_assets[id].name,
+            url: get_cdn_url(all_assets[id].name),
+        });
     }
-
-    // const axios = require('axios');
-    const testUrls = all_asset_name_array_url;
+    
+    let all_asset_test_length = Object.keys(all_asset_test).length;
     let error_count = 0;
 
     /**
      * 测试单个链接是否返回 200 状态码
      * @param {string} url - 待测试的链接
      */
-    function testSingleUrl(url) {
+    function testSingleUrl(name,url) {
         if (url.startsWith('//') || url.startsWith('/') || url.startsWith('./') || url.startsWith('../')) {
             hexo.log.info(`✅ [成功] ${url} 是本地路径，跳过测试`);
-            return Promise.resolve(); // 添加立即解决的Promise
+            return;
         }
-        // 返回 Promise 对象
-        return axios.get(url, { timeout: 5000 })
-            .then(response => {
-                if (response.status === 200) {
-                    hexo.log.info(`✅ [成功] ${url} - 状态码: ${response.status}`);
-                } else {
-                    error_count++;
-                    hexo.log.error(`❌ [失败] ${url} - 状态码: ${response.status} (非 200)`);
-                }
-            })
-            .catch(error => {
+        // 检查缓存
+        // if (get_cdn_cache_valid(url)) {
+        //     hexo.log.info(`✅ [成功] ${url} (缓存)`);
+        //     return;
+        // } 
+        response = SimpleRequest('HEAD', url);
+
+        if (response.success) {
+            if (response.ok) {
+                hexo.log.info(`✅ [成功] ${url} - 状态码: ${response.status}`);
+                update_cdn_cache(name,url,true)
+            } else {
                 error_count++;
-                let errorMsg = '未知错误';
-                if (error.response) {
-                    errorMsg = `状态码: ${error.response.status}`;
-                } else if (error.request) {
-                    errorMsg = '未收到响应（可能超时或网络问题）';
-                } else {
-                    errorMsg = error.message;
-                }
-                hexo.log.error(`❌ [失败] ${url} - 原因: ${errorMsg}`);
-            });
+                hexo.log.error(`❌ [失败] ${url} - 状态码: ${response.status} (非 200)`);
+                update_cdn_cache(name,url,false)
+
+            }
+        } else {
+            error_count++;
+            hexo.log.error(`❌ [失败] ${url} - 状态码: ${response.status} (非 200)`);
+        }
     }
 
     /**
@@ -209,28 +305,27 @@ function test_cdn() {
      */
     function testAllUrls() {
         hexo.log.info('开始测试链接...');
-        hexo.log.info('资源数量：' + testUrls.length);
+        hexo.log.info('资源数量：' + all_asset_test_length);
+
         // 如果没有资源，则直接返回
-        if (testUrls.length === 0) {
+        if (all_asset_test_length === 0) {
             hexo.log.info('没有需要测试的资源链接');
             return;
         }
-        // 初始 Promise
-        let promiseChain = Promise.resolve();
         
-        // 逐个添加测试到 Promise 链
-        testUrls.forEach(url => {
-            promiseChain = promiseChain.then(() => testSingleUrl(url));
-        });
-        
-        // 所有测试完成后
-        promiseChain.then(() => {
-            if (error_count === 0) {
-                hexo.log.info('所有链接测试完成，无错误');
-            } else {
-                hexo.log.warn(`所有链接测试完成，发现 ${error_count} 个错误(${error_count / testUrls.length * 100}%)`);
+        // 逐个测试
+        for (let i of Object.keys(all_asset_test)) {
+            if (!all_asset_test[i].name && !all_asset_test[i].url) {
+                break;
             }
-        });
+            testSingleUrl(all_asset_test[i].name,all_asset_test[i].url);
+        }
+        
+        if (error_count === 0) {
+            hexo.log.info('所有链接测试完成，无错误');
+        } else {
+            hexo.log.warn(`所有链接测试完成，发现 ${error_count} 个错误(${error_count / all_asset_test_length * 100}%)`);
+        }
     }
 
     // 执行测试
@@ -254,5 +349,13 @@ hexo.extend.console.register(
       return;
     }
     console.log(get_cdn_url(args._[0]));
+  },
+);
+
+hexo.extend.console.register(
+  "test_script",
+  "only run script",
+  function (args) {
+    return
   },
 );
