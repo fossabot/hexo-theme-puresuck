@@ -87,6 +87,7 @@ function update_cdn_cache(asset_name, url, valid) {
       name: asset_name,
       url: url,
       valid: valid,
+      update: new Date().getTime()
     };
   } else {
     // 添加新配置项（生成新键）
@@ -94,6 +95,7 @@ function update_cdn_cache(asset_name, url, valid) {
       name: asset_name,
       url: url,
       valid: valid,
+      update: new Date().getTime()
     });
   }
   write_cdn_cache_file();  // 假设该函数实现写入逻辑
@@ -111,7 +113,7 @@ function get_cdn_cache_valid(url){
     if (existingKey !== undefined) {
         return check_cdn[existingKey].valid;
     } else {
-        return false;
+        return 'not_found';
     }
 }
 
@@ -154,9 +156,13 @@ function findObjectByName(name, list) {
  * @returns {string} 资源的cdn链接
  */
 function get_cdn_url(asset_name,check) {
-
-    check = check && theme_cdn_config.check;
+    if (check === undefined) {
+        check = theme_cdn_config.check;
+    }
+    // debugger
+    // hexo.log.debug(`get_cdn_url ${asset_name} ${check}`);
     let cdn_url = '';
+    let valid
     const priority = theme_cdn_config.priority || [];
     const asset = findObjectByName(asset_name, all_assets);
 
@@ -216,9 +222,13 @@ function get_cdn_url(asset_name,check) {
 
                     // 8. 检查cdn链接有效性
                     if (check) {
-                        if (get_cdn_cache_valid(cdn_url)) {
+                        valid = get_cdn_cache_valid(cdn_url)
+                        if (vaild == true) {
                             return cdn_url;
-                        } else {
+                        } else if (vaild == false) {
+                            continue;
+                        } else if (vaild == 'not_found') {
+                            // hexo.log.info(`check_url_and_update_cache ${asset_name} ${cdn_url}`);
                             if (check_url_and_update_cache(asset_name,cdn_url)) {
                                 return cdn_url;
                             } else {
@@ -299,6 +309,7 @@ function test_cdn() {
         } else {
             error_count++;
             hexo.log.error(`❌ [失败] ${url} - 状态码: ${response.status} (非 200)`);
+            update_cdn_cache(name,url,false)
         }
     }
 
