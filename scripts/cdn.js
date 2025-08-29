@@ -66,7 +66,11 @@ const cache_file_path = path.join(hexo.base_dir,'cdn_cache.json');
 // 读取缓存文件，并更新 check_cdn
 function read_cdn_cache_file(){
     if (fs.existsSync(cache_file_path)) {
-        check_cdn = JSON.parse(fs.readFileSync(cache_file_path, 'utf8'));
+        try{
+            check_cdn = JSON.parse(fs.readFileSync(cache_file_path, 'utf8'));
+        } catch (error) {
+            hexo.log.error('read cdn cache file error');
+        }
     }
 }
 read_cdn_cache_file();
