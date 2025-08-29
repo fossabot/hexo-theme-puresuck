@@ -100,7 +100,7 @@ assets:
     user:
     repo: 
     filepath: dist/aos.css
-    localpath: /js/lib/aos.css
+    localpath: /css/lib/aos.css
     secondary_url:
 
   - name: a11y-dark.min.css
