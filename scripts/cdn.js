@@ -27,7 +27,7 @@ const cdn_config = hexo.render.renderSync({ path: path.join(hexo.theme_dir, '/_c
  * @property {Function} info - 信息输出函数
  */
 const ddebug = {
-    debug: theme_cdn_config.debug || hexo.env.debug,
+    debug: theme_cdn_config.debug,
     cdn_debug: theme_cdn_config.debug,
     hexo_debug: hexo.env.debug,
     log: function(msg){
