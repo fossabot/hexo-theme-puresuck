@@ -1,4 +1,12 @@
 <div class="wrapper">
+    <% let archiveTitle 
+        if (page.tag) {
+            archiveTitle = "标签 " + page.tag + " 下的文章";
+        } else if (page.category) {
+            archiveTitle = "分类 " + page.category + " 下的文章";
+        }
+    %>
+    <h3 class="archive-title" <%- archiveTitle ? '' : 'style="display: none;"' %>><%- archiveTitle %></h3>
     <% if (page.posts && page.posts.length > 0) { %>
     <% page.posts.each(function(post){ %>
         <% hasImg = post.img ? true : false; %>
