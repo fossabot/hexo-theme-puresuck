@@ -361,7 +361,9 @@ hexo.extend.console.register(
       hexo.log.error('please input asset name');
       return;
     }
-    console.log(get_cdn_url(args._[0]));
+    args._.forEach((item) => {
+        console.log(`cdn_url: ${item} ${get_cdn_url(item)}`);
+    })
   },
 );
 
