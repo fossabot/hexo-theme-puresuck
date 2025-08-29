@@ -1,5 +1,6 @@
-hexo.extend.helper.register('mybugger', function (hexo=0, config=0, theme=0, page=0,post=0) {
+hexo.extend.helper.register('mybugger', function (i) {
   console.log('hello world');
+  debugger;
   // console.log(hexo);
   // console.log(config);
   // console.log(theme);

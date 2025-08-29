@@ -126,6 +126,7 @@
     <script defer src="<%= get_cdn_url('highlight.min.js') %>"></script>
     <script defer src="<%= get_cdn_url('PureSuck_Module.js') %>"></script>
     <script defer src="<%= get_cdn_url('MoxDesign.js') %>"></script>
+    <script defer src="<%= url_for('/js/search.js') %>"></script>
     <!-- 评论 -->
     <% if (theme.comment.enable) { %>
     <%- partial('_partial/comments/comment_init') %>

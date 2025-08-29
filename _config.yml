@@ -43,7 +43,15 @@ menu:
 
 
 # 侧边栏配置
-showSearch: true          # 是否显示搜索框
+# 是否显示搜索框
+search:
+  enable: true
+  # 搜索范围，可选值：post（仅搜索文章）、page（仅搜索页面）、all（搜索文章和页面）
+  field: post
+  content:
+    enable: true  # 是否结果中包含文章内容
+    maxLength: 250 # 搜索数据库最大截取的文章内容，保留空值时包含文章全部内容
+  maxResults: 10 # 最大搜索结果数
 showCategory: true        # 是否显示文章分类
 showTag: true             # 是否显示标签云
 

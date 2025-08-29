@@ -165,6 +165,7 @@ function get_cdn_cache_valid(url){
 }
 
 hexo.extend.filter.register("after_clean", function () {
+    return;
     if (fs.existsSync(cache_file_path)) {
         fs.unlinkSync(cache_file_path);
         hexo.log.info('cdn cache file deleted');
