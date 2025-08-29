@@ -10,12 +10,39 @@ const theme_version = version.version;
 
 // 读取主题 cdn 配置
 const theme_config = hexo.theme.context.config.theme_config;
-const theme_cdn_config = hexo.theme.context.config.theme_config.cdn_system;
+const theme_cdn_config = theme_config.cdn_system;
 
 // 读取 cdn 配置
 const cdn_config = hexo.render.renderSync({ path: path.join(hexo.theme_dir, '/_cdn.yml'), engine: 'yaml' })
 
-
+/**
+ * debug 输出
+ * @type {Object}
+ * @property {Boolean} debug - debug 模式
+ * @property {Boolean} cdn_debug -  cdn 调试模式
+ * @property {Boolean} hexo_debug - hexo 调试模式
+ * @property {Function} log - 日志输出函数
+ * @property {Function} warn - 警告输出函数
+ * @property {Function} error - 错误输出函数
+ * @property {Function} info - 信息输出函数
+ */
+const ddebug = {
+    debug: theme_cdn_config.debug || hexo.env.debug,
+    cdn_debug: theme_cdn_config.debug,
+    hexo_debug: hexo.env.debug,
+    log: function(msg){
+        if(this.debug) hexo.log.info('[cdn_system debug] ' + msg);
+    },
+    warn: function(msg){
+        if(this.debug) hexo.log.warn('[cdn_system debug] ' + msg);
+    },
+    error: function(msg){
+        if(this.debug) hexo.log.error('[cdn_system debug] ' + msg);
+    },
+    info: function(msg){
+        if(this.debug) hexo.log.info('[cdn_system debug] ' + msg);
+    }
+}
 
 /**
  * 合并两个assets数组，相同name的对象由后者覆盖前者
@@ -68,7 +95,10 @@ function read_cdn_cache_file(){
     if (fs.existsSync(cache_file_path)) {
         try{
             check_cdn = JSON.parse(fs.readFileSync(cache_file_path, 'utf8'));
+            ddebug.info('read cdn cache file success');
+            ddebug.info('cdn cache item length: ' + check_cdn.length);
         } catch (error) {
+            ddebug.error('read cdn cache file error');
             hexo.log.error('read cdn cache file error');
         }
     }
@@ -76,7 +106,13 @@ function read_cdn_cache_file(){
 read_cdn_cache_file();
 // 写入缓存文件
 function write_cdn_cache_file(){
-    fs.writeFileSync(cache_file_path, JSON.stringify(check_cdn, null, 2));
+    try{
+        fs.writeFileSync(cache_file_path, JSON.stringify(check_cdn, null, 2));
+    } catch (error) {
+        ddebug.error('write cdn cache file error');
+        hexo.log.error('write cdn cache file error');
+    }
+    ddebug.info('write cdn cache file success');
 }
 // 更新CDN缓存数据（保持对象结构）
 function update_cdn_cache(asset_name, url, valid) {
@@ -103,6 +139,7 @@ function update_cdn_cache(asset_name, url, valid) {
     });
   }
   write_cdn_cache_file();  // 假设该函数实现写入逻辑
+  ddebug.info(`update cdn cache: ${asset_name} ${url} ${valid}`);
 }
 // 从缓存中获取url有效性
 /**
@@ -114,9 +151,15 @@ function get_cdn_cache_valid(url){
     const existingKey = Object.keys(check_cdn).find(key => 
         check_cdn[key].url === url
     );
+    ddebug.info("get cdn cache valid: start ==================");
     if (existingKey !== undefined) {
+        ddebug.info(`get cdn cache valid: check_cdn[${check_cdn[existingKey].name}] ${check_cdn[existingKey].valid}`);
+        ddebug.info(`get cdn cache valid: check_cdn[${check_cdn[existingKey].name}] ${check_cdn[existingKey].url}`);
+        ddebug.info("get cdn cache valid: end ====================");
         return check_cdn[existingKey].valid;
     } else {
+        ddebug.info(`get cdn cache valid: not found ${url}`);
+        ddebug.info("get cdn cache valid: end ====================");
         return 'not_found';
     }
 }
@@ -135,9 +178,11 @@ hexo.extend.filter.register("after_clean", function () {
  */
 function check_url_and_update_cache(asset_name,url){
     if (SimpleRequest('HEAD',url).ok) {
+        ddebug.info(`check url and update cache: ${asset_name} ${url} true`);
         update_cdn_cache(asset_name,url,true);
         return true;
     } else {
+        ddebug.info(`check url and update cache: ${asset_name} ${url} false`);
         update_cdn_cache(asset_name,url,false);
         return false;
     }
@@ -161,37 +206,39 @@ function findObjectByName(name, list) {
  */
 function get_cdn_url(asset_name,check) {
     if (check === undefined) {
-        check = theme_cdn_config.check;
+        check = theme_cdn_config.valid;
     }
-    // debugger
-    // hexo.log.debug(`get_cdn_url ${asset_name} ${check}`);
+    ddebug.info(`get cdn url: ================ start =================`);
+    ddebug.info(`Processing asset: ${asset_name} with check=${check}`);
+    
     let cdn_url = '';
     let valid
     const priority = theme_cdn_config.priority || [];
     const asset = findObjectByName(asset_name, all_assets);
-
-    // 1. 处理资源不存在的情况
     if (!asset) {
+        ddebug.error(`Asset ${asset_name} not found in configuration`);
         hexo.log.error(`Asset ${asset_name} not found in _cdn.yml`);
+        ddebug.info(`get cdn url: ================= end ==================`);
         return '';
     }
 
-    // 2. 处理版本号中的变量
     const version = asset.version.replace(/\$\{theme_version\}/g, theme_version);
-
+    ddebug.info(`Version resolved: ${version}`);
     // 2.5. 处理资源的permalink
     if (asset.permalink) {
+        ddebug.info(`Using permalink for asset: ${asset.permalink}`);
+        ddebug.info(`get cdn url: ================= end ==================`);
         return asset.permalink.replace(/\$\{theme_version\}/g, theme_version);
     }
 
 
     // 3. 按优先级遍历CDN系统
     for (const cdn_name of priority) {
+        ddebug.info(`Checking CDN system: ${cdn_name}`);
         const cdn_system = system_config[cdn_name];
-        // hexo.log.info(`Checking ${cdn_name} for ${asset_name}`);
+        
         if (!cdn_system) {
-            // hexo.log.error(`CDN system ${cdn_name} not found in _cdn.yml`);
-            // debugger
+            ddebug.warn(`CDN configuration ${cdn_name} not found`);
             continue;
         }
 
@@ -201,8 +248,9 @@ function get_cdn_url(asset_name,check) {
         );
 
         if (supported_platforms.length > 0) {
+            ddebug.info(`Supported platforms for ${asset_name} on ${cdn_name}: ${supported_platforms.join(', ')}`);
             for (const platform of supported_platforms) {
-
+                ddebug.info(`Processing platform: ${platform}`);
                 let path_template = '';
 
                 // 5. 根据平台类型选择路径模板
@@ -228,18 +276,21 @@ function get_cdn_url(asset_name,check) {
                     if (check) {
                         valid = get_cdn_cache_valid(cdn_url)
                         if (valid == true) {
+                            ddebug.info(`get cdn url: ================= end ==================`);
                             return cdn_url;
                         } else if (valid == false) {
                             continue;
                         } else if (valid == 'not_found') {
                             // hexo.log.info(`check_url_and_update_cache ${asset_name} ${cdn_url}`);
                             if (check_url_and_update_cache(asset_name,cdn_url)) {
+                                ddebug.info(`get cdn url: ================= end ==================`);
                                 return cdn_url;
                             } else {
                                 continue;
                             }
                         }
                     } else {
+                        ddebug.info(`get cdn url: ================= end ==================`);
                         return cdn_url;
                     }
                 }
@@ -248,17 +299,21 @@ function get_cdn_url(asset_name,check) {
     }
 
     // 8. 回退机制：本地路径 > 备用URL
+    ddebug.info(`Fallback mechanisms: localpath and secondary_url`);
     if (asset.localpath && asset.localpath.trim() !== '') {
         try {
             const url_for = hexo.extend.helper.get('url_for').bind(hexo);
+            ddebug.info(`get cdn url: ================= end ==================`);
             return url_for(asset.localpath);
         } catch (e) {
+            ddebug.info(`get cdn url: ================= end ==================`);
             hexo.log.warn(`url_for helper not available, using raw localpath`);
             return asset.localpath;
         }
     }
 
     // 9. 最终回退到备用URL
+    ddebug.info(`get cdn url: ================= end ==================`);
     return asset.secondary_url.replace(/\$\{theme_version\}/g, theme_version);
 }
 
