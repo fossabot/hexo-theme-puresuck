@@ -108,6 +108,7 @@ cdn_system:
 # 自定义引入
 import:
   head_begin:
+    - <script defer src="https://u.ksable.top/script.js" data-website-id="2b82d687-acf4-45a1-9b41-27a5afacdf12"></script>
   head_end:
   body_begin:
   body_end:
