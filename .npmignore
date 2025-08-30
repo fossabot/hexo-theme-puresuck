@@ -6,3 +6,4 @@ package-lock.json
 *.bak
 *copy*
 *copy
+!*copy_theme_config.js
