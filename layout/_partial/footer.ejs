@@ -95,6 +95,18 @@
       button.innerText = 'Copy';
     }, 2000);
   }
+  <% if (isEncryptInstalled()) { %>
+    window.addEventListener('hexo-blog-decrypt', 
+    function() {
+      try {
+        runShortcodes();
+      } catch (error) {
+        if (error.message != "runShortcodes is not defined") {
+          throw error;
+        }
+      }
+    });
+  <% } %>
 </script>
 
 <!-- 后台script标签 -->
