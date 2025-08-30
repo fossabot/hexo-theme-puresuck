@@ -1,471 +1,159 @@
 {
   "0": {
     "name": "theme-fontello.css",
-    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.0-beta.8/files/source/css/fontello.css",
+    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.2/files/source/css/fontello.css",
     "valid": false,
-    "update": 1756534098211
+    "update": 1756542505282
   },
   "1": {
     "name": "theme-fontello.css",
-    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.0-beta.8/source/css/fontello.css",
+    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.2/source/css/fontello.css",
     "valid": true,
-    "update": 1756534100523
+    "update": 1756542524830
   },
   "2": {
     "name": "PureSuck_Style.css",
-    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.0-beta.8/files/source/css/PureSuck_Style.css",
+    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.2/files/source/css/PureSuck_Style.css",
     "valid": false,
-    "update": 1756534101905
+    "update": 1756542525421
   },
   "3": {
     "name": "PureSuck_Style.css",
-    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.0-beta.8/source/css/PureSuck_Style.css",
+    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.2/source/css/PureSuck_Style.css",
     "valid": true,
-    "update": 1756534123184
+    "update": 1756542526888
   },
   "4": {
     "name": "aos.js",
     "url": "https://registry.npmmirror.com/aos/2.3.4/files/dist/aos.js",
     "valid": true,
-    "update": 1756534123575
+    "update": 1756542527439
   },
   "5": {
     "name": "a11y-dark.min.css",
-    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.0-beta.8/files/source/css/lib/a11y-dark.min.css",
+    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.2/files/source/css/lib/a11y-dark.min.css",
     "valid": false,
-    "update": 1756534123999
+    "update": 1756542528069
   },
   "6": {
     "name": "a11y-dark.min.css",
-    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.0-beta.8/source/css/lib/a11y-dark.min.css",
+    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.2/source/css/lib/a11y-dark.min.css",
     "valid": true,
-    "update": 1756534125416
+    "update": 1756542529800
   },
   "7": {
     "name": "PureSuck_Module.css",
-    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.0-beta.8/files/source/css/PureSuck_Module.css",
+    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.2/files/source/css/PureSuck_Module.css",
     "valid": false,
-    "update": 1756534125789
+    "update": 1756542530279
   },
   "8": {
     "name": "PureSuck_Module.css",
-    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.0-beta.8/source/css/PureSuck_Module.css",
+    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.2/source/css/PureSuck_Module.css",
     "valid": true,
-    "update": 1756534129884
+    "update": 1756542531559
   },
   "9": {
     "name": "aos.css",
     "url": "https://registry.npmmirror.com/aos/2.3.4/files/dist/aos.css",
     "valid": true,
-    "update": 1756534130265
+    "update": 1756542531978
   },
   "10": {
     "name": "MoxDesign.css",
-    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.0-beta.8/files/source/css/MoxDesign.css",
+    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.2/files/source/css/MoxDesign.css",
     "valid": false,
-    "update": 1756534130620
+    "update": 1756542532599
   },
   "11": {
     "name": "MoxDesign.css",
-    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.0-beta.8/source/css/MoxDesign.css",
+    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.2/source/css/MoxDesign.css",
     "valid": true,
-    "update": 1756534133000
+    "update": 1756542533826
   },
   "12": {
     "name": "medium-zoom.min.js",
     "url": "https://registry.npmmirror.com/medium-zoom/1.1.0/files/dist/medium-zoom.min.js",
     "valid": true,
-    "update": 1756534133363
+    "update": 1756542534286
   },
   "13": {
     "name": "PureSuck_Module.js",
-    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.0-beta.8/files/source/js/PureSuck_Module.js",
+    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.2/files/source/js/PureSuck_Module.js",
     "valid": false,
-    "update": 1756534133743
+    "update": 1756542534745
   },
   "14": {
     "name": "PureSuck_Module.js",
-    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.0-beta.8/source/js/PureSuck_Module.js",
+    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.2/source/js/PureSuck_Module.js",
     "valid": true,
-    "update": 1756534135146
+    "update": 1756542535975
   },
   "15": {
     "name": "MoxDesign.js",
-    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.0-beta.8/files/source/js/MoxDesign.js",
+    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.2/files/source/js/MoxDesign.js",
     "valid": false,
-    "update": 1756534135543
+    "update": 1756542536535
   },
   "16": {
     "name": "MoxDesign.js",
-    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.0-beta.8/source/js/MoxDesign.js",
+    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.2/source/js/MoxDesign.js",
     "valid": true,
-    "update": 1756534136855
+    "update": 1756542538327
   },
   "17": {
-    "name": "twikoo.min.js",
-    "url": "https://registry.npmmirror.com/twikoo/1.6.44/files/dist/twikoo.min.js",
-    "valid": true,
-    "update": 1756534137155
-  },
-  "18": {
     "name": "pjax.min.js",
     "url": "https://registry.npmmirror.com/pjax/0.2.8/files/pjax.min.js",
     "valid": true,
-    "update": 1756534137483
+    "update": 1756542538987
   },
-  "19": {
+  "18": {
     "name": "pace.min.js",
     "url": "https://registry.npmmirror.com/pace-js/1.2.4/files/pace.min.js",
     "valid": true,
-    "update": 1756534137839
+    "update": 1756542539377
+  },
+  "19": {
+    "name": "pace-theme-default.min.css",
+    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.2/files/source/css/lib/pace-theme-default.min.css",
+    "valid": false,
+    "update": 1756542539902
   },
   "20": {
     "name": "pace-theme-default.min.css",
-    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.0-beta.8/files/source/css/lib/pace-theme-default.min.css",
-    "valid": false,
-    "update": 1756534138192
+    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.2/source/css/lib/pace-theme-default.min.css",
+    "valid": true,
+    "update": 1756542541745
   },
   "21": {
-    "name": "pace-theme-default.min.css",
-    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.0-beta.8/source/css/lib/pace-theme-default.min.css",
+    "name": "aos.js",
+    "url": "https://npm.onmicrosoft.cn/aos@2.3.4/dist/aos.js",
     "valid": true,
-    "update": 1756534140523
+    "update": 1756542692622
   },
   "22": {
-    "name": "theme-fontello.css",
-    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.0-beta.9/files/source/css/fontello.css",
-    "valid": false,
-    "update": 1756534764297
+    "name": "aos.css",
+    "url": "https://npm.onmicrosoft.cn/aos@2.3.4/dist/aos.css",
+    "valid": true,
+    "update": 1756542693631
   },
   "23": {
-    "name": "theme-fontello.css",
-    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.0-beta.9/source/css/fontello.css",
-    "valid": false,
-    "update": 1756534765864
+    "name": "medium-zoom.min.js",
+    "url": "https://npm.onmicrosoft.cn/medium-zoom@1.1.0/dist/medium-zoom.min.js",
+    "valid": true,
+    "update": 1756542695421
   },
   "24": {
-    "name": "theme-fontello.css",
-    "url": "https://unpkg.com/hexo-theme-puresuck@1.4.0-beta.9/source/css/fontello.css",
+    "name": "pjax.min.js",
+    "url": "https://npm.onmicrosoft.cn/pjax@0.2.8/pjax.min.js",
     "valid": true,
-    "update": 1756534767010
+    "update": 1756542696569
   },
   "25": {
-    "name": "PureSuck_Style.css",
-    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.0-beta.9/files/source/css/PureSuck_Style.css",
-    "valid": false,
-    "update": 1756534767369
-  },
-  "26": {
-    "name": "PureSuck_Style.css",
-    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.0-beta.9/source/css/PureSuck_Style.css",
-    "valid": false,
-    "update": 1756534768416
-  },
-  "27": {
-    "name": "PureSuck_Style.css",
-    "url": "https://unpkg.com/hexo-theme-puresuck@1.4.0-beta.9/source/css/PureSuck_Style.css",
+    "name": "pace.min.js",
+    "url": "https://npm.onmicrosoft.cn/pace-js@1.2.4/pace.min.js",
     "valid": true,
-    "update": 1756534769337
+    "update": 1756542697573
   },
-  "28": {
-    "name": "a11y-dark.min.css",
-    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.0-beta.9/files/source/css/lib/a11y-dark.min.css",
-    "valid": false,
-    "update": 1756534769769
-  },
-  "29": {
-    "name": "a11y-dark.min.css",
-    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.0-beta.9/source/css/lib/a11y-dark.min.css",
-    "valid": false,
-    "update": 1756534771461
-  },
-  "30": {
-    "name": "a11y-dark.min.css",
-    "url": "https://unpkg.com/hexo-theme-puresuck@1.4.0-beta.9/source/css/lib/a11y-dark.min.css",
-    "valid": true,
-    "update": 1756534772576
-  },
-  "31": {
-    "name": "PureSuck_Module.css",
-    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.0-beta.9/files/source/css/PureSuck_Module.css",
-    "valid": false,
-    "update": 1756534773009
-  },
-  "32": {
-    "name": "PureSuck_Module.css",
-    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.0-beta.9/source/css/PureSuck_Module.css",
-    "valid": false,
-    "update": 1756534774484
-  },
-  "33": {
-    "name": "PureSuck_Module.css",
-    "url": "https://unpkg.com/hexo-theme-puresuck@1.4.0-beta.9/source/css/PureSuck_Module.css",
-    "valid": true,
-    "update": 1756534775567
-  },
-  "34": {
-    "name": "MoxDesign.css",
-    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.0-beta.9/files/source/css/MoxDesign.css",
-    "valid": false,
-    "update": 1756534776101
-  },
-  "35": {
-    "name": "MoxDesign.css",
-    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.0-beta.9/source/css/MoxDesign.css",
-    "valid": false,
-    "update": 1756534777610
-  },
-  "36": {
-    "name": "MoxDesign.css",
-    "url": "https://unpkg.com/hexo-theme-puresuck@1.4.0-beta.9/source/css/MoxDesign.css",
-    "valid": true,
-    "update": 1756534778876
-  },
-  "37": {
-    "name": "PureSuck_Module.js",
-    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.0-beta.9/files/source/js/PureSuck_Module.js",
-    "valid": false,
-    "update": 1756534779332
-  },
-  "38": {
-    "name": "PureSuck_Module.js",
-    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.0-beta.9/source/js/PureSuck_Module.js",
-    "valid": false,
-    "update": 1756534780140
-  },
-  "39": {
-    "name": "PureSuck_Module.js",
-    "url": "https://unpkg.com/hexo-theme-puresuck@1.4.0-beta.9/source/js/PureSuck_Module.js",
-    "valid": true,
-    "update": 1756534781052
-  },
-  "40": {
-    "name": "MoxDesign.js",
-    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.0-beta.9/files/source/js/MoxDesign.js",
-    "valid": false,
-    "update": 1756534781423
-  },
-  "41": {
-    "name": "MoxDesign.js",
-    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.0-beta.9/source/js/MoxDesign.js",
-    "valid": false,
-    "update": 1756534782460
-  },
-  "42": {
-    "name": "MoxDesign.js",
-    "url": "https://unpkg.com/hexo-theme-puresuck@1.4.0-beta.9/source/js/MoxDesign.js",
-    "valid": true,
-    "update": 1756534783348
-  },
-  "43": {
-    "name": "pace-theme-default.min.css",
-    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.0-beta.9/files/source/css/lib/pace-theme-default.min.css",
-    "valid": false,
-    "update": 1756534783938
-  },
-  "44": {
-    "name": "pace-theme-default.min.css",
-    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.0-beta.9/source/css/lib/pace-theme-default.min.css",
-    "valid": false,
-    "update": 1756534785084
-  },
-  "45": {
-    "name": "pace-theme-default.min.css",
-    "url": "https://unpkg.com/hexo-theme-puresuck@1.4.0-beta.9/source/css/lib/pace-theme-default.min.css",
-    "valid": true,
-    "update": 1756534785928
-  },
-  "46": {
-    "name": "theme-fontello.css",
-    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.0/files/source/css/fontello.css",
-    "valid": false,
-    "update": 1756539448974
-  },
-  "47": {
-    "name": "theme-fontello.css",
-    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.0/source/css/fontello.css",
-    "valid": true,
-    "update": 1756539452056
-  },
-  "48": {
-    "name": "PureSuck_Style.css",
-    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.0/files/source/css/PureSuck_Style.css",
-    "valid": false,
-    "update": 1756539452575
-  },
-  "49": {
-    "name": "PureSuck_Style.css",
-    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.0/source/css/PureSuck_Style.css",
-    "valid": true,
-    "update": 1756539454750
-  },
-  "50": {
-    "name": "a11y-dark.min.css",
-    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.0/files/source/css/lib/a11y-dark.min.css",
-    "valid": false,
-    "update": 1756539455209
-  },
-  "51": {
-    "name": "a11y-dark.min.css",
-    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.0/source/css/lib/a11y-dark.min.css",
-    "valid": true,
-    "update": 1756539456476
-  },
-  "52": {
-    "name": "PureSuck_Module.css",
-    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.0/files/source/css/PureSuck_Module.css",
-    "valid": false,
-    "update": 1756539457111
-  },
-  "53": {
-    "name": "PureSuck_Module.css",
-    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.0/source/css/PureSuck_Module.css",
-    "valid": true,
-    "update": 1756539466586
-  },
-  "54": {
-    "name": "MoxDesign.css",
-    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.0/files/source/css/MoxDesign.css",
-    "valid": false,
-    "update": 1756539467006
-  },
-  "55": {
-    "name": "MoxDesign.css",
-    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.0/source/css/MoxDesign.css",
-    "valid": true,
-    "update": 1756539468706
-  },
-  "56": {
-    "name": "PureSuck_Module.js",
-    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.0/files/source/js/PureSuck_Module.js",
-    "valid": false,
-    "update": 1756539469157
-  },
-  "57": {
-    "name": "PureSuck_Module.js",
-    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.0/source/js/PureSuck_Module.js",
-    "valid": true,
-    "update": 1756539470779
-  },
-  "58": {
-    "name": "MoxDesign.js",
-    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.0/files/source/js/MoxDesign.js",
-    "valid": false,
-    "update": 1756539471296
-  },
-  "59": {
-    "name": "MoxDesign.js",
-    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.0/source/js/MoxDesign.js",
-    "valid": true,
-    "update": 1756539472461
-  },
-  "60": {
-    "name": "pace-theme-default.min.css",
-    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.0/files/source/css/lib/pace-theme-default.min.css",
-    "valid": false,
-    "update": 1756539472866
-  },
-  "61": {
-    "name": "pace-theme-default.min.css",
-    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.0/source/css/lib/pace-theme-default.min.css",
-    "valid": true,
-    "update": 1756539474511
-  },
-  "62": {
-    "name": "theme-fontello.css",
-    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.1/files/source/css/fontello.css",
-    "valid": false,
-    "update": 1756541096038
-  },
-  "63": {
-    "name": "theme-fontello.css",
-    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.1/source/css/fontello.css",
-    "valid": true,
-    "update": 1756541098058
-  },
-  "64": {
-    "name": "PureSuck_Style.css",
-    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.1/files/source/css/PureSuck_Style.css",
-    "valid": false,
-    "update": 1756541098636
-  },
-  "65": {
-    "name": "PureSuck_Style.css",
-    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.1/source/css/PureSuck_Style.css",
-    "valid": true,
-    "update": 1756541100183
-  },
-  "66": {
-    "name": "a11y-dark.min.css",
-    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.1/files/source/css/lib/a11y-dark.min.css",
-    "valid": false,
-    "update": 1756541100675
-  },
-  "67": {
-    "name": "a11y-dark.min.css",
-    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.1/source/css/lib/a11y-dark.min.css",
-    "valid": true,
-    "update": 1756541101939
-  },
-  "68": {
-    "name": "PureSuck_Module.css",
-    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.1/files/source/css/PureSuck_Module.css",
-    "valid": false,
-    "update": 1756541102318
-  },
-  "69": {
-    "name": "PureSuck_Module.css",
-    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.1/source/css/PureSuck_Module.css",
-    "valid": true,
-    "update": 1756541104034
-  },
-  "70": {
-    "name": "MoxDesign.css",
-    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.1/files/source/css/MoxDesign.css",
-    "valid": false,
-    "update": 1756541104569
-  },
-  "71": {
-    "name": "MoxDesign.css",
-    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.1/source/css/MoxDesign.css",
-    "valid": true,
-    "update": 1756541105951
-  },
-  "72": {
-    "name": "PureSuck_Module.js",
-    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.1/files/source/js/PureSuck_Module.js",
-    "valid": false,
-    "update": 1756541106386
-  },
-  "73": {
-    "name": "PureSuck_Module.js",
-    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.1/source/js/PureSuck_Module.js",
-    "valid": true,
-    "update": 1756541107552
-  },
-  "74": {
-    "name": "MoxDesign.js",
-    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.1/files/source/js/MoxDesign.js",
-    "valid": false,
-    "update": 1756541107892
-  },
-  "75": {
-    "name": "MoxDesign.js",
-    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.1/source/js/MoxDesign.js",
-    "valid": true,
-    "update": 1756541108881
-  },
-  "76": {
-    "name": "pace-theme-default.min.css",
-    "url": "https://registry.npmmirror.com/hexo-theme-puresuck/1.4.1/files/source/css/lib/pace-theme-default.min.css",
-    "valid": false,
-    "update": 1756541109252
-  },
-  "77": {
-    "name": "pace-theme-default.min.css",
-    "url": "https://npm.onmicrosoft.cn/hexo-theme-puresuck@1.4.1/source/css/lib/pace-theme-default.min.css",
-    "valid": true,
-    "update": 1756541110904
-  },
-  "length": 78
+  "length": 26
 }
