@@ -3,7 +3,7 @@
 const theme_config = hexo.theme.context.config.theme_config;
 
 
-const import_html = theme_config["import"] || {
+const import_html = theme_config?.import || {
   head_begin: null,
   head_end: null,
   body_begin: null,

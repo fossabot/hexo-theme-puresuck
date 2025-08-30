@@ -10,6 +10,7 @@ const theme_version = version.version;
 
 // 读取主题 cdn 配置
 const theme_config = hexo.theme.context.config.theme_config;
+if(!theme_config) return;
 const theme_cdn_config = theme_config.cdn_system;
 
 // 读取 cdn 配置

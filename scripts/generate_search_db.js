@@ -8,6 +8,7 @@ const strip_html = hexo.extend.helper.get("strip_html").bind(hexo);
 const trim = hexo.extend.helper.get("trim").bind(hexo);
 
 const theme_config = hexo.theme.context.config.theme_config;
+if(!theme_config) return;
 const search_config = theme_config.search;
 const searchField = search_config.field;
 const contentEnable = search_config.content.enable;
