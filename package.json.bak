@@ -1,0 +1,28 @@
+{
+  "name": "hexo-theme-puresuck",
+  "version": "1.4.0-beta.1",
+  "description": "A Pure Hexo Theme For You",
+  "main": "package.json",
+  "scripts": {
+    "test": "echo test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/God-2077/hexo-theme-puresuck.git"
+  },
+  "keywords": [
+    "hexo",
+    "theme",
+    "puresuck",
+    "kissablecho"
+  ],
+  "author": "kissablecho",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/God-2077/hexo-theme-puresuck/issues"
+  },
+  "homepage": "https://github.com/God-2077/hexo-theme-puresuck#readme",
+  "dependencies": {
+    "hexo-wordcount": "^6.0.1"
+  }
+}
