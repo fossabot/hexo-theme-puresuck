@@ -198,7 +198,7 @@ function renderItem(item) {
         .replace(/{{title}}/g, item.title)
         .replace(/{{date}}/g, item.date)
         .replace(/{{path}}/g, item.path)
-        .replace(/{{content}}/g, item.content)
+        .replace(/{{content}}/g, item.content.slice(0, 200))
         .replace(/{{postavatar}}/g, search_db.config.postavatar)
         .replace(/{{postavatar}}/g, search_db.config.postavatar)
         .replace(/{{author}}/g, author);
@@ -237,7 +237,7 @@ function search(keyword) {
         });
         return;
     }
-    const searchResults = fuzzySearchPosts(posts, String(keyword));
+    const searchResults = fuzzySearchPosts(posts, String(keyword),max_results);
     renderPage(keyword,searchResults);
 }
 
