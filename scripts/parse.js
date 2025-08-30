@@ -79,12 +79,7 @@ function parseShortcodesInner(content) {
     // 处理 [bilibili-card] 短代码
     content = content.replace(
         /\[bilibili-card bvid="([^"]*)"\]/gi,
-        (_, bvid) => `
-        <div class='bilibili-card'>
-            <iframe src="//player.bilibili.com/player.html?bvid=${bvid}&autoplay=0" 
-                    scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true">
-            </iframe>
-        </div>`
+        (_, bvid) => `<div class='bilibili-card'><iframe src="//player.bilibili.com/player.html?bvid=${bvid}&autoplay=0" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe></div>`
     );
 
     // 图片底部文字注释处理
