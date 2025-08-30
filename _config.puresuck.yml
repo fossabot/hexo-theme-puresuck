@@ -1,0 +1,113 @@
+
+postTitleDecoration: boldLine   # 文章标题后的装饰样式 (可选值：boldLine/underline等)
+colorScheme: pink          # 网站整体配色方案 (可选值：pink/blue/dark等)
+
+favicon: /images/avatar.ico # 浏览器标签页显示的网站图标
+
+pjax:
+  enable: true
+  pjaxReloadScript:             # PJAX重载时的回调脚本 (可选)
+    # 示例：
+    #   pjaxReloadScript: 'console.log("PJAX reloaded")'
+
+codeBlock:
+  showLineNumbers: true       # 是否显示代码行号
+  showCopyButton: true        # 是否显示复制代码按钮
+
+
+# 左侧导航栏标识设置
+sidebarLogoPath: /images/avatar.ico   # 导航栏LOGO图片路径
+sidebarLogoLink:                   # LOGO点击跳转链接 (留空则不跳转)
+
+# 作者信息展示
+authorAvatarPath: /images/avatar.ico  # 作者头像路径
+
+# 左侧导航栏文字内容
+subtitle: ワクワク         # 导航栏主标题文字
+description: A Pure Hexo Theme For You  # 导航栏副标题描述
+
+
+# 自定义左侧导航栏代码
+leftSideCustomCode: 
+  # 示例（可插入HTML/JS代码）：
+  #   <div class="custom-banner">Hello World</div>
+  #   <script>console.log('Custom code loaded')</script>
+
+
+# 导航菜单配置
+menu:
+  - name: home      # 菜单项显示名称
+    url: /          # 菜单项链接地址
+  - name: about
+    url: /about/
+  - name: archives
+    url: /archives/
+
+
+# 侧边栏配置
+# 是否显示搜索框
+search:
+  enable: true
+  # 搜索范围，可选值：post（仅搜索文章）、page（仅搜索页面）、all（搜索文章和页面）
+  field: post
+  content:
+    enable: true  # 是否结果中包含文章内容
+    maxLength:  # 搜索数据库最大截取的文章内容，保留空值时包含文章全部内容
+  maxResults: 10 # 最大搜索结果数
+showCategory: true        # 是否显示文章分类
+showTag: true             # 是否显示标签云
+
+# 文章配置
+showTOC: true             # 是否显示文章目录
+showWordCount: true       # 是否显示字数统计
+showCopyright: true       # 是否显示版权声明
+
+
+comment:
+  enable: false
+  server: twikoo # 评论系统类型
+  app:
+    twikoo:
+      envId: 'envId' ## 腾讯云环境填 envId；Vercel 环境填地址（https://xxx.vercel.app）
+      region: 'ap-guangzhou' ## 环境地域，默认为 ap-shanghai，腾讯云环境填 ap-shanghai 或 ap-guangzhou；Vercel 环境不填
+      path: location.pathname ## 用于区分不同文章的自定义 js 路径，如果您的文章路径不是 location.pathname，需传此参数
+      lang: 'zh-CN' ## 用于手动设定评论区语言，支持的语言列表 https://github.com/twikoojs/twikoo/blob/main/src/client/utils/i18n/index.js
+
+# 页脚配置
+footerInfo: 2025 © 你好，世界  # 页脚显示的文字/HTML内容
+
+
+cdn_system:
+  # 调试模式
+  debug: false
+  # CDN 优先级 从高到低排序 写入 priority 列表即表示启用(enable)，列表为空则表示不启用，优先级 priority > localpath > secondary_url
+  priority: [npmmirror,onmicrosoft_npm,unpkg,jsdelivr_fastly]
+  # 检查cdn链接有效性，默认true，如果链接失效，将根据priority选择其他链接
+  # 为什么要检查cdn链接有效性？
+  # 因为cdn链接失效时，有些cdn链接可能会返回404
+  valid: true
+  # cdn数据配置文件见 "theme/_cdn.yml", 可以在主题配置文件中覆盖 theme/_cdn.yml
+  system_config:
+    # unpkg:
+    #   protocol: https
+    #   host: unpkg.com
+    #   npm_path: ${package}@${version}/${filepath}
+    #   platform:
+    #       - npm
+  assets:
+    # - name: twikoo
+    #   platform: [npm]
+    #   version: 1.0.0
+    #   package: twikoo
+    #   user:
+    #   repo: 
+    #   filepath: dist/twikoo.min.js
+    #   localpath: 
+    #   secondary_url: https://twikoo.js.org/dist/twikoo.min.js
+
+# 自定义引入
+import:
+  head_begin:
+  head_end:
+  body_begin:
+  body_end:
