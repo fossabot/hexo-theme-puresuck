@@ -77,10 +77,12 @@ footerInfo: 2023 © 你好，世界  # 页脚显示的文字/HTML内容
 
 cdn_system:
   # 调试模式
-  debug: true
+  debug: false
   # CDN 优先级 从高到低排序 写入 priority 列表即表示启用(enable)，列表为空则表示不启用，优先级 priority > localpath > secondary_url
   priority: [npmmirror,onmicrosoft_npm,unpkg,jsdelivr_fastly]
-  # 检查cdn链接有效性
+  # 检查cdn链接有效性，默认true，如果链接失效，将根据priority选择其他链接
+  # 为什么要检查cdn链接有效性？
+  # 因为cdn链接失效时，有些cdn链接可能会返回404
   valid: true
   # cdn数据配置文件见 "theme/_cdn.yml", 可以在主题配置文件中覆盖 theme/_cdn.yml
   system_config:
