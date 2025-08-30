@@ -84,6 +84,8 @@ description: 我是摘要
 
 #### 归档页面
 
+hexo 默认会在 `/archive` 下生成归档页面，你也可以在其他地方建立归档页面。
+
 新建页面 `archive/index.md`
 
 ```markdown

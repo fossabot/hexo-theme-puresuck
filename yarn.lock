@@ -688,10 +688,10 @@ hexo-server@^3.0.0:
     picocolors "^1.0.0"
     serve-static "^1.14.1"
 
-hexo-theme-puresuck@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.npmmirror.com/hexo-theme-puresuck/-/hexo-theme-puresuck-1.4.0.tgz"
-  integrity sha512-ynwG8yXLE1T9cDDenl3lm/9MKyb/4EJ1Bx9n4piFR9KR66HLxG4ReJMBuzzdspjkJJxSEVudsHXaf68RWf5tUQ==
+hexo-theme-puresuck@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.npmmirror.com/hexo-theme-puresuck/-/hexo-theme-puresuck-1.4.1.tgz"
+  integrity sha512-du2gYN54iTgv9I6u4thPp7e8lZS6ja+zRzqH+8MV84PZ8AxeAAVrCGRD66JLhCNBnoiTmKIQNpwN1vBk+hVCQg==
   dependencies:
     hexo-wordcount "^6.0.1"
     xmlhttprequest "^1.8.0"
