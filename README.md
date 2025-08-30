@@ -14,9 +14,11 @@ PureSuck，干净，纯洁，淡雅朴素的 Hexo 主题。
 
 **遇到问题欢迎提 Issue。**
 
-**遇到问题一定要欢迎提 Issue。**
+**遇到问题一定要提 Issue。**
 
-**一定要！！！**
+## 演示
+
+https://puresuck-demo.ksable.top/
 
 ### 安装与设置
 
