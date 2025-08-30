@@ -1,3 +1,4 @@
+
 function checkPackage(PackageName) {
   try {
     require.resolve(PackageName);
@@ -12,7 +13,10 @@ function checkPackage(PackageName) {
   }
 }
 
+const isEncryptInstalled = checkPackage('hexo-blog-encrypt');
+
 function isEncryptPost(data) {
+  if (!isEncryptInstalled) return false;
   let password = data.password;
   if (password === "") {
     return false;
@@ -21,7 +25,7 @@ function isEncryptPost(data) {
     hexo.config.encrypt = [];
   }
 
-  if(('encrypt' in hexo.config) && ('tags' in hexo.config.encrypt)){
+  if (('encrypt' in hexo.config) && ('tags' in hexo.config.encrypt)) {
     hexo.config.encrypt.tags.forEach((tagObj) => {
       tagEncryptPairs[tagObj.name] = tagObj.password;
     });
@@ -36,18 +40,17 @@ function isEncryptPost(data) {
     });
   }
 
-  if(password == undefined){
+  if (password == undefined) {
     return false;
   }
   return true;
 }
 
-const isEncryptInstalled = checkPackage('hexo-blog-encrypt');
-if (isEncryptInstalled) {
-  hexo.extend.helper.register("isEncryptInstalled", function () {
-    return isEncryptInstalled;
-  });
-  hexo.extend.helper.register("isEncryptPost", function (post) {
-    return post.password;
-  });
-}
+
+
+hexo.extend.helper.register("isEncryptInstalled", function () {
+  return isEncryptInstalled;
+});
+hexo.extend.helper.register("isEncryptPost", function (post) {
+  return isEncryptPost(post);
+});
