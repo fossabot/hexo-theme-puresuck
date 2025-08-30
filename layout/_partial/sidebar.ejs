@@ -32,7 +32,7 @@
                     if (categories.length > 0) { 
                     %>
                         <% categories.forEach(function(category) { %>
-                            <a href="<%= url_for(category.path) %>" class="category"><%= category.name %></a>
+                            <a href="<%= url_for(category.path) %>" class="cloud-item"><%= category.name %></a>
                         <% }); %>
                     <% } else { %>
                         <p>没有任何分类</p>
