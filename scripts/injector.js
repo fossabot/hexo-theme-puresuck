@@ -1,62 +1,46 @@
 "use strict";
 
-const theme = hexo.theme.context.config
+const theme_config = hexo.theme.context.config.theme_config;
 
-var import_html = theme["import"] || {
+
+const import_html = theme_config["import"] || {
   head_begin: null,
   head_end: null,
   body_begin: null,
   body_end: null
 };
 
-if (import_html.head_begin) {
-  // 拼接字符串
-  var str;
-
-  for (i in import_html.head_begin) {
-    str += import_html.head_begin[i];
+function tostr(data) {
+  let str = '';
+  if (data == null) {
+    return '';
+  } else if (typeof data == 'string') {
+    return data;
+  } else if (typeof data == 'object') {
+    for (let i = 0; i < data.length; i++) {
+      str += data[i];
+    }
   }
-
-  hexo.extend.injector.register("head_begin", function () {
-    return str;
-  });
+  return str;
 }
 
-if (import_html.body_end) {
-  // 拼接字符串
-  var _str;
-
-  for (i in import_html.body_end) {
-    _str += import_html.body_end[i];
-  }
-
-  hexo.extend.injector.register("body_end", function () {
-    return _str;
+if (import_html.head_begin != null) {
+  hexo.extend.injector.register("head_begin", () => {
+    return tostr(import_html.head_begin);
   });
 }
-
-if (import_html.body_begin) {
-  // 拼接字符串
-  var _str2;
-
-  for (i in import_html.body_begin) {
-    _str2 += import_html.body_begin[i];
-  }
-
-  hexo.extend.injector.register("body_begin", function () {
-    return _str2;
+if (import_html.head_end != null) {
+  hexo.extend.injector.register("head_end", () => {
+    return tostr(import_html.head_end);
   });
 }
-
-if (import_html.head_end) {
-  // 拼接字符串
-  var _str3;
-
-  for (i in import_html.head_end) {
-    _str3 += import_html.head_end[i];
-  }
-
-  hexo.extend.injector.register("head_end", function () {
-    return _str3;
+if (import_html.body_begin != null) {
+  hexo.extend.injector.register("body_begin", () => {
+    return tostr(import_html.body_begin);
+  });
+}
+if (import_html.body_end != null) {
+  hexo.extend.injector.register("body_end", () => {
+    return tostr(import_html.body_end);
   });
 }

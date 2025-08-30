@@ -102,3 +102,10 @@ cdn_system:
     #   filepath: dist/twikoo.min.js
     #   localpath: 
     #   secondary_url: https://twikoo.js.org/dist/twikoo.min.js
+
+# 自定义引入
+import:
+  head_begin:
+  head_end:
+  body_begin:
+  body_end:

@@ -43,7 +43,6 @@ function isEncryptPost(data) {
 }
 
 const isEncryptInstalled = checkPackage('hexo-blog-encrypt');
-debugger;
 if (isEncryptInstalled) {
   hexo.extend.helper.register("isEncryptInstalled", function () {
     return isEncryptInstalled;

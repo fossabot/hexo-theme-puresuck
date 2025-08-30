@@ -55,12 +55,6 @@ highlight:
   enable: false
 ```
 
-
->使用「`npm i hexo-theme-puresuck`」方式安装的主题，主题配置文件在「`blog/node_modules/hexo-theme-puresuck/_config.yml`」
->使用传统方式安装的主题，主题配置文件在「`blog/themes/puresuck/_config.yml`」
-
-
-
 ### 页面
 
 #### 文章头图
