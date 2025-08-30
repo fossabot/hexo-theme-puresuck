@@ -2,28 +2,118 @@
 const search_db_path = "{{search_db_path}}"
 
 
-const xhr = new XMLHttpRequest();
-xhr.open('GET', search_db_path, false); // 同步请求
-xhr.send();
+// 初始化
+let search_db = null;
 
-if (!(xhr.status > 199) && !(xhr.status < 400)) {
-    console.error('搜索数据库加载失败:', xhr.status, xhr.statusText);
-    throw new Error('搜索数据库加载失败');
+let posts = null;
+let max_results = null
+let author = null;
+let html_not_found_template = null
+
+function updateSearchdb(db) {
+
+    search_db = db;
+
+    posts = db.posts || {};
+    max_results = db.config?.maxResults || 10;
+    author = db.config?.author || "Unknown";
+    html_not_found_template = db.config?.html_not_found_template
+        .replace(/{{Zai_Cry}}/g, "{{Zai_Cry.png}}")
 }
 
+// 初始化数据库并启动异步更新
+(async function initSearchDatabase() {
+    try {
+        // 1. 尝试从IndexedDB读取缓存数据
+        const cachedData = await getCachedData();
+        if (cachedData) {
+            // search_db = cachedData;
+            updateSearchdb(cachedData);
+            console.log('使用缓存的搜索数据库');
+        }
 
-const search_db = JSON.parse(xhr.responseText);
+        // 2. 异步更新数据库（无论是否有缓存都尝试更新）
+        updateDatabaseAsync();
+    } catch (err) {
+        console.error('初始化搜索数据库失败:', err);
+    }
+})();
 
-const posts = search_db.posts || {};
-const max_results = search_db.config?.maxResults || 10;
-const author = search_db.config?.author || "Unknown";
-const html_not_found_template = search_db.config?.html_not_found_template
-    .replace(/{{Zai_Cry}}/g, "{{Zai_Cry.png}}")
+// 从IndexedDB获取缓存的搜索数据
+function getCachedData() {
+    return new Promise((resolve, reject) => {
+        const request = indexedDB.open('SearchDatabase', 1);
+        
+        request.onerror = () => reject(request.error);
+        
+        request.onupgradeneeded = (event) => {
+            const db = event.target.result;
+            if (!db.objectStoreNames.contains('searchStore')) {
+                db.createObjectStore('searchStore', { keyPath: 'id' });
+            }
+        };
+        
+        request.onsuccess = (event) => {
+            const db = event.target.result;
+            const transaction = db.transaction('searchStore', 'readonly');
+            const store = transaction.objectStore('searchStore');
+            const getRequest = store.get('search_data');
+            
+            getRequest.onsuccess = () => resolve(getRequest.result?.data);
+            getRequest.onerror = () => reject(getRequest.error);
+        };
+    });
+}
+
+// 异步更新IndexedDB和内存数据库
+async function updateDatabaseAsync() {
+    try {
+        // 使用异步fetch代替同步XHR
+        const response = await fetch(search_db_path);
+        if (!response.ok) throw new Error(`HTTP错误: ${response.status}`);
+        
+        const newData = await response.json();
+        
+        // 更新内存数据库
+        // search_db = newData;
+        updateSearchdb(newData);
+        console.log('搜索数据库已更新');
+        
+        // 缓存到IndexedDB
+        await cacheData(newData);
+    } catch (err) {
+        console.error('更新搜索数据库失败:', err);
+        // 注意：此处不抛出错误，保留已有缓存
+    }
+}
+
+// 将数据缓存到IndexedDB
+function cacheData(data) {
+    return new Promise((resolve, reject) => {
+        const request = indexedDB.open('SearchDatabase', 1);
+        
+        request.onerror = () => reject(request.error);
+        
+        request.onsuccess = (event) => {
+            const db = event.target.result;
+            const transaction = db.transaction('searchStore', 'readwrite');
+            const store = transaction.objectStore('searchStore');
+            
+            const putRequest = store.put({
+                id: 'search_data',
+                data: data,
+                timestamp: Date.now()
+            });
+            
+            putRequest.onsuccess = () => resolve();
+            putRequest.onerror = () => reject(putRequest.error);
+        };
+    });
+}
 
 // 模糊搜索文章内容，按相关性评分返回前10个结果
 function fuzzySearchPosts(posts, searchTerm, max_results = 10) {
     if (!searchTerm || !searchTerm.trim()) return [];
-    console.log('searchTerm', searchTerm);
 
     // 修复：修改正则表达式保留中文字符
     const normalize = str => str.toLowerCase().replace(/[^\w\s\u4e00-\u9fa5]/gu, '');
@@ -132,7 +222,6 @@ function renderPage(keyword,searchResults) {
         } else {
             a.innerHTML = c + renderItemHtml(searchResults);
         }
-        console.log('searchResults', searchResults.length);
     }
 
     if (b) {

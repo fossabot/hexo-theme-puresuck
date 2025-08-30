@@ -7,7 +7,6 @@ const truncate = hexo.extend.helper.get("truncate").bind(hexo);
 const strip_html = hexo.extend.helper.get("strip_html").bind(hexo);
 const trim = hexo.extend.helper.get("trim").bind(hexo);
 
-
 const theme_config = hexo.theme.context.config.theme_config;
 const search_config = theme_config.search;
 const searchField = search_config.field;
@@ -16,9 +15,67 @@ const contentMaxLength = search_config.content.maxLength;
 const maxResults = search_config.maxResults;
 const search_db_path = "search_db.json"
 
-function getContent(text) {
+function checkPackage(PackageName) {
+  try {
+    require.resolve(PackageName);
+    return true;
+  } catch (e) {
+    if (e.code == 'MODULE_NOT_FOUND') {
+      return false;
+    } else {
+      console.log(e.code);
+      return false;
+    }
+  }
+}
+
+function isEncryptPost(data) {
+  if(!checkPackage('hexo-blog-encrypt')){
+    return false;
+  }
+  const tagEncryptPairs = [];
+  let password = data.password;
+  let tagUsed = false;
+  if (password === "") {
+    return false;
+  }
+  if (hexo.config.encrypt === undefined) {
+    hexo.config.encrypt = [];
+  }
+
+  if(('encrypt' in hexo.config) && ('tags' in hexo.config.encrypt)){
+    hexo.config.encrypt.tags.forEach((tagObj) => {
+      tagEncryptPairs[tagObj.name] = tagObj.password;
+    });
+  }
+
+  if (data.tags) {
+    data.tags.forEach((cTag) => {
+      if (tagEncryptPairs.hasOwnProperty(cTag.name)) {
+        tagUsed = password ? tagUsed : cTag.name;
+        password = password || tagEncryptPairs[cTag.name];
+      }
+    });
+  }
+
+  if(password == undefined){
+    return false;
+  }
+  return true;
+}
+
+function getContent(data) {
+  if(isEncryptPost(data)){
+    return '';
+  }
   if (contentEnable) {
-    return truncate(trim(strip_html(text)).replace(/\n/g, ' '),{length: contentMaxLength, omission: ''});
+    if (contentMaxLength && contentMaxLength > 0){
+    return truncate(trim(strip_html(data.content)).replace(/\n/g, ' '),{length: contentMaxLength, omission: ''});
+    } else if (contentMaxLength == 0) {
+      return '';
+    } else {
+      return trim(strip_html(data.content)).replace(/\n/g, ' ');
+    }
   }
   return '';
 }
@@ -86,7 +143,7 @@ hexo.extend.generator.register('content_json', function(locals) {
       tags: tags,
       categories: categories,
       path: url_for(post.path),
-      content: getContent(post.content)
+      content: getContent(post)
     });
   });
 
