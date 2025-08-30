@@ -34,6 +34,12 @@ npm i hexo-theme-puresuck
 theme: puresuck
 ```
 
+复制主题配置文件，运行下列代码
+
+```bash
+hexo copy_theme_config
+```
+
 关闭 Hexo 自带的代码高亮
 
 `hexo >= 7.0.0`
@@ -49,7 +55,6 @@ highlight:
   enable: false
 ```
 
-复制主题配置文件到博客根目录并命名为 `_config.puresuck.yml`，主题自定义配置详见主题配置文件注释。
 
 >使用「`npm i hexo-theme-puresuck`」方式安装的主题，主题配置文件在「`blog/node_modules/hexo-theme-puresuck/_config.yml`」
 >使用传统方式安装的主题，主题配置文件在「`blog/themes/puresuck/_config.yml`」
