@@ -8,5 +8,6 @@ hexo.on('ready', () => {
 ============================================================
   PureSuck Theme ${theme_version}
   Repo: https://github.com/God-2077/hexo-theme-puresuck/
+  Demo: https://puresuck-demo.ksable.top/
 ============================================================`);
 });
