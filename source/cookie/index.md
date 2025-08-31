@@ -1,0 +1,180 @@
+---
+title: Cookie and LocalStorage Manager
+comments: false
+date: 2024-07-17 10:12:49
+updated: 2024-07-17 10:12:49
+type:
+layout:
+---
+<style>
+/*
+    .container {
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 500px;
+    } */
+    .container h2 {
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    .form-group {
+        margin-bottom: 15px;
+        color: var(--color-p);
+    }
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    .form-group input {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+        background-color: var(--color-p);
+    }
+    .form-group button {
+        width: 100%;
+        padding: 10px;
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .form-group button:hover {
+        background-color: #0056b3;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    table, th, td {
+        border: 1px solid #ddd;
+    }
+    th, td {
+        padding: 8px;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    .delete-btn {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .delete-btn:hover {
+        background-color: #c82333;
+    }
+</style>
+
+<div class="container"><h2>Cookie Manager</h2><div class="form-group"><label for="cookieName">Cookie Name:</label><input type="text" id="cookieName" placeholder="Enter cookie name"></div><div class="form-group"><label for="cookieValue">Cookie Value:</label><input type="text" id="cookieValue" placeholder="Enter cookie value"></div><div class="form-group"><button onclick="setCookie()">Set Cookie</button></div><h3>All Cookies</h3><table id="cookieTable"><thead><tr><th>Name</th><th>Value</th><th>Actions</th></tr></thead><tbody><!-- Cookie rows will be added here --></tbody></table><h2>Local Storage Manager</h2><div class="form-group"><label for="storageKey">Local Storage Key:</label><input type="text" id="storageKey" placeholder="Enter local storage key"></div><div class="form-group"><label for="storageValue">Local Storage Value:</label><input type="text" id="storageValue" placeholder="Enter local storage value"></div><div class="form-group"><button onclick="setLocalStorage()">Set Local Storage</button></div><h3>All Local Storage</h3><table id="storageTable"><thead><tr><th>Key</th><th>Value</th><th>Actions</th></tr></thead><tbody><!-- Local storage rows will be added here --></tbody></table></div>
+
+<script>
+    function setCookie() {
+        const name = document.getElementById('cookieName').value;
+        const value = document.getElementById('cookieValue').value;
+        if (name && value) {
+            document.cookie = `${name}=${value}; path=/;`;
+            iziToast.success({
+                position: 'topRight',
+                title: '成功!',
+            });
+            displayCookies();
+        } else {
+            iziToast.error({
+                position: 'topRight',
+                title: '请同时填写两个栏目',
+            });
+        }
+    }
+
+    function deleteCookie(name) {
+        document.cookie = `${name}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
+        iziToast.success({
+            position: 'topRight',
+            title: 'Cookie 已成功删除！',
+        });
+        displayCookies();
+    }
+
+    function displayCookies() {
+        const cookieTableBody = document.getElementById('cookieTable').getElementsByTagName('tbody')[0];
+        cookieTableBody.innerHTML = ''; // Clear existing rows
+        const cookieArr = document.cookie.split('; ');
+        for (let i = 0; i < cookieArr.length; i++) {
+            const cookiePair = cookieArr[i].split('=');
+            const row = cookieTableBody.insertRow();
+            const nameCell = row.insertCell(0);
+            const valueCell = row.insertCell(1);
+            const actionCell = row.insertCell(2);
+            nameCell.textContent = cookiePair[0];
+            valueCell.textContent = cookiePair[1];
+            actionCell.innerHTML = `<button class="delete-btn" onclick="deleteCookie('${cookiePair[0]}')">Delete</button>`;
+        }
+    }
+
+    function setLocalStorage() {
+        const key = document.getElementById('storageKey').value;
+        const value = document.getElementById('storageValue').value;
+        if (key && value) {
+            localStorage.setItem(key, value);
+            iziToast.success({
+                position: 'topRight',
+                title: '成功添加本地存储！',
+            });
+            displayLocalStorage();
+        } else {
+            iziToast.error({
+                position: 'topRight',
+                title: '请同时填写两个栏目',
+            });
+        }
+    }
+
+    function deleteLocalStorage(key) {
+        localStorage.removeItem(key);
+        iziToast.success({
+            position: 'topRight',
+            title: '本地存储已成功删除！',
+        });
+        displayLocalStorage();
+    }
+
+    function displayLocalStorage() {
+        const storageTableBody = document.getElementById('storageTable').getElementsByTagName('tbody')[0];
+        storageTableBody.innerHTML = ''; // Clear existing rows
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            const value = localStorage.getItem(key);
+            const row = storageTableBody.insertRow();
+            const keyCell = row.insertCell(0);
+            const valueCell = row.insertCell(1);
+            const actionCell = row.insertCell(2);
+            keyCell.textContent = key;
+            valueCell.textContent = value;
+            actionCell.innerHTML = `<button class="delete-btn" onclick="deleteLocalStorage('${key}')">Delete</button>`;
+        }
+    }
+
+    // Display cookies and local storage on page load
+    // window.addEventListener('load', function() {
+    //     displayCookies();
+    //     displayLocalStorage();
+    // });
+    document.addEventListener('DOMContentLoaded', function() {
+        displayCookies();
+        displayLocalStorage();
+    });
+    document.addEventListener('pjax:complete', function() {
+        displayCookies();
+        displayLocalStorage();
+    });
+
+</script>
+
