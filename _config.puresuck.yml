@@ -112,4 +112,12 @@ import:
   head_end:
   body_begin:
   body_end:
-    - <script> document.addEventListener('DOMContentLoaded', function () { MoxNotification({ title: "Hexo-theme-puresuck 演示站", message: '欢迎来到 puresuck（hexo) 演示站，<br />移植自 Typecho 主题 <a href="https://github.com/MoXiaoXi233/PureSuck-theme" target="_blank">PureSuck-theme </a>',duration: 5000,});});</script>
+    - |
+      <script> document.addEventListener('DOMContentLoaded', function() {
+        MoxNotification({
+            title: "Hexo-theme-puresuck 演示站",
+            message: '欢迎来到 puresuck（hexo) 演示站，<br />Github Rope: <a href="https://github.com/God-2077/hexo-theme-puresuck" target="_blank">hexo-theme-puresuck</a><br />移植自 Typecho 主题 <a href="https://github.com/MoXiaoXi233/PureSuck-theme" target="_blank">PureSuck-theme</a>',
+            duration: 5000,
+          });
+        });
+        </script>
