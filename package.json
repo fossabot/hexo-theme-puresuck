@@ -1,6 +1,6 @@
 {
   "name": "hexo-theme-puresuck",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "A Pure Hexo Theme For You",
   "main": "package.json",
   "scripts": {
